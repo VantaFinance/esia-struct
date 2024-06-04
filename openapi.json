@@ -1,0 +1,1121 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Esia(Гос-Услуги)",
+    "version": "0.0.1"
+  },
+  "components": {
+    "schemas": {
+      "CPG": {
+        "type": "object",
+        "required": [
+          "sub",
+          "info"
+        ],
+        "properties": {
+          "sub": {
+            "type": "string",
+            "format": "int64",
+            "examples": [
+              "5"
+            ]
+          },
+          "info": {
+            "description": "Информация о гражданине",
+            "type": "object",
+            "required": [
+              "uid",
+              "oid",
+              "firstName",
+              "lastName",
+              "scope",
+              "snils",
+              "birthDate",
+              "gender",
+              "trusted",
+              "documents"
+            ],
+            "properties": {
+              "uid": {
+                "type": "string",
+                "format": "int64",
+                "description": "Идентификатор пользователя",
+                "examples": [
+                  "1129159634"
+                ]
+              },
+              "oid": {
+                "type": "string",
+                "format": "int64",
+                "description": "Идентификатор объекта",
+                "examples": [
+                  "1129159634"
+                ]
+              },
+              "firstName": {
+                "type": "string",
+                "description": "Имя",
+                "examples": [
+                  "Владислав"
+                ]
+              },
+              "middleName": {
+                "type": "string",
+                "description": "Отчество",
+                "examples": [
+                  "Максимович"
+                ],
+                "nullable": true
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Фамилия",
+                "examples": [
+                  "Шашков"
+                ]
+              },
+              "scope": {
+                "type": "array",
+                "description": "Набор разрешений запрошенных",
+                "items": {
+                  "$ref": "#/components/schemas/Scope"
+                }
+              },
+              "inn": {
+                "type": "string",
+                "examples": [
+                  "7743013902"
+                ],
+                "description": "Идентификационный номер налогоплательщика",
+                "pattern": "\\d{12}",
+                "nullable": true
+              },
+              "email": {
+                "type": "string",
+                "description": "Электронная почта",
+                "format": "email",
+                "examples": [
+                  "client@vanta.ru"
+                ],
+                "nullable": true
+              },
+              "selfEmployed": {
+                "description": "Статус самозанятого",
+                "type": "object",
+                "required": [
+                  "confirmed",
+                  "validationRequestId"
+                ],
+                "properties": {
+                   "confirmed": {
+                     "type": "boolean",
+                     "description": "Подтвержден"
+                   },
+                  "validationRequestId": {
+                    "type": "integer",
+                    "description": "Идентификатор запроса"
+                  }
+                }
+              },
+              "citizenship": {
+                "description": "Гражданство",
+                "nullable": true,
+                "$ref": "#/components/schemas/CountryIsoAlpha3"
+              },
+              "mobilePhone": {
+                "type": "string",
+                "nullable": true,
+                "description": "Мобильный номер телефона",
+                "examples": [
+                  "+79999999999"
+                ]
+              },
+              "snils": {
+                "type": "string",
+                "examples": [
+                  "123-456-789 00"
+                ],
+                "pattern": "\\d{3}-\\d{3}-\\d{3} \\d{2}",
+                "description": "Cтраховой номер индивидуального лицевого счёта"
+              },
+              "birthDate": {
+                "description": "Дата рождения",
+                "type": "string",
+                "format": "d.m.Y",
+                "pattern": "[0-9]{2}.[0-9]{2}.[0-9]{4}",
+                "examples": [
+                  "13.05.2005"
+                ]
+              },
+              "gender": {
+                "type": "string",
+                "description": "Пол. Возможные значения: \n\n- `M` - Мужчина \n\n- `F` - Женщина",
+                "enum": [
+                  "M",
+                  "F"
+                ]
+              },
+              "trusted": {
+                "type": "boolean",
+                "description": "Признак верифицированного пользователя"
+              },
+              "documents": {
+                "description": "Документы",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Document"
+                }
+              },
+              "homeAddress": {
+                "$ref": "#/components/schemas/Address",
+                "nullable": true,
+                "description": "Фактический адрес проживания"
+              },
+              "registrationAddress": {
+                "$ref": "#/components/schemas/Address",
+                "nullable": true,
+                "description": "Адрес регистрации"
+              },
+              "temporaryAddress": {
+                "$ref": "#/components/schemas/Address",
+                "nullable": true,
+                "description": "Временный адрес проживания"
+              }
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "required": [
+          "countryIso",
+          "addressStr"
+        ],
+        "properties": {
+          "countryIso": {
+            "$ref": "#/components/schemas/CountryIsoAlpha3"
+          },
+          "addressStr": {
+            "type": "string",
+            "description": "Строковое представление адреса",
+            "examples": [
+              "обл. Новосибирская, г. Новосибирск, ул. Русская"
+            ]
+          },
+          "city": {
+            "type": "string",
+            "description": "Город",
+            "nullable": true,
+            "examples": [
+              "Новосибирск"
+            ]
+          },
+          "district": {
+            "type": "string",
+            "nullable": true,
+            "examples": [
+              "Центральный"
+            ],
+            "description": "Район города"
+          },
+          "area": {
+            "type": "string",
+            "nullable": true,
+            "description": "Район в регионе"
+          },
+          "settlement": {
+            "type": "string",
+            "nullable": true,
+            "description": "Населенный пункт",
+            "examples": [
+              "Кочки"
+            ]
+          },
+          "street": {
+            "type": "string",
+            "nullable": true,
+            "description": "Улица",
+            "examples": [
+              "Кошурникова 23"
+            ]
+          },
+          "house": {
+            "type": "string",
+            "nullable": true,
+            "description": "Дом",
+            "examples": [
+              "23/2"
+            ]
+          },
+          "flat": {
+            "type": "string",
+            "nullable": true,
+            "description": "Квартира",
+            "examples": [
+              "108"
+            ]
+          },
+          "room": {
+            "type": "string",
+            "nullable": true,
+            "description": "Комната",
+            "examples": [
+              "108"
+            ]
+          },
+          "zipCode": {
+            "type": "string",
+            "nullable": true,
+            "description": "Почтовый индекс",
+            "examples": [
+              "102000"
+            ]
+          },
+          "fiasCodeLevel": {
+            "type": "string",
+            "description": "Уровень детализации, до которого адрес найден в ФИАС",
+            "nullable": true
+          },
+          "fiasCode": {
+            "type": "string",
+            "nullable": true,
+            "description": "Идентификатор ФИАС"
+          }
+        }
+      },
+      "CountryIsoAlpha3": {
+        "type": "string",
+        "examples": [
+          "RUS"
+        ],
+        "pattern": "[a-zA-Z]{2}",
+        "description": "Коды страны версии Alpha 3"
+      },
+      "Scope": {
+        "type": "string",
+        "description": "Разрешение. \n\n Возможные значения: \n\n- `addresses` -  Адреса постоянной регистрации, временной регистрации и фактического проживания \n\n- `gender` - Пол \n\n- `electronic_workbook` - Сведения о трудовой деятельности застрахованного лица в системе обязательного пенсионного страхования \n\n- `fullname` - Фамилия; имя; отчество \n\n- `payments_egisso` - Cведения о назначенных и реализованных мерах социальной защиты (поддержки) \n\n- `mobile` - Номер мобильного телефона \n\n- `history_passport_doc` - История паспортов \n\n- `self_employed` - Сведения о статусе самозанятого \n\n- `paternity_cert_doc` - Свидетельство об установлении отцовства \n\n- `email` - Адрес электронной почты` \n\n- `pre_retirement_age` - Сведения об отнесении гражданина к категории граждан предпенсионного возраста \n\n- `birth_cert_doc` - Серия и номер свидетельства; дата выдачи; место государственной регистрации \n\n- `marriage_cert_doc` - Свидетельство о браке \n\n- `vehicles` - Государственный регистрационный знак; серия и номер свидетельства о регистрации ТС \n\n- `ndfl_person` - Справка о доходах и суммах налога ФЛ (форма 2-НДФЛ) \n\n- `inn` - ИНН \n\n- `pension_reference` - Справка о назначенных пенсиях и социальных выплатах на дату \n\n- `divorce_cert_doc` - Свидетельство о разводе  \n\n- `id_doc` - Серия и номер документа, удостоверяющего личность; дата выдачи; кем выдан; код подразделения; гражданство \n\n- `birthplace` - Место рождения \n\n- `foreign_passport_doc` - Фамилия, имя, отчество буквами латинского алфавита; серия и номер заграничного паспорта; дата выдачи; срок действия; орган, выдавший документ; гражданство \n\n- `payout_income` - Сведения о доходах ФЛ и о выплатах страховых взносов, произведенных в пользу ФЛ \n\n- `drivers_licence_doc` - Серия и номер водительского удостоверения; дата выдачи; срок действия \n\n- `change_fullname_cert_doc` - Свидетельство о перемене имени \n\n- `ils_doc` - Выписка из ИЛС СФР \n\n- `vehicle_reg_cert_doc` - Сведения о свидетельствах о регистрации ТС гражданина \n\n-  `birthdate` - Дата рождения \n\n- `snils` - СНИЛС",
+        "enum": [
+          "addresses",
+          "gender",
+          "electronic_workbook",
+          "fullname",
+          "payments_egisso",
+          "mobile",
+          "history_passport_doc",
+          "self_employed",
+          "paternity_cert_doc",
+          "email",
+          "pre_retirement_age",
+          "birth_cert_doc",
+          "marriage_cert_doc",
+          "vehicles",
+          "ndfl_person",
+          "inn",
+          "pension_reference",
+          "divorce_cert_doc",
+          "id_doc",
+          "birthplace",
+          "foreign_passport_doc",
+          "openid",
+          "payout_income",
+          "drivers_licence_doc",
+          "change_fullname_cert_doc",
+          "ils_doc",
+          "vehicle_reg_cert_doc",
+          "birthdate",
+          "snils"
+        ]
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "oid": {
+            "type": "string",
+            "format": "int64",
+            "description": "Идентификатор объекта",
+            "examples": [
+              "1129159634"
+            ],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Идентификатор документа",
+            "examples": [
+              "1129159634",
+              "697b5322-7f5d-4ba7-86f2-ad7a9331e0f6"
+            ],
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип документа. Возможные значения: \n\n- `USSR_PASSPORT` - Паспорт СССР \n\n- `RF_PASSPORT` - Паспорт РФ \n\n- `FRGN_PASS` - Заграничный паспорт РФ \n\n- `RF_DRIVING_LICENSE` - Водительское удостоверение \n\n- `INCOME_REFERENCE` - Справка о доходах и суммах налога ФЛ (форма 2-НДФЛ) \n\n- `PAYOUT_INCOME` - Сведения о доходах физического лица и о выплатах страховых взносов, произведенных в пользу физического лица\n\n- `ELECTRONIC_WORKBOOK` - Сведения о трудовой деятельности застрахованного лица в системе обязательного пенсионного страхования",
+            "enum": [
+              "USSR_PASSPORT",
+              "RF_PASSPORT",
+              "FRGN_PASS",
+              "PAYOUT_INCOME",
+              "INCOME_REFERENCE",
+              "PASSPORT_HISTORY",
+              "RF_DRIVING_LICENSE",
+              "ELECTRONIC_WORKBOOK"
+            ]
+          }
+        },
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "PASSPORT_HISTORY": "#/components/schemas/PassportHistory",
+            "FRGN_PASS": "#/components/schemas/RussianInternationalPassport",
+            "RF_PASSPORT": "#/components/schemas/RussianPassportDocument",
+            "INCOME_REFERENCE": "#/components/schemas/IncomeReference",
+            "ELECTRONIC_WORKBOOK": "#/components/schemas/ElectronicWorkbook",
+            "RF_DRIVING_LICENSE": "#/components/schemas/DriverLicense",
+            "PAYOUT_INCOME": "#/components/schemas/PayoutIncome"
+          }
+        }
+      },
+      "Date": {
+        "title": "Дата",
+        "type": "string",
+        "format": "d.m.Y",
+        "pattern": "[0-9]{2}.[0-9]{2}.[0-9]{4}",
+        "examples": [
+          "13.05.2005"
+        ]
+      },
+      "RussianPassportSeries": {
+        "type": "string",
+        "description": "Серия Российского паспорта",
+        "examples": [
+          "0000"
+        ],
+        "pattern": "\\d{4}"
+      },
+      "RussianPassportNumber": {
+        "type": "string",
+        "description": "Номер Российского паспорта",
+        "examples": [
+          "000000"
+        ],
+        "pattern": "\\d{6}"
+      },
+      "RussianDivisionCode": {
+        "type": "string",
+        "description": "Код подразделения Российского паспорта",
+        "examples": [
+          "000-000"
+        ],
+        "pattern": "\\d{3}-\\d{3}"
+      },
+      "RussianPassportDocument": {
+        "description": "Паспорт Российской федерации",
+        "required": [
+          "type",
+          "series",
+          "number",
+          "issueDate",
+          "divisionCode"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "series": {
+                "$ref": "#/components/schemas/RussianPassportSeries"
+              },
+              "number": {
+                "$ref": "#/components/schemas/RussianPassportNumber"
+              },
+              "issueDate": {
+                "$ref": "#/components/schemas/Date",
+                "description": "Дата выдачи паспорта"
+              },
+              "divisionCode": {
+                "$ref": "#/components/schemas/RussianDivisionCode"
+              },
+              "issuedBy": {
+                "type": "string",
+                "maxLength": 355,
+                "description": "Кем выдан паспорт",
+                "nullable": true
+              },
+              "birthPlace": {
+                "type": "string",
+                "description": "Место рождение",
+                "nullable": true
+              }
+            }
+          }
+        ],
+        "type": "object"
+      },
+      "RussianInternationalPassport": {
+        "description": "Заграничный паспорт Российской федерации",
+        "type": "object",
+        "required": [
+          "type",
+          "series",
+          "number",
+          "issueDate"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "series": {
+                "$ref": "#/components/schemas/RussianPassportSeries"
+              },
+              "number": {
+                "$ref": "#/components/schemas/RussianPassportNumber"
+              },
+              "issueDate": {
+                "$ref": "#/components/schemas/Date",
+                "description": "Дата выдачи паспорта"
+              },
+              "issuedBy": {
+                "type": "string",
+                "maxLength": 355,
+                "description": "Кем выдан паспорт",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "PayoutIncome": {
+        "description": "Сведения о доходах физического лица и о выплатах страховых взносов, произведенных в пользу физического лица",
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "createdOn": {
+                "$ref": "#/components/schemas/TimestampNano",
+                "description": "Дата и время создания документа в формате TIMESTAMP"
+              },
+              "validateDateDoc": {
+                "$ref": "#/components/schemas/TimestampNano",
+                "description": "Дата и время валидации документа в формате TIMESTAMP"
+              },
+              "updatedOn": {
+                "$ref": "#/components/schemas/TimestampNano",
+                "description": "Дата и время обновления документа в формате TIMESTAMP"
+              },
+              "receiptDocDate": {
+                "$ref": "#/components/schemas/TimestampNano",
+                "description": "Дата и время получения документа в формате TIMESTAMP"
+              },
+              "departmentDoc": {
+                "type":  "string",
+                "description": "Ведомство, к которому относится документ"
+              },
+              "relevance": {
+                "type": "string",
+                "description": "Релевантность документа"
+              },
+              "status": {
+                "type": "string",
+                "description": "Статус достоверности"
+              },
+              "content": {
+                "type": "object",
+                "properties": {
+                  "xmlFile": {
+                    "type": "string",
+                    "description": "Содержимое файла в base64",
+                    "contentEncoding": "base64"
+                  },
+                  "pdfFile": {
+                    "type": "string",
+                    "description": "Содержимое файла в base64",
+                    "contentEncoding": "base64",
+                    "nullable": true
+                  }
+                }
+              },
+              "version": {
+                "type": "int",
+                "format": "int32",
+                "description": "Версия документа"
+              },
+              "data": {
+                "description": "Дополнительная информация",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IncomeReferenceDataItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+
+
+      "IncomeReference": {
+        "description": "Справка о доходах и суммах налога ФЛ (форма 2-НДФЛ)",
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "year": {
+                "type": "string",
+                "format": "Y",
+                "description": "Год"
+              },
+              "version": {
+                "type": "int",
+                "format": "int32",
+                "description": "Версия документа"
+              },
+              "data": {
+                "description": "Дополнительная информация",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IncomeReferenceDataItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "IncomeReferenceDataItem": {
+        "description": "Дополнительная информация",
+        "type": "object",
+        "properties": {
+          "orgInfo": {
+            "nullable": true,
+            "$ref": "#/components/schemas/IncomeReferenceDateItemOrganizationInfo"
+          },
+          "personInfo": {
+            "nullable": true,
+            "$ref": "#/components/schemas/IncomeReferenceDateItemPersonInfo"
+          },
+          "incInfo": {
+            "nullable": true,
+            "$ref": "#/components/schemas/IncomeReferenceDateItemIncomeInfo"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        }
+      },
+      "IncomeReferenceDateItemIncomeInfo": {
+        "description": "Информация о доходе",
+        "type": "object",
+        "required": [
+          "rate",
+          "tax",
+          "income"
+        ],
+        "properties": {
+          "rate": {
+            "type": "string",
+            "format": "int32",
+            "description": "Ставка НДФЛ в процентах",
+            "examples": [
+              "13"
+            ]
+          },
+          "tax": {
+            "type": "string",
+            "format": "double",
+            "description": "Сумма НДФЛ",
+            "examples": [
+              "6940"
+            ]
+          },
+          "income": {
+            "type": "string",
+            "format": "double",
+            "description": "Доход **до НФДЛ**",
+            "examples": [
+              "53384.58"
+            ]
+          }
+        }
+      },
+      "IncomeReferenceDateItemPersonInfo": {
+        "description": "Информация о работнике",
+        "type": "object",
+          "required": [
+            "firstName",
+            "lastName",
+            "inn"
+          ],
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "description": "Имя",
+              "examples": [
+                "Владислав"
+              ]
+            },
+            "middleName": {
+              "type": "string",
+              "description": "Отчество",
+              "examples": [
+                "Максимович"
+              ],
+              "nullable": true
+            },
+            "lastName": {
+              "type": "string",
+              "description": "Фамилия",
+              "examples": [
+                "Шашков"
+              ]
+            },
+            "inn": {
+              "$ref": "#/components/schemas/InnUnion"
+            }
+          }
+      },
+      "IncomeReferenceDateItemOrganizationInfo": {
+        "description": "Информация о организации",
+        "type": "object",
+        "required": [
+          "fullName",
+          "inn",
+          "kpp"
+        ],
+        "properties": {
+          "fullName": {
+            "description": "Название организации",
+            "type": "string",
+            "examples": [
+              "ООО РОГА И КОПЫТА"
+            ]
+          },
+          "inn": {
+            "$ref": "#/components/schemas/InnUnion"
+          },
+          "kpp": {
+            "$ref": "#/components/schemas/Kpp"
+          }
+        }
+      },
+      "InnUnion": {
+        "type": "string",
+        "pattern": "\\d{10}(\\d{2})?",
+        "description": "ИНН"
+      },
+      "File": {
+        "type": "object",
+        "required": [
+          "createdOn",
+          "updatedOn",
+          "name",
+          "metadata",
+          "file",
+          "sign"
+        ],
+        "properties": {
+          "createdOn": {
+            "$ref": "#/components/schemas/TimestampNano"
+          },
+          "updatedOn": {
+            "$ref": "#/components/schemas/TimestampNano"
+          },
+          "name": {
+            "description": "Название файла",
+            "type": "string",
+            "examples": [
+              "epgu_2ndfl_20230415_6b16d88a-db71-11ed-b3bd-96a61c4b6942.xml"
+            ]
+          },
+          "metadata": {
+            "description": "MIME-тип",
+            "type": "string",
+            "examples": [
+              "application/xml"
+            ]
+          },
+          "file": {
+            "description": "Содержимое файла в base64",
+            "type": "string",
+            "contentEncoding": "base64"
+          },
+          "sign": {
+            "description": "Подпись в base64",
+            "type": "string",
+            "contentEncoding": "base64"
+          }
+        }
+      },
+      "TimestampNano": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Timestamp в nano формате",
+        "examples": [
+          1681552359226
+        ]
+      },
+      "Kpp": {
+        "type": "string",
+        "pattern": "\\d{9}",
+        "description": "КПП"
+      },
+      "Uuid": {
+        "title": "Универсально уникальный идентификатор",
+        "type": "string",
+        "format": "uuid",
+        "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+        "examples": [
+          "00000000-0000-0000-0000-000000000000"
+        ]
+      },
+      "PassportHistory": {
+        "description": "История паспортов",
+        "type": "object",
+        "required": [
+          "version",
+          "history",
+          "type"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "version": {
+                "type": "integer",
+                "description": "Версия документа"
+              },
+              "history": {
+                "description": "История документов",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PreviousDocument"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PreviousDocument": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Тип документа. Возможные значения: \n\n- `ussr_passport` - Паспорт СССР \n\n- `rf_passport` - Паспорт РФ \n\n- `frgn_pass` - Заграничный паспорт РФ",
+            "enum": [
+              "frgn_pass",
+              "ussr_passport",
+              "rf_passport"
+            ]
+          }
+        },
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "rf_passport": "#/components/schemas/PreviousRussianPassportDocument",
+            "frgn_pass": "#/components/schemas/PreviousRussianInternationalPassport"
+          }
+        }
+      },
+      "PreviousRussianPassportDocument": {
+        "description": "Паспорт Российской федерации",
+        "required": [
+          "type",
+          "series",
+          "number",
+          "issueDate"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PreviousDocument"
+          },
+          {
+            "properties": {
+              "series": {
+                "$ref": "#/components/schemas/RussianPassportSeries"
+              },
+              "number": {
+                "$ref": "#/components/schemas/RussianPassportNumber"
+              },
+              "issueDate": {
+                "$ref": "#/components/schemas/Date",
+                "description": "Дата выдачи паспорта"
+              },
+              "divisionCode": {
+                "$ref": "#/components/schemas/RussianDivisionCode",
+                "nullable": true
+              },
+              "issuedBy": {
+                "type": "string",
+                "maxLength": 355,
+                "description": "Кем выдан паспорт",
+                "nullable": true
+              }
+            }
+          }
+        ],
+        "type": "object"
+      },
+      "PreviousRussianInternationalPassport": {
+        "description": "Заграничный паспорт Российской федерации",
+        "type": "object",
+        "required": [
+          "type",
+          "series",
+          "number",
+          "issueDate"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PreviousDocument"
+          },
+          {
+            "properties": {
+              "series": {
+                "$ref": "#/components/schemas/RussianPassportSeries"
+              },
+              "number": {
+                "$ref": "#/components/schemas/RussianPassportNumber"
+              },
+              "issueDate": {
+                "$ref": "#/components/schemas/Date",
+                "description": "Дата выдачи паспорта"
+              },
+              "issuedBy": {
+                "type": "string",
+                "maxLength": 355,
+                "description": "Кем выдан паспорт",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "ElectronicWorkbook": {
+        "type": "object",
+        "description": "Сведения о трудовой деятельности застрахованного лица в системе обязательного пенсионного страхования",
+        "required": [
+          "version",
+          "events",
+          "type"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "version": {
+                "type": "integer",
+                "description": "Версия документа"
+              },
+              "events": {
+                "description": "События трудовой деятельность",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ElectronicWorkbookEntry"
+                }
+              },
+              "xmlFile": {
+                "type": "object",
+                "description": "Файловое представление документа в формате xml",
+                "required": ["file"],
+                "properties": {
+                  "file": {
+                    "description": "Содержимое файла в base64",
+                    "type": "string",
+                    "contentEncoding": "base64"
+                  }
+                }
+              },
+              "pdfFile": {
+                "type": "object",
+                "description": "Файловое представление документа в формате pdf",
+                "required": ["file"],
+                "properties": {
+                  "file": {
+                    "description": "Содержимое файла в base64",
+                    "type": "string",
+                    "contentEncoding": "base64"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ElectronicWorkbookEntry": {
+        "description": "Событие трудовой деятельность",
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "date": {
+            "$ref": "#/components/schemas/Date",
+            "description": "Дата события"
+          },
+          "isPartTimeJob": {
+            "type": "boolean",
+            "description": "Не полный рабочий день"
+          },
+          "type": {
+            "type": "integer",
+            "description": "Типы событий. Возможные значения: \n\n- `1` - Найм \n\n- `2` - Перевод на другую должность/отдел \n\n- `5` - Увольнение",
+            "enum": [
+              1,
+              5
+            ]
+          },
+          "organization": {
+            "$ref": "#/components/schemas/ElectronicWorkbookOrganizationInfo"
+          }
+        },
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "1": "#/components/schemas/ElectronicWorkbookHiringEntry",
+            "2": "#/components/schemas/ElectronicWorkbookReassignmentEntry",
+            "5": "#/components/schemas/ElectronicWorkbookDismissalEntry"
+          }
+        }
+      },
+      "ElectronicWorkbookOrganizationInfo": {
+        "description": "Информация о работодателе",
+        "required": [
+          "orgName",
+          "inn",
+          "kpp"
+        ],
+        "properties": {
+          "orgName": {
+            "description": "Название организации",
+            "type": "string"
+          },
+          "inn": {
+            "$ref": "#/components/schemas/InnUnion"
+          },
+          "kpp": {
+            "$ref": "#/components/schemas/Kpp"
+          }
+        }
+      },
+      "ElectronicWorkbookHiringEntry": {
+        "description": "Событие принятия на работу",
+        "required": [
+          "id",
+          "date",
+          "isPartTimeJob",
+          "organization"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ElectronicWorkbookEntry"
+          },
+          {
+            "properties": {
+              "position": {
+                "type": "string",
+                "description": "Название позиции",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "ElectronicWorkbookReassignmentEntry": {
+        "description": "Событие перевода с одной должности на другую внутри организации",
+        "required": [
+          "id",
+          "date",
+          "isPartTimeJob",
+          "organization"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ElectronicWorkbookEntry"
+          },
+          {
+            "properties": {
+              "position": {
+                "type": "string",
+                "description": "Название позиции",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "ElectronicWorkbookDismissalEntry": {
+        "description": "Событие увольнения с работы",
+        "required": [
+          "id",
+          "date",
+          "isPartTimeJob",
+          "organization"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ElectronicWorkbookEntry"
+          },
+          {
+            "properties": {
+              "position": {
+                "type": "string",
+                "description": "Название позиции",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DriverLicense": {
+        "description": "Водительские права",
+        "required": [
+          "id",
+          "type",
+          "series",
+          "number",
+          "issueDate"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Document"
+          },
+          {
+            "properties": {
+              "series": {
+                "type": "string",
+                "description": "Серия прав",
+                "pattern": "^\\d{6}$|\\d{2}[а-яА-Я]{2}"
+              },
+              "number": {
+                "type": "string",
+                "description": "Номер прав",
+                "pattern": "^\\d{6}$"
+              },
+              "issueDate": {
+                "$ref": "#/components/schemas/Date",
+                "description": "Дата выдачи паспорта"
+              }
+            }
+          }
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

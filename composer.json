@@ -1,0 +1,41 @@
+{
+    "name": "vanta/esia-struct",
+    "description": "Struct ESIA",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vlad Shashkov",
+            "email": "v.shashkov@pos-credit.ru"
+        },
+        {
+            "name": "Vanta Team",
+            "homepage": "https://vanta.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "symfony/uid": "^6.0|^7.0",
+        "brick/phonenumber": "^0.4",
+        "brick/money": "^0.8.1",
+        "brick/date-time": "^0.5.3",
+        "brick/math": "^0.11.0",
+        "webmozart/assert": "^1.11",
+        "amphp/byte-stream": "^2.1",
+        "lcobucci/jwt": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vanta\\Integration\\Esia\\Struct\\": "src/"
+        },
+        "files": [
+            "src/Bridge/Enum/function.php"
+        ]
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^7.0",
+        "symfony/serializer": "^7.0",
+        "symfony/property-access": "^7.0",
+        "friendsofphp/php-cs-fixer": "^3.57",
+        "phpstan/phpstan": "^1.11"
+    }
+}
