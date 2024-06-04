@@ -335,8 +335,7 @@
             "description": "Идентификатор объекта",
             "examples": [
               "1129159634"
-            ],
-            "nullable": true
+            ]
           },
           "id": {
             "type": "string",
@@ -344,8 +343,7 @@
             "examples": [
               "1129159634",
               "697b5322-7f5d-4ba7-86f2-ad7a9331e0f6"
-            ],
-            "nullable": true
+            ]
           },
           "type": {
             "type": "string",
@@ -905,8 +903,8 @@
         "type": "object",
         "description": "Сведения о трудовой деятельности застрахованного лица в системе обязательного пенсионного страхования",
         "required": [
+          "id",
           "version",
-          "events",
           "type"
         ],
         "allOf": [

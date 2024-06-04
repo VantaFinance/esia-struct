@@ -16,6 +16,7 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefau
 #[DiscriminatorDefault(ElectronicWorkbookUnknownEntry::class)]
 #[DiscriminatorMap(
     typeProperty: 'type',
+    /**@phpstan-ignore-next-line*/
     mapping: [
         1 => ElectronicWorkbookHiringEntry::class,
         2 => ElectronicWorkbookReassignmentEntry::class,
