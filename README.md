@@ -3,7 +3,7 @@
 
 ### Что это такое и зачем нужно?
 
-vanta/esia-struct - это контракты сервиса [ГосУсулги](https://partners.gosuslugi.ru/catalog/esia).
+vanta/esia-struct - это контракты сервиса [ГосУслуги](https://partners.gosuslugi.ru/catalog/esia).
 <br>
 Данный пакет решает проблему дублирование контрактов сервиса и предоставляет РЕАЛЬНОЕ описание контрактов.
 
