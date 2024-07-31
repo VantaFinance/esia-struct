@@ -33,6 +33,12 @@ enum Permission: string
     case BIRTHPLACE = 'birthplace';
 
     /**
+     * Просмотр данных полиса обязательного
+     * медицинского страхования (ОМС)
+     */
+    case MEDICAL_DOC = 'medical_doc';
+
+    /**
      * Пол, указанный в УЗ
      */
     case GENDER = 'gender';
