@@ -32,7 +32,6 @@ enum Permission: string
      */
     case BIRTHPLACE = 'birthplace';
 
-
     /**
      * Просмотр данных полиса обязательного
      */
