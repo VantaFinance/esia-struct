@@ -34,6 +34,7 @@ enum Permission: string
 
     /**
      * Просмотр данных полиса обязательного
+     * медицинского страхования (ОМС)
      */
     case MEDICAL_DOC = 'medical_doc';
 
