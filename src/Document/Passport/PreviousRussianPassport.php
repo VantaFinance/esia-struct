@@ -16,6 +16,9 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
 final readonly class PreviousRussianPassport extends PreviousDocument
 {
+    /**
+     * @param non-empty-string|null $issuedBy
+     */
     public function __construct(
         public RussianPassportSeries $series,
         public RussianPassportNumber $number,

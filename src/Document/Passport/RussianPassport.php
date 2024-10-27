@@ -18,7 +18,9 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 final readonly class RussianPassport extends Document
 {
     /**
-     * @param numeric-string $id
+     * @param numeric-string        $id
+     * @param non-empty-string|null $issuedBy
+     * @param non-empty-string|null $birthPlace
      */
     public function __construct(
         public string $id,
