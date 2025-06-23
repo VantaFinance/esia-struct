@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ESIA Struct
  *
@@ -32,7 +33,7 @@ final readonly class IncomeReference extends Document
     /**
      * @param non-empty-list<non-empty-string> $types
      *
-     * @return list<IncomeReferenceBase64File>
+     * @return array<IncomeReferenceBase64File>
      */
     public function getFilesByTypes(array $types): array
     {

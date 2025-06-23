@@ -382,6 +382,55 @@
           "13.05.2005"
         ]
       },
+      "LazyDocument": {
+         "type": "object",
+         "required": [
+           "requestId",
+           "oid"
+         ],
+         "properties": {
+           "requestId": {
+             "type": "string",
+             "examples": [
+               "111911300155"
+             ]
+           },
+           "oid": {
+             "type": "string",
+             "examples": [
+               "111911300155"
+             ]
+           }
+         }
+      },
+      "LazyIncomeReferenceDocument": {
+        "type": "object",
+        "required": [
+          "requestId",
+          "oid",
+          "year"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "examples": [
+              "111911300155"
+            ]
+          },
+          "oid": {
+            "type": "string",
+            "examples": [
+              "111911300155"
+            ]
+          },
+          "year": {
+            "type": "string",
+            "examples": [
+              "2025"
+            ]
+          }
+        }
+      },
       "RussianPassportSeries": {
         "type": "string",
         "description": "Серия Российского паспорта",
@@ -554,8 +603,6 @@
           }
         ]
       },
-
-
       "IncomeReference": {
         "description": "Справка о доходах и суммах налога ФЛ (форма 2-НДФЛ)",
         "type": "object",
