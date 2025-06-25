@@ -14,7 +14,7 @@ namespace Vanta\Integration\Esia\Struct\Document;
 
 use Brick\DateTime\Year;
 
-final readonly class LazyIncomeReference
+final readonly class LazyIncomeReference extends Document
 {
     /**
      * @param numeric-string   $oid
@@ -23,8 +23,8 @@ final readonly class LazyIncomeReference
     public function __construct(
         public string $oid,
         public string $requestId,
-        public DocumentType $type,
         public Year $year,
     ) {
+        parent::__construct(DocumentType::INCOME_REFERENCE);
     }
 }

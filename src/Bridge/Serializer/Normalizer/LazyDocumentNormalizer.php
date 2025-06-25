@@ -68,7 +68,6 @@ final readonly class LazyDocumentNormalizer implements Denormalizer
             return new LazyIncomeReference(
                 $oid,
                 $requestId,
-                $documentType,
                 Year::parse($year),
             );
         }

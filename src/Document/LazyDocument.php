@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document;
 
-final readonly class LazyDocument
+final readonly class LazyDocument extends Document
 {
     /**
      * @param numeric-string   $oid
@@ -20,7 +20,8 @@ final readonly class LazyDocument
     public function __construct(
         public string $oid,
         public string $requestId,
-        public DocumentType $type,
+        DocumentType $type,
     ) {
+        parent::__construct($type);
     }
 }
