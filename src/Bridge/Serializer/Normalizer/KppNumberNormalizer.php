@@ -4,7 +4,7 @@
  * ESIA Struct
  *
  * @author    Vlad Shashkov <v.shashkov@pos-credit.ru>
- * @copyright Copyright (c) 2024, The Vanta
+ * @copyright Copyright (c) 2025, The Vanta
  */
 
 declare(strict_types=1);
@@ -44,6 +44,10 @@ final readonly class KppNumberNormalizer implements Normalizer, Denormalizer
      */
     public function denormalize($data, string $type, ?string $format = null, array $context = []): KppNumber
     {
+        if (is_int($data)) {
+            $data = (string) $data;
+        }
+
         try {
             Assert::numeric($data);
             Assert::string($data);

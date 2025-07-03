@@ -4,7 +4,7 @@
  * ESIA Struct
  *
  * @author    Vlad Shashkov <v.shashkov@pos-credit.ru>
- * @copyright Copyright (c) 2024, The Vanta
+ * @copyright Copyright (c) 2025, The Vanta
  */
 
 declare(strict_types=1);
@@ -46,7 +46,7 @@ final readonly class BigDecimalNormalizer implements Normalizer, Denormalizer
     public function denormalize($data, string $type, ?string $format = null, array $context = []): BigDecimal
     {
         try {
-            Assert::stringNotEmpty($data);
+            Assert::numeric($data);
 
             return BigDecimal::of($data);
         } catch (InvalidArgumentException|MathException $e) {
