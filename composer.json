@@ -36,6 +36,8 @@
         "symfony/serializer": "^7.0",
         "symfony/property-access": "^7.0",
         "friendsofphp/php-cs-fixer": "^3.57",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "phpdocumentor/type-resolver": "^1.10",
+        "phpstan/phpstan-webmozart-assert": "^2.0"
     }
 }

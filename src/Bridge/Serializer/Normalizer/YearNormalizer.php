@@ -44,6 +44,11 @@ final readonly class YearNormalizer implements Normalizer, Denormalizer
      */
     public function denormalize($data, string $type, ?string $format = null, array $context = []): Year
     {
+        if (is_int($data)) {
+            $data = (string) $data;
+        }
+
+
         try {
             Assert::stringNotEmpty($data);
 
