@@ -50,7 +50,7 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\RussianPassportSe
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SnilsNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
-use Vanta\Integration\Esia\Struct\Document\Income\PayoutFile;
+use Vanta\Integration\Esia\Struct\Document\Income\PayoutIncomeFile;
 use Vanta\Integration\Esia\Struct\Document\Income\PayoutIncome;
 
 final readonly class DocumentParser
@@ -114,8 +114,8 @@ final readonly class DocumentParser
      * @throws ExceptionInterface
      * @throws BufferException
      */
-    public function parsePayoutIncome(PayoutIncome $document): PayoutFile
+    public function parsePayoutIncome(PayoutIncome $document): PayoutIncomeFile
     {
-        return $this->serializer->deserialize(buffer($document->xmlFile->content), PayoutFile::class, 'xml');
+        return $this->serializer->deserialize(buffer($document->xmlFile->content), PayoutIncomeFile::class, 'xml');
     }
 }

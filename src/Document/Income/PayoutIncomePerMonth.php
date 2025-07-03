@@ -15,7 +15,7 @@ use Brick\DateTime\Month;
 use Brick\Math\BigDecimal;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
-final readonly class PayoutPerMonth
+final readonly class PayoutIncomePerMonth
 {
     public function __construct(
         #[SerializedName('@Месяц')]

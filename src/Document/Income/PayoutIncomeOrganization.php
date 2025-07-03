@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Vanta\Integration\Esia\Struct\Document\InnNumber;
 use Vanta\Integration\Esia\Struct\Document\KppNumber;
 
-final readonly class PayoutOrganization
+final readonly class PayoutIncomeOrganization
 {
     public function __construct(
         #[SerializedName('@НаимОрг')]

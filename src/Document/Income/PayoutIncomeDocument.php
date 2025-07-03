@@ -22,8 +22,8 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 final readonly class PayoutIncomeDocument
 {
     /**
-     * @param non-empty-string        $id
-     * @param array<PayoutReportYear> $payoutYears
+     * @param non-empty-string              $id
+     * @param array<PayoutIncomeReportYear> $payoutYears
      */
     public function __construct(
         #[SerializedName('@ИдДок')]

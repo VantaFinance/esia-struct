@@ -14,16 +14,16 @@ namespace Vanta\Integration\Esia\Struct\Document\Income;
 use Brick\DateTime\Year;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
-final class PayoutReportYear
+final class PayoutIncomeReportYear
 {
     /**
-     * @param array<PayoutPerMonth> $payouts
+     * @param array<PayoutIncomePerMonth> $payouts
      */
     public function __construct(
         #[SerializedName('@ОтчетГод')]
         public Year $year,
         #[SerializedName('НПЮЛ')]
-        public PayoutOrganization $organization,
+        public PayoutIncomeOrganization $organization,
         #[SerializedName('СведСумВыпл')]
         public array $payouts = [],
     ) {
