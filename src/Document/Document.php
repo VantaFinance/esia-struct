@@ -16,6 +16,7 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefau
 use Vanta\Integration\Esia\Struct\Document\DriverLicense\RussianDriverLicense;
 use Vanta\Integration\Esia\Struct\Document\ElectronicWorkbook\ElectronicWorkbook;
 use Vanta\Integration\Esia\Struct\Document\Income\IncomeReference;
+use Vanta\Integration\Esia\Struct\Document\Income\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Passport\PassportHistory;
 use Vanta\Integration\Esia\Struct\Document\Passport\RussianInternationalPassport;
 use Vanta\Integration\Esia\Struct\Document\Passport\RussianPassport;
@@ -24,11 +25,12 @@ use Vanta\Integration\Esia\Struct\Document\Passport\RussianPassport;
 #[Serializer\DiscriminatorMap(
     typeProperty: 'type',
     mapping: [
+        DocumentType::PAYOUT_INCOME->value                  => PayoutIncome::class,
         DocumentType::RUSSIAN_PASSPORT->value               => RussianPassport::class,
-        DocumentType::RUSSIAN_DRIVER_LICENSE->value         => RussianDriverLicense::class,
-        DocumentType::INCOME_REFERENCE->value               => IncomeReference::class,
         DocumentType::PASSPORT_HISTORY->value               => PassportHistory::class,
+        DocumentType::INCOME_REFERENCE->value               => IncomeReference::class,
         DocumentType::ELECTRONIC_WORKBOOK->value            => ElectronicWorkbook::class,
+        DocumentType::RUSSIAN_DRIVER_LICENSE->value         => RussianDriverLicense::class,
         DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT->value => RussianInternationalPassport::class,
     ],
 )]

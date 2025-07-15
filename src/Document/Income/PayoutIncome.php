@@ -23,11 +23,11 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 final readonly class PayoutIncome extends Document
 {
     /**
-     * @param numeric-string   $oid
-     * @param positive-int     $version
-     * @param non-empty-string $departmentDoc
-     * @param non-empty-string $relevance
-     * @param non-empty-string $status
+     * @param numeric-string        $oid
+     * @param positive-int          $version
+     * @param non-empty-string|null $departmentDoc
+     * @param non-empty-string      $relevance
+     * @param non-empty-string      $status
      */
     public function __construct(
         public string $oid,
@@ -45,13 +45,13 @@ final readonly class PayoutIncome extends Document
         #[SerializedName('receiptDocDate')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
         public DateTimeImmutable $receiptAt,
-        public string $departmentDoc,
         public string $relevance,
         public string $status,
         #[SerializedPath('[content][xmlFile]')]
         public PayoutIncomeBase64File $xmlFile,
         #[SerializedPath('[content][pdfFile]')]
-        public ?PayoutIncomeBase64File $pdfFile = null
+        public ?PayoutIncomeBase64File $pdfFile = null,
+        public ?string $departmentDoc = null,
     ) {
         parent::__construct(DocumentType::PAYOUT_INCOME);
     }
