@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document\Income;
 
+use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\SerializedName;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer as ObjectNormalizer;
 
 /**
  * Описание структуры
@@ -28,6 +30,7 @@ final readonly class PayoutIncomeFile
         #[SerializedName('@ИдФайл')]
         public string $id,
         #[SerializedName('@ВерсФорм')]
+        #[Context(denormalizationContext: [ObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true])]
         public string $versionForm,
         #[SerializedName('@КолДок')]
         public int $countDocuments,
