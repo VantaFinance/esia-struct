@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Document\Income;
 
 use Brick\Math\BigDecimal;
-use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 final readonly class IncomeReferenceDataItem
@@ -48,7 +47,6 @@ final readonly class IncomeReferenceDataItem
     /**
      * Метод доступен только для v3 api
      */
-    #[Ignore]
     public function getRate(): BigDecimal
     {
         return $this->rate ?? BigDecimal::zero();
@@ -57,7 +55,6 @@ final readonly class IncomeReferenceDataItem
     /**
      * Метод доступен только для v3 api
      */
-    #[Ignore]
     public function getIncome(): BigDecimal
     {
         return $this->income ?? BigDecimal::zero();
@@ -66,7 +63,6 @@ final readonly class IncomeReferenceDataItem
     /**
      * Метод доступен только для v3 api
      */
-    #[Ignore]
     public function getTax(): BigDecimal
     {
         return $this->tax ?? BigDecimal::zero();
