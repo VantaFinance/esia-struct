@@ -23,7 +23,7 @@ final class PayoutIncomeReportYear
         #[SerializedName('@ОтчетГод')]
         public Year $year,
         #[SerializedName('НПЮЛ')]
-        public PayoutIncomeOrganization $organization,
+        public ?PayoutIncomeOrganization $organization = null,
         #[SerializedName('СведСумВыпл')]
         public array $payouts = [],
     ) {
