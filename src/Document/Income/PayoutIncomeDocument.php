@@ -36,7 +36,7 @@ final readonly class PayoutIncomeDocument
         #[SerializedName('@ИННФЛ')]
         public InnNumber $innNumber,
         #[SerializedPath('[ДохСВФЛ][СведВыпл]')]
-        public array $payoutYears,
+        public array $payoutYears = [],
     ) {
     }
 }
