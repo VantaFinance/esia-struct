@@ -15,6 +15,7 @@ use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Attribute\SerializedPath;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer as ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\InnNumber;
 use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
@@ -27,6 +28,7 @@ final readonly class PayoutIncomeDocument
      */
     public function __construct(
         #[SerializedName('@ИдДок')]
+        #[Context(denormalizationContext: [ObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true])]
         public string $id,
         #[SerializedName('@ДатаРожд')]
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
