@@ -25,8 +25,8 @@ final readonly class EmployerQuarterReport
         public string $employerNumber,
         #[SerializedName('entNam')]
         public string $employerName,
+        public BigDecimal $accPayment,
         public BigDecimal $paymentsSum,
-        public BigDecimal $accumulatedPayment,
     ) {
     }
 }
