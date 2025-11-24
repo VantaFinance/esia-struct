@@ -22,9 +22,10 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 final readonly class IndividualInsuranceAccountStatement extends Document
 {
     /**
-     * @param non-empty-string      $lastName
-     * @param non-empty-string      $firstName
-     * @param non-empty-string|null $middleName
+     * @param non-empty-string       $lastName
+     * @param non-empty-string       $firstName
+     * @param non-empty-string|null  $middleName
+     * @param array<PreviousIpkYear> $previousIpkYears
      */
     public function __construct(
         #[SerializedName('createdOn')]
@@ -51,7 +52,7 @@ final readonly class IndividualInsuranceAccountStatement extends Document
         public DateTimeImmutable $formationDate,
         public ?IpkYear $ipkCurrentYear = null,
         #[SerializedName('ipkSince2015')]
-        public ?PreviousIpkYear $previousIpkYear = null,
+        public array $previousIpkYears = [],
         public ?string $middleName = null,
     ) {
         parent::__construct(DocumentType::ILS_PFR);
