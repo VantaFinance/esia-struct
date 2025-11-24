@@ -28,6 +28,8 @@ final readonly class PreviousRussianPassport extends PreviousDocument
         public ?string $issuedBy,
         #[SerializedName('issueId')]
         public ?RussianPassportDivisionCode $divisionCode,
+        #[SerializedName('passportStatus')]
+        public PreviousRussianPassportStatus $status = PreviousRussianPassportStatus::NO_INFORMATION,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT);
     }

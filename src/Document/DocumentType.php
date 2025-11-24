@@ -22,4 +22,5 @@ enum DocumentType: string
     case INCOME_REFERENCE               = 'INCOME_REFERENCE';
     case RUSSIAN_DRIVER_LICENSE         = 'RF_DRIVING_LICENSE';
     case ELECTRONIC_WORKBOOK            = 'ELECTRONIC_WORKBOOK';
+    case ILS_PFR                        = 'ILS_PFR';
 }
