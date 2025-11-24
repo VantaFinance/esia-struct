@@ -30,8 +30,8 @@ final readonly class PreviousEmployerQuarterReport
         #[SerializedName('entNam')]
         public string $employerName,
         public array $quarter,
+        public BigDecimal $accPayment,
         public BigDecimal $paymentsSum,
-        public BigDecimal $accumulatedPayment,
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
         public DateTimeImmutable $beg,
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
