@@ -14,6 +14,7 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use Brick\Math\BigDecimal;
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 final readonly class PreviousEmployerQuarterReport
@@ -24,7 +25,9 @@ final readonly class PreviousEmployerQuarterReport
      * @param non-empty-array<int<0, 4>> $quarter
      */
     public function __construct(
+        #[SerializedName('entNumber')]
         public string $employerNumber,
+        #[SerializedName('entNam')]
         public string $employerName,
         public array $quarter,
         public BigDecimal $paymentsSum,
