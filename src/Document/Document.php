@@ -13,13 +13,14 @@ namespace Vanta\Integration\Esia\Struct\Document;
 
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
-use Vanta\Integration\Esia\Struct\Document\DriverLicense\RussianDriverLicense;
-use Vanta\Integration\Esia\Struct\Document\ElectronicWorkbook\ElectronicWorkbook;
-use Vanta\Integration\Esia\Struct\Document\Income\IncomeReference;
-use Vanta\Integration\Esia\Struct\Document\Income\PayoutIncome;
-use Vanta\Integration\Esia\Struct\Document\Passport\PassportHistory;
-use Vanta\Integration\Esia\Struct\Document\Passport\RussianInternationalPassport;
-use Vanta\Integration\Esia\Struct\Document\Passport\RussianPassport;
+use Vanta\Integration\Esia\Struct\Document\Fns\IncomeReference;
+use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
+use Vanta\Integration\Esia\Struct\Document\Mvd\PassportHistory;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianInternationalPassport;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassport;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook\ElectronicWorkbook;
+use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccount\IndividualInsuranceAccountStatement;
+use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
 
 #[DiscriminatorDefault(UnknownDocument::class)]
 #[Serializer\DiscriminatorMap(
@@ -32,6 +33,7 @@ use Vanta\Integration\Esia\Struct\Document\Passport\RussianPassport;
         DocumentType::ELECTRONIC_WORKBOOK->value            => ElectronicWorkbook::class,
         DocumentType::RUSSIAN_DRIVER_LICENSE->value         => RussianDriverLicense::class,
         DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT->value => RussianInternationalPassport::class,
+        DocumentType::ILS_PFR->value                        => IndividualInsuranceAccountStatement::class,
     ],
 )]
 abstract readonly class Document

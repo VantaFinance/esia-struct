@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document;
 
-use Vanta\Integration\Esia\Struct\Document\Passport\PreviousDocument;
+use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousDocument;
 
 final readonly class UnknownPreviousDocument extends PreviousDocument
 {
