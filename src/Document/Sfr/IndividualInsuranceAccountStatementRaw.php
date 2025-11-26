@@ -9,23 +9,22 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccount;
+namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
+use Amp\ByteStream\Base64\Base64DecodingReadableStream;
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
-use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 
-final readonly class IndividualInsuranceAccountStatement extends Document
+final readonly class IndividualInsuranceAccountStatementRaw extends Document
 {
     /**
-     * @param non-empty-string       $lastName
-     * @param non-empty-string       $firstName
-     * @param non-empty-string|null  $middleName
-     * @param array<PreviousIpkYear> $previousIpkYears
+     * @param non-empty-string      $lastName
+     * @param non-empty-string      $firstName
+     * @param non-empty-string|null $middleName
      */
     public function __construct(
         #[SerializedName('createdOn')]
@@ -44,15 +43,7 @@ final readonly class IndividualInsuranceAccountStatement extends Document
         public DateTimeImmutable $birthDate,
         public string $lastName,
         public string $firstName,
-        public SnilsNumber $snils,
-        public float $ipk,
-        #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
-        public DateTimeImmutable $requestDate,
-        #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
-        public DateTimeImmutable $formationDate,
-        public ?IpkYear $ipkCurrentYear = null,
-        #[SerializedName('ipkSince2015')]
-        public array $previousIpkYears = [],
+        public Base64DecodingReadableStream $content,
         public ?string $middleName = null,
     ) {
         parent::__construct(DocumentType::ILS_PFR);

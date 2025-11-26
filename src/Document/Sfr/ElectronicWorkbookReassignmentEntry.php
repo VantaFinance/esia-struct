@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
+namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;

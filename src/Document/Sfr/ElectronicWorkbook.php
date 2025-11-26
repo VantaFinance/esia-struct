@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
+namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use Amp\ByteStream\Base64\Base64DecodingReadableStream;
 use Symfony\Component\Serializer\Attribute\SerializedPath;

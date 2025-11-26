@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
+namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;

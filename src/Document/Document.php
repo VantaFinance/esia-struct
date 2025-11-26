@@ -18,8 +18,8 @@ use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Mvd\PassportHistory;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianInternationalPassport;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassport;
-use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook\ElectronicWorkbook;
-use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccount\IndividualInsuranceAccountStatement;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
+use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatement;
 use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
 
 #[DiscriminatorDefault(UnknownDocument::class)]

@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccount;
+namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use Brick\DateTime\Year;
 
