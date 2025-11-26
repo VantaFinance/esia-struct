@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as Denormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface as Normalizer;
-use Vanta\Integration\Esia\Struct\Document\DriverLicense\RussianDriverLicenseSeries;
+use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicenseSeries;
 use Webmozart\Assert\Assert;
 
 final readonly class DriverLicenseSeriesNormalizer implements Normalizer, Denormalizer

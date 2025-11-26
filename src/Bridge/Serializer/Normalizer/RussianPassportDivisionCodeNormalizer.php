@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as Denormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface as Normalizer;
-use Vanta\Integration\Esia\Struct\Document\Passport\RussianPassportDivisionCode;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportDivisionCode;
 use Webmozart\Assert\Assert;
 
 final readonly class RussianPassportDivisionCodeNormalizer implements Normalizer, Denormalizer
