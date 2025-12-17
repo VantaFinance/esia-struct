@@ -32,13 +32,13 @@ final readonly class Address
      * @param non-empty-string|null $zipCode
      * @param non-empty-string|null $fiasCodeLevel
      * @param non-empty-string      $addressStr
-     * @param non-empty-string      $region
+     * @param non-empty-string|null $region
      */
     public function __construct(
         #[SerializedPath('[countryId]')]
         public CountryIso $countryIso,
         public string $addressStr,
-        public string $region,
+        public ?string $region,
         public ?string $city,
         public ?string $district,
         public ?string $area,
