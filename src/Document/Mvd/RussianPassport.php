@@ -32,11 +32,17 @@ final readonly class RussianPassport extends Document
         public Gender $gender,
         public string $issueId,
         public string $lastName,
-        #[Context([DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
+        )]
         public DateTimeImmutable $birthDate,
         public string $firstName,
         public ?string $middleName,
-        #[Context([DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
+        )]
         public DateTimeImmutable $issueDate,
         public string $relevance,
         public ?string $departmentDoc,
