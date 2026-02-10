@@ -40,7 +40,7 @@ return (new PhpCsFixer\Config())
         'logical_operators'             => true,
         'class_definition'              => false,
         'binary_operator_spaces'        => ['operators' => ['=>' => 'align_single_space_minimal', '=' => 'align_single_space_minimal']],
-        '@PHP83Migration'               => true,
+        '@PHP8x3Migration'              => true,
     ])
     ->setFinder($finder)
 ;
