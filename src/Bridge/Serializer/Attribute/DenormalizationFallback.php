@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute;
 
-
 use Attribute;
 
 #[Attribute(Attribute::TARGET_CLASS)]

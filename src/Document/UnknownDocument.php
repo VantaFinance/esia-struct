@@ -13,7 +13,7 @@ namespace Vanta\Integration\Esia\Struct\Document;
 
 final readonly class UnknownDocument extends Document
 {
-    public function __construct(public ?string $result = null)
+    public function __construct(public mixed $result = null)
     {
         parent::__construct(DocumentType::UNKNOWN);
     }
