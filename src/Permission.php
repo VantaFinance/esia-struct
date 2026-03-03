@@ -19,6 +19,17 @@ enum Permission: string
     case OPEN_ID = 'openid';
 
     /**
+     * Аутентификации через единую биометрическую систему
+     */
+    case BIO = 'bio';
+
+    /**
+     * Комплексные данные о пользователе (ext_auth_result), доступные в результате
+     * усиленной биометрической аутентификации
+     */
+    case EXT_AUTH_RESULT = 'ext_auth_result';
+
+    /**
      * Фамилия; имя; отчество
      */
     case FULL_NAME = 'fullname';
