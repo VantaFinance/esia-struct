@@ -13,6 +13,7 @@ namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 enum PreviousRussianPassportStatus: string
 {
     case VALID          = 'valid';
+    case INVALID        = 'invalid';
     case NO_INFORMATION = 'noInformation';
     case EXPIRED        = 'expired';
 }
