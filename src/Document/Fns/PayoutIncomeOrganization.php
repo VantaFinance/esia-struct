@@ -23,7 +23,7 @@ final readonly class PayoutIncomeOrganization
         #[SerializedName('@ИННЮЛ')]
         public InnNumber $inn,
         #[SerializedName('@КПП')]
-        public KppNumber $kpp,
+        public ?KppNumber $kpp,
     ) {
     }
 }

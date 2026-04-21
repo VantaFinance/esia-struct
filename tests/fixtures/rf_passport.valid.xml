@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:rfPassport xmlns="urn://mincomsvyaz/esia/base_types/1.0.0" xmlns:ns2="urn://mincomsvyaz/esia/rfPassport_documents/1.0.0">
+    <ns2:baseDoc>
+        <series>4500</series>
+        <number>799799</number>
+        <issued>07.07.2022</issued>
+    </ns2:baseDoc>
+    <ns2:issuedBy>ГУ МВД России по г. Москве</ns2:issuedBy>
+    <ns2:issueId>770100</ns2:issueId>
+</ns2:rfPassport>

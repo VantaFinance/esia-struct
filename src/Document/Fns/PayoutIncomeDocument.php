@@ -31,7 +31,7 @@ final readonly class PayoutIncomeDocument
         #[Context(denormalizationContext: [ObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true])]
         public string $id,
         #[SerializedName('@ДатаРожд')]
-        #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+        #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
         public DateTimeImmutable $birthAt,
         #[SerializedName('@СНИЛС')]
         public SnilsNumber $snils,

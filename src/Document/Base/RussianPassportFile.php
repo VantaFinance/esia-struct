@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * ESIA Struct
+ *
+ * @author Valentin Nazarov <v.nazarov@pos-credit.ru>
+ * @copyright Copyright (c) 2026, The PosCredit
+ */
+
+declare(strict_types=1);
+
+namespace Vanta\Integration\Esia\Struct\Document\Base;
+
+use DateTimeImmutable;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\SerializedPath;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportDivisionCode;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportNumber;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportSeries;
+
+final readonly class RussianPassportFile
+{
+    /**
+     * @param non-empty-string $issuedBy
+     */
+    public function __construct(
+        #[SerializedPath('[ns2:baseDoc][series]')]
+        public RussianPassportSeries $series,
+        #[SerializedPath('[ns2:baseDoc][number]')]
+        public RussianPassportNumber $number,
+        #[SerializedPath('[ns2:issueId]')]
+        public RussianPassportDivisionCode $divisionCode,
+        #[SerializedPath('[ns2:baseDoc][issued]')]
+        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
+        public DateTimeImmutable $issuedAt,
+        #[SerializedPath('[ns2:issuedBy]')]
+        public string $issuedBy,
+    ) {
+    }
+}

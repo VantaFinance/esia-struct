@@ -47,11 +47,20 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\RussianInternatio
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\RussianPassportDivisionCodeNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\RussianPassportNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\RussianPassportSeriesNormalizer;
+use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SfrRegistrationNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SnilsNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
+use Vanta\Integration\Esia\Struct\Document\Base\BirthDateFile;
+use Vanta\Integration\Esia\Struct\Document\Base\BirthPlaceFile;
+use Vanta\Integration\Esia\Struct\Document\Base\FullNameFile;
+use Vanta\Integration\Esia\Struct\Document\Base\GenderFile;
+use Vanta\Integration\Esia\Struct\Document\Base\InnFile;
+use Vanta\Integration\Esia\Struct\Document\Base\RussianPassportFile;
+use Vanta\Integration\Esia\Struct\Document\Base\SnilsFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
+use Vanta\Integration\Esia\Struct\Document\Sfr\WorkbookFile;
 
 final readonly class DocumentParser
 {
@@ -92,6 +101,7 @@ final readonly class DocumentParser
             new DriverLicenseSeriesNormalizer(),
             new InnNumberNormalizer(),
             new SnilsNumberNormalizer(),
+            new SfrRegistrationNumberNormalizer(),
             new KppNumberNormalizer(),
             new CountryIsoNormalizer(),
             new PhoneNumberNormalizer(),
@@ -100,7 +110,7 @@ final readonly class DocumentParser
             new BigDecimalNormalizer(),
             new DateTimeUnixTimeNormalizer(
                 new DateTimeNormalizer([
-                    DateTimeNormalizer::FORMAT_KEY => 'd.M.Y',
+                    DateTimeNormalizer::FORMAT_KEY => 'd.m.Y',
                 ])
             ),
             new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
@@ -117,5 +127,101 @@ final readonly class DocumentParser
     public function parsePayoutIncome(PayoutIncome $document): PayoutIncomeFile
     {
         return $this->serializer->deserialize(buffer($document->xmlFile->content), PayoutIncomeFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parsePayoutIncomeFile(string $contents): PayoutIncomeFile
+    {
+        return $this->serializer->deserialize($contents, PayoutIncomeFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseFullNameFile(string $contents): FullNameFile
+    {
+        return $this->serializer->deserialize($contents, FullNameFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseGenderFile(string $contents): GenderFile
+    {
+        return $this->serializer->deserialize($contents, GenderFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseBirthDateFile(string $contents): BirthDateFile
+    {
+        return $this->serializer->deserialize($contents, BirthDateFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseBirthPlaceFile(string $contents): BirthPlaceFile
+    {
+        return $this->serializer->deserialize($contents, BirthPlaceFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseRussianPassportFile(string $contents): RussianPassportFile
+    {
+        return $this->serializer->deserialize($contents, RussianPassportFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseSnilsFile(string $contents): SnilsFile
+    {
+        return $this->serializer->deserialize($contents, SnilsFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseInnFile(string $contents): InnFile
+    {
+        return $this->serializer->deserialize($contents, InnFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseWorkbookFile(string $contents): WorkbookFile
+    {
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), WorkbookFile::class, 'xml');
+    }
+
+    /**
+     * Hack for namespaces with Cyrillic NS like this:
+     *
+     *   xmlns="http://пф.рф/УТ/2017-08-21"
+     *
+     * Otherwise, libxml throws an error.
+     */
+    private function encodeUriNamespaces(string $xml): string
+    {
+        return (string) preg_replace_callback(
+            '/\bxmlns(?::\w+)?="([^"]*)"/',
+            static function (array $m): string {
+                $encoded = preg_replace_callback(
+                    '/[^\x20-\x7E]/',
+                    static fn (array $c): string => rawurlencode($c[0]),
+                    $m[1],
+                );
+
+                return str_replace($m[1], (string) $encoded, $m[0]);
+            },
+            $xml,
+        );
     }
 }

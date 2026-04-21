@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:basicUserData xmlns="urn://mincomsvyaz/esia/base_types/1.0.0" xmlns:ns2="urn://mincomsvyaz/esia/basic_User_Data_documents/1.0.0">
+    <ns2:birthDate>
+        <ns2:birthDate>01.04.1989</ns2:birthDate>
+    </ns2:birthDate>
+</ns2:basicUserData>

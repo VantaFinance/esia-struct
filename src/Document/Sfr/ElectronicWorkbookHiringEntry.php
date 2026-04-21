@@ -17,6 +17,9 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @deprecated
+ */
 final readonly class ElectronicWorkbookHiringEntry extends ElectronicWorkbookEntry
 {
     /**

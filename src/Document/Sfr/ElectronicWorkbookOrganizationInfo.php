@@ -16,6 +16,9 @@ use Vanta\Integration\Esia\Struct\Document\InnNumber;
 use Vanta\Integration\Esia\Struct\Document\KppNumber;
 use Vanta\Integration\Esia\Struct\Document\SfrRegistrationNumber;
 
+/**
+ * @deprecated
+ */
 final readonly class ElectronicWorkbookOrganizationInfo
 {
     /**

@@ -14,6 +14,9 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 
+/**
+ * @deprecated
+ */
 #[DiscriminatorDefault(ElectronicWorkbookUnknownEntry::class)]
 #[DiscriminatorMap(
     typeProperty: 'type',

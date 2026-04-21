@@ -17,6 +17,9 @@ use Symfony\Component\Uid\Uuid;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
+/**
+ * @deprecated
+ */
 final readonly class ElectronicWorkbook extends Document
 {
     /**
