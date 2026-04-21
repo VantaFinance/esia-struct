@@ -60,6 +60,7 @@ use Vanta\Integration\Esia\Struct\Document\Base\RussianPassportFile;
 use Vanta\Integration\Esia\Struct\Document\Base\SnilsFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
+use Vanta\Integration\Esia\Struct\Document\Sfr\PensionFile;
 use Vanta\Integration\Esia\Struct\Document\Sfr\WorkbookFile;
 
 final readonly class DocumentParser
@@ -191,6 +192,14 @@ final readonly class DocumentParser
     public function parseInnFile(string $contents): InnFile
     {
         return $this->serializer->deserialize($contents, InnFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parsePensionFile(string $contents): PensionFile
+    {
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), PensionFile::class, 'xml');
     }
 
     /**
