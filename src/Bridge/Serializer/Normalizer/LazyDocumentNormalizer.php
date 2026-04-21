@@ -64,7 +64,7 @@ final readonly class LazyDocumentNormalizer implements Denormalizer
 
         $documentType = $context[self::TYPE_DOCUMENT] ?? DocumentType::UNKNOWN;
 
-        if (null != $year) {
+        if (is_string($year)) {
             return new LazyIncomeReference(
                 $oid,
                 $requestId,
