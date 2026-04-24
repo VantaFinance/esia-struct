@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Bridge\Document;
 
+use Vanta\Integration\Esia\Struct\Document\Base\EmailFile;
+use Vanta\Integration\Esia\Struct\Document\Base\HomeAddressFile;
+use Vanta\Integration\Esia\Struct\Document\Base\MobilePhoneFile;
+use Vanta\Integration\Esia\Struct\Document\Base\RegistrationAddressFile;
 use function Amp\ByteStream\buffer;
 
 use Amp\ByteStream\BufferException;
@@ -168,6 +172,38 @@ final readonly class DocumentParser
     public function parseBirthPlaceFile(string $contents): BirthPlaceFile
     {
         return $this->serializer->deserialize($contents, BirthPlaceFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseMobilePhoneFile(string $contents): MobilePhoneFile
+    {
+        return $this->serializer->deserialize($contents, MobilePhoneFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseEmailFile(string $contents): EmailFile
+    {
+        return $this->serializer->deserialize($contents, EmailFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseHomeAddressFile(string $contents): HomeAddressFile
+    {
+        return $this->serializer->deserialize($contents, HomeAddressFile::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseRegistrationAddressFile(string $contents): RegistrationAddressFile
+    {
+        return $this->serializer->deserialize($contents, RegistrationAddressFile::class, 'xml');
     }
 
     /**

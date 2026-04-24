@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userAdresses xmlns="urn://mincomsvyaz/esia/user_Addresses_documents/1.0.0" xmlns:ns2="urn://mincomsvyaz/esia/base_types/1.0.0">
+    <homeAddress>
+        <addressStr>г. Москва, ул. Пушкина</addressStr>
+        <countryId>RUS</countryId>
+        <zipCode>123100</zipCode>
+        <region>Москва</region>
+        <street>Пушкина</street>
+        <house>1</house>
+        <flat>9</flat>
+        <fiasCode>3c11bfb6-d439-490d-8185-14494ffbb677</fiasCode>
+    </homeAddress>
+</userAdresses>
