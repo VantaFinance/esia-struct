@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document\Base;
 
-use Brick\PhoneNumber\PhoneNumber;
-use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Vanta\Integration\Esia\Struct\Address;
 
 final readonly class HomeAddressFile

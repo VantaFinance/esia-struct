@@ -11,10 +11,6 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Bridge\Document;
 
-use Vanta\Integration\Esia\Struct\Document\Base\EmailFile;
-use Vanta\Integration\Esia\Struct\Document\Base\HomeAddressFile;
-use Vanta\Integration\Esia\Struct\Document\Base\MobilePhoneFile;
-use Vanta\Integration\Esia\Struct\Document\Base\RegistrationAddressFile;
 use function Amp\ByteStream\buffer;
 
 use Amp\ByteStream\BufferException;
@@ -57,9 +53,13 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormaliz
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
 use Vanta\Integration\Esia\Struct\Document\Base\BirthDateFile;
 use Vanta\Integration\Esia\Struct\Document\Base\BirthPlaceFile;
+use Vanta\Integration\Esia\Struct\Document\Base\EmailFile;
 use Vanta\Integration\Esia\Struct\Document\Base\FullNameFile;
 use Vanta\Integration\Esia\Struct\Document\Base\GenderFile;
+use Vanta\Integration\Esia\Struct\Document\Base\HomeAddressFile;
 use Vanta\Integration\Esia\Struct\Document\Base\InnFile;
+use Vanta\Integration\Esia\Struct\Document\Base\MobilePhoneFile;
+use Vanta\Integration\Esia\Struct\Document\Base\RegistrationAddressFile;
 use Vanta\Integration\Esia\Struct\Document\Base\RussianPassportFile;
 use Vanta\Integration\Esia\Struct\Document\Base\SnilsFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
