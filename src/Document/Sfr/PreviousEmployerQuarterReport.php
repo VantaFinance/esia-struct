@@ -17,6 +17,9 @@ use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
+/**
+ * @deprecated
+ */
 final readonly class PreviousEmployerQuarterReport
 {
     /**

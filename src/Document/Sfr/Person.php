@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 
-final readonly class PensionPerson
+final readonly class Person
 {
     public function __construct(
         #[SerializedPath('[ФИО][Фамилия]')]

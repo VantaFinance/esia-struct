@@ -25,7 +25,7 @@ final class EmailFileTest extends BaseTestCase
         $contents = $this->getFixture('email.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseEmailFile($contents);
-        $this->assertEquals('hello@example.com', $output->email->value);
+        $this->assertEquals('hello@example.com', $output->value);
     }
 
     #[DataProvider('providerInvalid')]

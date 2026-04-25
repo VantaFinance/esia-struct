@@ -25,7 +25,7 @@ final class InnFileTest extends BaseTestCase
         $contents = $this->getFixture('inn.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseInnFile($contents);
-        $this->assertEquals('123456789012', $output->inn->value);
+        $this->assertEquals('123456789012', $output->value);
     }
 
     #[DataProvider('providerInvalid')]

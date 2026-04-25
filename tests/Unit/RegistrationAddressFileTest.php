@@ -25,14 +25,14 @@ final class RegistrationAddressFileTest extends BaseTestCase
         $contents = $this->getFixture('registration_address.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseRegistrationAddressFile($contents);
-        $this->assertEquals('г. Москва, ул. Пушкина', $output->registrationAddress->addressStr);
-        $this->assertEquals('RUS', $output->registrationAddress->countryIso->value);
-        $this->assertEquals('123100', $output->registrationAddress->zipCode);
-        $this->assertEquals('Москва', $output->registrationAddress->region);
-        $this->assertEquals('Пушкина', $output->registrationAddress->street);
-        $this->assertEquals('1', $output->registrationAddress->house);
-        $this->assertEquals('9', $output->registrationAddress->flat);
-        $this->assertEquals('3c11bfb6-d439-490d-8185-14494ffbb677', $output->registrationAddress->fiasCode->toRfc4122());
+        $this->assertEquals('г. Москва, ул. Пушкина', $output->addressStr);
+        $this->assertEquals('RUS', $output->countryIso->value);
+        $this->assertEquals('123100', $output->zipCode);
+        $this->assertEquals('Москва', $output->region);
+        $this->assertEquals('Пушкина', $output->street);
+        $this->assertEquals('1', $output->house);
+        $this->assertEquals('9', $output->flat);
+        $this->assertEquals('3c11bfb6-d439-490d-8185-14494ffbb677', $output->fiasCode->toRfc4122());
     }
 
     #[DataProvider('providerInvalid')]

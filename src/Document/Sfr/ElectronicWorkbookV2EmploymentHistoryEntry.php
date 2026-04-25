@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\SfrRegistrationNumber;
 
-final readonly class WorkbookEmploymentHistoryEntry
+final readonly class ElectronicWorkbookV2EmploymentHistoryEntry
 {
     public function __construct(
         // TODO: Often has trailing newline, need to trim.

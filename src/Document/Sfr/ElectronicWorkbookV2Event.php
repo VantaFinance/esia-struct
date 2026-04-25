@@ -18,23 +18,23 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 
-#[DiscriminatorDefault(WorkbookUnknownEvent::class)]
+#[DiscriminatorDefault(ElectronicWorkbookV2UnknownEvent::class)]
 #[DiscriminatorMap(
     typeProperty: 'ns2:Вид',
     /**@phpstan-ignore-next-line*/
     mapping: [
-        '1' => WorkbookHiringEvent::class,
-        '2' => WorkbookReassignmentEvent::class,
-        '5' => WorkbookDismissalEvent::class,
+        '1' => ElectronicWorkbookV2HiringEvent::class,
+        '2' => ElectronicWorkbookV2ReassignmentEvent::class,
+        '5' => ElectronicWorkbookV2DismissalEvent::class,
     ],
 )]
-abstract readonly class WorkbookEvent
+abstract readonly class ElectronicWorkbookV2Event
 {
     public function __construct(
         #[SerializedName('ns2:Вид')]
-        public WorkbookEventType $type,
+        public ElectronicWorkbookV2EventType $type,
         #[SerializedName('ns2:Работодатель')]
-        public WorkbookEmployer $employer,
+        public ElectronicWorkbookV2Employer $employer,
         #[SerializedName('ns2:Дата')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
         public DateTimeImmutable $occurredAt,

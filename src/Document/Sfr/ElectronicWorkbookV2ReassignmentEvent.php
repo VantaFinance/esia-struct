@@ -11,6 +11,6 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
-final readonly class WorkbookReassignmentEvent extends WorkbookEvent
+final readonly class ElectronicWorkbookV2ReassignmentEvent extends ElectronicWorkbookV2Event
 {
 }

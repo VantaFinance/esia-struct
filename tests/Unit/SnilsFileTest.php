@@ -25,7 +25,7 @@ final class SnilsFileTest extends BaseTestCase
         $contents = $this->getFixture('snils.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseSnilsFile($contents);
-        $this->assertEquals('123-456-789 00', $output->snils->value);
+        $this->assertEquals('123-456-789 00', $output->value);
     }
 
     #[DataProvider('providerInvalid')]

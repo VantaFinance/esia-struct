@@ -13,15 +13,17 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use Brick\Math\BigDecimal;
 use Symfony\Component\Serializer\Attribute\SerializedPath;
+use Vanta\Integration\Esia\Struct\Document\Document;
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class PensionFile
+final readonly class IndividualInsuranceAccountStatementV2 extends Document
 {
     /**
      * @param list<PensionCoefficientDataSince2015> $coefficientDataSince2015
      */
     public function __construct(
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:ЗЛ]')]
-        public WorkbookPerson $person,
+        public Person $person,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns3:ИПК]')]
         public BigDecimal $coefficient,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns3:Стаж]')]
@@ -37,5 +39,6 @@ final readonly class PensionFile
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:НПФ]')]
         public ?PensionPrivateFund $privateFund,
     ) {
+        parent::__construct(DocumentType::ILS_PFR_V2);
     }
 }

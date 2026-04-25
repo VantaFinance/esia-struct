@@ -14,6 +14,8 @@ namespace Vanta\Integration\Esia\Struct\Bridge\Document;
 use function Amp\ByteStream\buffer;
 
 use Amp\ByteStream\BufferException;
+use Brick\PhoneNumber\PhoneNumber;
+use DateTimeImmutable;
 use Symfony\Component\PropertyInfo\Extractor\PhpStanExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -30,6 +32,7 @@ use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 use Symfony\Component\Serializer\SerializerInterface as Serializer;
+use Vanta\Integration\Esia\Struct\Address;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\Base64DecodingReadableStreamNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\BigDecimalNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\CountryIsoNormalizer;
@@ -54,7 +57,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
 use Vanta\Integration\Esia\Struct\Document\Base\BirthDateFile;
 use Vanta\Integration\Esia\Struct\Document\Base\BirthPlaceFile;
 use Vanta\Integration\Esia\Struct\Document\Base\EmailFile;
-use Vanta\Integration\Esia\Struct\Document\Base\FullNameFile;
 use Vanta\Integration\Esia\Struct\Document\Base\GenderFile;
 use Vanta\Integration\Esia\Struct\Document\Base\HomeAddressFile;
 use Vanta\Integration\Esia\Struct\Document\Base\InnFile;
@@ -64,8 +66,14 @@ use Vanta\Integration\Esia\Struct\Document\Base\RussianPassportFile;
 use Vanta\Integration\Esia\Struct\Document\Base\SnilsFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
-use Vanta\Integration\Esia\Struct\Document\Sfr\PensionFile;
-use Vanta\Integration\Esia\Struct\Document\Sfr\WorkbookFile;
+use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
+use Vanta\Integration\Esia\Struct\Document\InnNumber;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
+use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatementV2;
+use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
+use Vanta\Integration\Esia\Struct\Email;
+use Vanta\Integration\Esia\Struct\FullName;
+use Vanta\Integration\Esia\Struct\Gender;
 
 final readonly class DocumentParser
 {
@@ -137,73 +145,73 @@ final readonly class DocumentParser
     /**
      * @throws ExceptionInterface
      */
-    public function parsePayoutIncomeFile(string $contents): PayoutIncomeFile
+    public function parsePayoutIncomeV2File(string $contents): PayoutIncomeV2
     {
-        return $this->serializer->deserialize($contents, PayoutIncomeFile::class, 'xml');
+        return $this->serializer->deserialize($contents, PayoutIncomeV2::class, 'xml');
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseFullNameFile(string $contents): FullNameFile
+    public function parseFullNameFile(string $contents): FullName
     {
-        return $this->serializer->deserialize($contents, FullNameFile::class, 'xml');
+        return $this->serializer->deserialize($contents, FullName::class, 'xml');
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseGenderFile(string $contents): GenderFile
+    public function parseGenderFile(string $contents): Gender
     {
-        return $this->serializer->deserialize($contents, GenderFile::class, 'xml');
+        return $this->serializer->deserialize($contents, GenderFile::class, 'xml')->gender;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseBirthDateFile(string $contents): BirthDateFile
+    public function parseBirthDateFile(string $contents): DateTimeImmutable
     {
-        return $this->serializer->deserialize($contents, BirthDateFile::class, 'xml');
+        return $this->serializer->deserialize($contents, BirthDateFile::class, 'xml')->birthDate;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseBirthPlaceFile(string $contents): BirthPlaceFile
+    public function parseBirthPlaceFile(string $contents): string
     {
-        return $this->serializer->deserialize($contents, BirthPlaceFile::class, 'xml');
+        return $this->serializer->deserialize($contents, BirthPlaceFile::class, 'xml')->birthPlace;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseMobilePhoneFile(string $contents): MobilePhoneFile
+    public function parseMobilePhoneFile(string $contents): PhoneNumber
     {
-        return $this->serializer->deserialize($contents, MobilePhoneFile::class, 'xml');
+        return $this->serializer->deserialize($contents, MobilePhoneFile::class, 'xml')->phoneNumber;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseEmailFile(string $contents): EmailFile
+    public function parseEmailFile(string $contents): Email
     {
-        return $this->serializer->deserialize($contents, EmailFile::class, 'xml');
+        return $this->serializer->deserialize($contents, EmailFile::class, 'xml')->email;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseHomeAddressFile(string $contents): HomeAddressFile
+    public function parseHomeAddressFile(string $contents): Address
     {
-        return $this->serializer->deserialize($contents, HomeAddressFile::class, 'xml');
+        return $this->serializer->deserialize($contents, HomeAddressFile::class, 'xml')->homeAddress;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseRegistrationAddressFile(string $contents): RegistrationAddressFile
+    public function parseRegistrationAddressFile(string $contents): Address
     {
-        return $this->serializer->deserialize($contents, RegistrationAddressFile::class, 'xml');
+        return $this->serializer->deserialize($contents, RegistrationAddressFile::class, 'xml')->registrationAddress;
     }
 
     /**
@@ -217,33 +225,33 @@ final readonly class DocumentParser
     /**
      * @throws ExceptionInterface
      */
-    public function parseSnilsFile(string $contents): SnilsFile
+    public function parseSnilsFile(string $contents): SnilsNumber
     {
-        return $this->serializer->deserialize($contents, SnilsFile::class, 'xml');
+        return $this->serializer->deserialize($contents, SnilsFile::class, 'xml')->snils;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseInnFile(string $contents): InnFile
+    public function parseInnFile(string $contents): InnNumber
     {
-        return $this->serializer->deserialize($contents, InnFile::class, 'xml');
+        return $this->serializer->deserialize($contents, InnFile::class, 'xml')->inn;
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parsePensionFile(string $contents): PensionFile
+    public function parseIndividualInsuranceAccountStatementV2File(string $contents): IndividualInsuranceAccountStatementV2
     {
-        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), PensionFile::class, 'xml');
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), IndividualInsuranceAccountStatementV2::class, 'xml');
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function parseWorkbookFile(string $contents): WorkbookFile
+    public function parseElectronicWorkbookV2File(string $contents): ElectronicWorkbookV2
     {
-        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), WorkbookFile::class, 'xml');
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV2::class, 'xml');
     }
 
     /**

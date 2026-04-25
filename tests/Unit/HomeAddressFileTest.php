@@ -25,14 +25,14 @@ final class HomeAddressFileTest extends BaseTestCase
         $contents = $this->getFixture('home_address.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseHomeAddressFile($contents);
-        $this->assertEquals('г. Москва, ул. Пушкина', $output->homeAddress->addressStr);
-        $this->assertEquals('RUS', $output->homeAddress->countryIso->value);
-        $this->assertEquals('123100', $output->homeAddress->zipCode);
-        $this->assertEquals('Москва', $output->homeAddress->region);
-        $this->assertEquals('Пушкина', $output->homeAddress->street);
-        $this->assertEquals('1', $output->homeAddress->house);
-        $this->assertEquals('9', $output->homeAddress->flat);
-        $this->assertEquals('3c11bfb6-d439-490d-8185-14494ffbb677', $output->homeAddress->fiasCode->toRfc4122());
+        $this->assertEquals('г. Москва, ул. Пушкина', $output->addressStr);
+        $this->assertEquals('RUS', $output->countryIso->value);
+        $this->assertEquals('123100', $output->zipCode);
+        $this->assertEquals('Москва', $output->region);
+        $this->assertEquals('Пушкина', $output->street);
+        $this->assertEquals('1', $output->house);
+        $this->assertEquals('9', $output->flat);
+        $this->assertEquals('3c11bfb6-d439-490d-8185-14494ffbb677', $output->fiasCode->toRfc4122());
     }
 
     #[DataProvider('providerInvalid')]

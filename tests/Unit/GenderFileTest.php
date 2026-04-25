@@ -27,7 +27,7 @@ final class GenderFileTest extends BaseTestCase
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
         $output   = $parser->parseGenderFile($contents);
-        $this->assertEquals($expected, $output->gender);
+        $this->assertEquals($expected, $output);
     }
 
     /**

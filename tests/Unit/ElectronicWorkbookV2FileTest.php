@@ -13,11 +13,12 @@ namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
-use Vanta\Integration\Esia\Struct\Document\Sfr\WorkbookDismissalEvent;
-use Vanta\Integration\Esia\Struct\Document\Sfr\WorkbookEventType;
-use Vanta\Integration\Esia\Struct\Document\Sfr\WorkbookHiringEvent;
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2DismissalEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2EventType;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2HiringEvent;
 
-final class WorkbookFileTest extends BaseTestCase
+final class ElectronicWorkbookV2FileTest extends BaseTestCase
 {
     /**
      * @throws SerializerException
@@ -26,7 +27,9 @@ final class WorkbookFileTest extends BaseTestCase
     {
         $contents = $this->getFixture('electronic_workbook.valid.xml');
         $parser   = DocumentParser::create();
-        $output   = $parser->parseWorkbookFile($contents);
+        $output   = $parser->parseElectronicWorkbookV2File($contents);
+
+        $this->assertEquals(DocumentType::ELECTRONIC_WORKBOOK_V2, $output->type);
 
         $this->assertEquals('БАШМАЧКИН', $output->person->lastName);
         $this->assertEquals('АКАКИЙ', $output->person->firstName);
@@ -59,8 +62,8 @@ final class WorkbookFileTest extends BaseTestCase
         $this->assertEquals('29.01.2016', $item->endedAt?->format('d.m.Y'));
 
         $item = $output->events[0];
-        $this->assertInstanceOf(WorkbookHiringEvent::class, $item);
-        $this->assertEquals(WorkbookEventType::HIRING, $item->type);
+        $this->assertInstanceOf(ElectronicWorkbookV2HiringEvent::class, $item);
+        $this->assertEquals(ElectronicWorkbookV2EventType::HIRING, $item->type);
         $this->assertEquals('24.11.2020', $item->occurredAt->format('d.m.Y'));
         $this->assertEquals('Менеджер команды слонов', $item->position);
         $this->assertTrue($item->isPartTime);
@@ -70,8 +73,8 @@ final class WorkbookFileTest extends BaseTestCase
         $this->assertEquals('087-999-000001', $item->employer->sfrRegistrationNumber->value);
 
         $item = $output->events[1];
-        $this->assertInstanceOf(WorkbookDismissalEvent::class, $item);
-        $this->assertEquals(WorkbookEventType::DISMISSAL, $item->type);
+        $this->assertInstanceOf(ElectronicWorkbookV2DismissalEvent::class, $item);
+        $this->assertEquals(ElectronicWorkbookV2EventType::DISMISSAL, $item->type);
         $this->assertEquals('17.11.2021', $item->occurredAt->format('d.m.Y'));
         $this->assertEquals('Трудовой договор расторгнут по инициативе работника', $item->reason);
         $this->assertTrue($item->isPartTime);
@@ -81,8 +84,8 @@ final class WorkbookFileTest extends BaseTestCase
         $this->assertEquals('087-999-000001', $item->employer->sfrRegistrationNumber->value);
 
         $item = $output->events[2];
-        $this->assertInstanceOf(WorkbookHiringEvent::class, $item);
-        $this->assertEquals(WorkbookEventType::HIRING, $item->type);
+        $this->assertInstanceOf(ElectronicWorkbookV2HiringEvent::class, $item);
+        $this->assertEquals(ElectronicWorkbookV2EventType::HIRING, $item->type);
         $this->assertEquals('18.11.2021', $item->occurredAt->format('d.m.Y'));
         $this->assertEquals('Менеджер команды слонов', $item->position);
         $this->assertFalse($item->isPartTime);
@@ -92,8 +95,8 @@ final class WorkbookFileTest extends BaseTestCase
         $this->assertEquals('087-999-000002', $item->employer->sfrRegistrationNumber->value);
 
         $item = $output->events[3];
-        $this->assertInstanceOf(WorkbookDismissalEvent::class, $item);
-        $this->assertEquals(WorkbookEventType::DISMISSAL, $item->type);
+        $this->assertInstanceOf(ElectronicWorkbookV2DismissalEvent::class, $item);
+        $this->assertEquals(ElectronicWorkbookV2EventType::DISMISSAL, $item->type);
         $this->assertEquals('09.06.2023', $item->occurredAt->format('d.m.Y'));
         $this->assertEquals('Расторжение трудового договора по инициативе работника', $item->reason);
         $this->assertFalse($item->isPartTime);
@@ -103,8 +106,8 @@ final class WorkbookFileTest extends BaseTestCase
         $this->assertEquals('087-999-000002', $item->employer->sfrRegistrationNumber->value);
 
         $item = $output->events[4];
-        $this->assertInstanceOf(WorkbookHiringEvent::class, $item);
-        $this->assertEquals(WorkbookEventType::HIRING, $item->type);
+        $this->assertInstanceOf(ElectronicWorkbookV2HiringEvent::class, $item);
+        $this->assertEquals(ElectronicWorkbookV2EventType::HIRING, $item->type);
         $this->assertEquals('13.06.2023', $item->occurredAt->format('d.m.Y'));
         $this->assertEquals('Ведущий HTML разработчик', $item->position);
         $this->assertFalse($item->isPartTime);

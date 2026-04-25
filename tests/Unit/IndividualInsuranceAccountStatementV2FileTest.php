@@ -16,9 +16,10 @@ use Brick\Math\BigDecimal;
 use Brick\Math\Exception\MathException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\Sfr\PensionPrivateFund;
 
-final class PensionFileTest extends BaseTestCase
+final class IndividualInsuranceAccountStatementV2FileTest extends BaseTestCase
 {
     /**
      * @throws SerializerException
@@ -28,7 +29,9 @@ final class PensionFileTest extends BaseTestCase
     {
         $contents = $this->getFixture('ils_pfr.valid.xml');
         $parser   = DocumentParser::create();
-        $output   = $parser->parsePensionFile($contents);
+        $output   = $parser->parseIndividualInsuranceAccountStatementV2File($contents);
+
+        $this->assertEquals(DocumentType::ILS_PFR_V2, $output->type);
 
         $this->assertEquals('БАШМАЧКИН', $output->person->lastName);
         $this->assertEquals('АКАКИЙ', $output->person->firstName);

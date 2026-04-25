@@ -16,7 +16,7 @@ use Vanta\Integration\Esia\Struct\Document\InnNumber;
 use Vanta\Integration\Esia\Struct\Document\KppNumber;
 use Vanta\Integration\Esia\Struct\Document\SfrRegistrationNumber;
 
-final readonly class WorkbookEmployer
+final readonly class ElectronicWorkbookV2Employer
 {
     public function __construct(
         #[SerializedName('ns2:НаименованиеОрганизации')]

@@ -9,11 +9,11 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Base;
+namespace Vanta\Integration\Esia\Struct;
 
 use Symfony\Component\Serializer\Attribute\SerializedPath;
 
-final readonly class FullNameFile
+final readonly class FullName
 {
     /**
      * @param non-empty-string      $lastName

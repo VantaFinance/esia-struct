@@ -13,6 +13,9 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use Brick\DateTime\Year;
 
+/**
+ * @deprecated
+ */
 final readonly class PreviousIpkYear
 {
     /**

@@ -12,20 +12,23 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use Symfony\Component\Serializer\Attribute\SerializedPath;
+use Vanta\Integration\Esia\Struct\Document\Document;
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class WorkbookFile
+final readonly class ElectronicWorkbookV2 extends Document
 {
     /**
-     * @param list<WorkbookEvent>                  $events
-     * @param list<WorkbookEmploymentHistoryEntry> $history
+     * @param list<ElectronicWorkbookV2Event>                  $events
+     * @param list<ElectronicWorkbookV2EmploymentHistoryEntry> $history
      */
     public function __construct(
         #[SerializedPath('[ns2:СТД-ПФР][ns2:ЗЛ]')]
-        public WorkbookPerson $person,
+        public Person $person,
         #[SerializedPath('[ns2:СТД-ПФР][ns2:Мероприятие]')]
         public array $events,
         #[SerializedPath('[ns2:СТД-ПФР][ns2:ТрудоваяДеятельность][ns2:ПериодРаботы]')]
         public array $history,
     ) {
+        parent::__construct(DocumentType::ELECTRONIC_WORKBOOK_V2);
     }
 }

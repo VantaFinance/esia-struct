@@ -21,6 +21,9 @@ use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\UnknownDocument;
 
+/**
+ * @deprecated
+ */
 #[DenormalizationFallback(UnknownDocument::class)]
 final readonly class IndividualInsuranceAccountStatementRaw extends Document
 {

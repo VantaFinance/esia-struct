@@ -15,8 +15,9 @@ use Brick\Math\BigDecimal;
 use Brick\Math\Exception\MathException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final class PayoutIncomeFileTest extends BaseTestCase
+final class PayoutIncomeV2FileTest extends BaseTestCase
 {
     /**
      * @throws SerializerException
@@ -26,7 +27,9 @@ final class PayoutIncomeFileTest extends BaseTestCase
     {
         $contents = $this->getFixture('payout_income.valid.xml');
         $parser   = DocumentParser::create();
-        $output   = $parser->parsePayoutIncomeFile($contents);
+        $output   = $parser->parsePayoutIncomeV2File($contents);
+
+        $this->assertEquals(DocumentType::PAYOUT_INCOME_V2, $output->type);
 
         $this->assertEquals('VO_DOHFLSV_20260420_dd4ecec0-81ed-416d-97d5-d88a0dcd7b00', $output->id);
         $this->assertEquals('4.01', $output->versionForm);

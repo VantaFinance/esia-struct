@@ -26,7 +26,7 @@ final class MobilePhoneFileTest extends BaseTestCase
         $contents = $this->getFixture('mobile_phone.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseMobilePhoneFile($contents);
-        $this->assertEquals('+79991234567', $output->phoneNumber->format(PhoneNumberFormat::E164));
+        $this->assertEquals('+79991234567', $output->format(PhoneNumberFormat::E164));
     }
 
     #[DataProvider('providerInvalid')]

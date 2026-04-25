@@ -25,7 +25,7 @@ final class BirthPlaceFileTest extends BaseTestCase
         $contents = $this->getFixture('birth_place.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseBirthPlaceFile($contents);
-        $this->assertEquals('Москва', $output->birthPlace);
+        $this->assertEquals('Москва', $output);
     }
 
     #[DataProvider('providerInvalid')]

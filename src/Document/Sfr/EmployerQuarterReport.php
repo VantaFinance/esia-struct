@@ -14,6 +14,9 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use Brick\Math\BigDecimal;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
+/**
+ * @deprecated
+ */
 final readonly class EmployerQuarterReport
 {
     /**

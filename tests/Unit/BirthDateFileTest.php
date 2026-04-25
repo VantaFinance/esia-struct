@@ -25,7 +25,7 @@ final class BirthDateFileTest extends BaseTestCase
         $contents = $this->getFixture('birth_date.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseBirthDateFile($contents);
-        $this->assertEquals('01.04.1989', $output->birthDate->format('d.m.Y'));
+        $this->assertEquals('01.04.1989', $output->format('d.m.Y'));
     }
 
     #[DataProvider('providerInvalid')]
