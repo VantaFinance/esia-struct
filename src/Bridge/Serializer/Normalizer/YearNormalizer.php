@@ -48,7 +48,6 @@ final readonly class YearNormalizer implements Normalizer, Denormalizer
             $data = (string) $data;
         }
 
-
         try {
             Assert::stringNotEmpty($data);
 
