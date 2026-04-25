@@ -27,7 +27,7 @@ final class RussianPassportFileTest extends BaseTestCase
     {
         $contents = $this->getFixture('rf_passport.valid.xml');
         $parser   = DocumentParser::create();
-        $output   = $parser->parseRussianPassportFile($contents);
+        $output   = $parser->parseRussianPassportV2File($contents);
         $this->assertEquals((new RussianPassportSeries('4500'))->value, $output->series->value);
         $this->assertEquals((new RussianPassportNumber('799799'))->value, $output->number->value);
         $this->assertEquals((new RussianPassportDivisionCode('770100'))->value, $output->divisionCode->value);
@@ -41,7 +41,7 @@ final class RussianPassportFileTest extends BaseTestCase
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
         $this->expectException(SerializerException::class);
-        $parser->parseRussianPassportFile($contents);
+        $parser->parseRussianPassportV2File($contents);
     }
 
     /**

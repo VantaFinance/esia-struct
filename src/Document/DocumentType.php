@@ -16,6 +16,7 @@ enum DocumentType: string
     case UNKNOWN                        = 'UNKNOWN';
     case RUSSIAN_INTERNATIONAL_PASSPORT = 'FRGN_PASS';
     case RUSSIAN_PASSPORT               = 'RF_PASSPORT';
+    case RUSSIAN_PASSPORT_V2            = 'RF_PASSPORT_V2';
     case SOVIET_PASSPORT                = 'USSR_PASSPORT';
     case PASSPORT_HISTORY               = 'PASSPORT_HISTORY';
     case RUSSIAN_DRIVER_LICENSE         = 'RF_DRIVING_LICENSE';

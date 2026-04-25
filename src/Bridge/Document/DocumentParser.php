@@ -62,7 +62,7 @@ use Vanta\Integration\Esia\Struct\Document\Base\HomeAddressFile;
 use Vanta\Integration\Esia\Struct\Document\Base\InnFile;
 use Vanta\Integration\Esia\Struct\Document\Base\MobilePhoneFile;
 use Vanta\Integration\Esia\Struct\Document\Base\RegistrationAddressFile;
-use Vanta\Integration\Esia\Struct\Document\Base\RussianPassportFile;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Base\SnilsFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
@@ -123,7 +123,7 @@ final readonly class DocumentParser
             new BigDecimalNormalizer(),
             new DateTimeUnixTimeNormalizer(
                 new DateTimeNormalizer([
-                    DateTimeNormalizer::FORMAT_KEY => 'd.m.Y',
+                    DateTimeNormalizer::FORMAT_KEY => 'd.M.Y',
                 ])
             ),
             new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
@@ -217,9 +217,9 @@ final readonly class DocumentParser
     /**
      * @throws ExceptionInterface
      */
-    public function parseRussianPassportFile(string $contents): RussianPassportFile
+    public function parseRussianPassportV2File(string $contents): RussianPassportV2
     {
-        return $this->serializer->deserialize($contents, RussianPassportFile::class, 'xml');
+        return $this->serializer->deserialize($contents, RussianPassportV2::class, 'xml');
     }
 
     /**

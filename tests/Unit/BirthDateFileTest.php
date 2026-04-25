@@ -34,7 +34,7 @@ final class BirthDateFileTest extends BaseTestCase
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
         $this->expectException(SerializerException::class);
-        $parser->parseRussianPassportFile($contents);
+        $parser->parseRussianPassportV2File($contents);
     }
 
     /**

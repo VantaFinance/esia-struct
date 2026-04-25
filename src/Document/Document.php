@@ -18,6 +18,7 @@ use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Mvd\PassportHistory;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianInternationalPassport;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassport;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatement;
@@ -28,6 +29,7 @@ use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
     typeProperty: 'type',
     mapping: [
         DocumentType::RUSSIAN_PASSPORT->value               => RussianPassport::class,
+        DocumentType::RUSSIAN_PASSPORT_V2->value            => RussianPassportV2::class,
         DocumentType::PASSPORT_HISTORY->value               => PassportHistory::class,
         DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT->value => RussianInternationalPassport::class,
         DocumentType::RUSSIAN_DRIVER_LICENSE->value         => RussianDriverLicense::class,

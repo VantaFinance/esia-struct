@@ -9,17 +9,19 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Base;
+namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Vanta\Integration\Esia\Struct\Document\Document;
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportDivisionCode;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportNumber;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportSeries;
 
-final readonly class RussianPassportFile
+final readonly class RussianPassportV2 extends Document
 {
     /**
      * @param non-empty-string $issuedBy
@@ -32,10 +34,14 @@ final readonly class RussianPassportFile
         #[SerializedPath('[ns2:issueId]')]
         public RussianPassportDivisionCode $divisionCode,
         #[SerializedPath('[ns2:baseDoc][issued]')]
-        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
+        )]
         public DateTimeImmutable $issuedAt,
         #[SerializedPath('[ns2:issuedBy]')]
         public string $issuedBy,
     ) {
+        parent::__construct(DocumentType::RUSSIAN_PASSPORT_V2);
     }
 }
