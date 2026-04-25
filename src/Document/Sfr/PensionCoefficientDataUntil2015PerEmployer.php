@@ -28,10 +28,16 @@ final readonly class PensionCoefficientDataUntil2015PerEmployer
         #[SerializedPath('[ns2:ДанныеПоПериоду][ns3:Стаж]')]
         public PensionWorkTimeRecord $workTimeRecord,
         #[SerializedPath('[ns2:ДанныеПоПериоду][ns2:Период][С]')]
-        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
+        )]
         public DateTimeImmutable $startedAt,
         #[SerializedPath('[ns2:ДанныеПоПериоду][ns2:Период][По]')]
-        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
+        )]
         public DateTimeImmutable $endedAt,
         #[SerializedPath('[ns2:ДанныеПоПериоду][ns2:СуммаСВ]')]
         public BigDecimal $insurancePaymentsSum,

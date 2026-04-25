@@ -25,7 +25,10 @@ final readonly class PensionPrivateFund
      */
     public function __construct(
         #[SerializedName('ns2:ДатаС')]
-        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
+        )]
         public DateTimeImmutable $since,
         #[SerializedName('ns2:Наименование')]
         public string $name,

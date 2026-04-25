@@ -36,7 +36,10 @@ abstract readonly class ElectronicWorkbookV2Event
         #[SerializedName('ns2:Работодатель')]
         public ElectronicWorkbookV2Employer $employer,
         #[SerializedName('ns2:Дата')]
-        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
+        )]
         public DateTimeImmutable $occurredAt,
         #[SerializedName('ns2:ЯвляетсяСовместителем')]
         public ?bool $isPartTime = false,

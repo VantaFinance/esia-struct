@@ -30,7 +30,10 @@ final readonly class Person
         #[SerializedName('СНИЛС')]
         public SnilsNumber $snils,
         #[SerializedName('ДатаРождения')]
-        #[Context(context: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'])]
+        #[Context(
+            normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
+            denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
+        )]
         public DateTimeImmutable $birthAt,
     ) {
     }
