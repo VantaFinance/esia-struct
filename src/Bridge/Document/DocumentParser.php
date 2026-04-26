@@ -176,6 +176,7 @@ final readonly class DocumentParser
 
     /**
      * @throws ExceptionInterface
+     * @return non-empty-string
      */
     public function parseBirthPlaceFile(string $contents): string
     {
