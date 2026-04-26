@@ -17,9 +17,6 @@ use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
-use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportDivisionCode;
-use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportNumber;
-use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportSeries;
 
 final readonly class RussianPassportV2 extends Document
 {
