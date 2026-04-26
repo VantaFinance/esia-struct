@@ -30,11 +30,12 @@ final readonly class MonthNormalizer implements Denormalizer, Normalizer
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): Month
     {
-        if (is_string($data) && '0' == mb_substr($data, 0, 1)) {
-            $data = (int) mb_substr($data, 1, 1);
+        if (is_string($data)) {
+            $data = (int) ltrim($data, '0');
         }
 
         try {
+
             Assert::integer($data);
 
             return Month::of($data);
@@ -78,9 +79,6 @@ final readonly class MonthNormalizer implements Denormalizer, Normalizer
             throw new UnexpectedValueException(sprintf('Allowed type: %s', Year::class));
         }
 
-        /** @var numeric-string $value */
-        $value = (string) $object->getValue();
-
-        return $value;
+        return sprintf('%02d', $object->getValue());
     }
 }
