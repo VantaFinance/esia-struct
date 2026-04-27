@@ -14,6 +14,9 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use Brick\DateTime\Year;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
+/**
+ * @deprecated
+ */
 final readonly class IpkYear
 {
     /**

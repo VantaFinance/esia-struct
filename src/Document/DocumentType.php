@@ -16,11 +16,16 @@ enum DocumentType: string
     case UNKNOWN                        = 'UNKNOWN';
     case RUSSIAN_INTERNATIONAL_PASSPORT = 'FRGN_PASS';
     case RUSSIAN_PASSPORT               = 'RF_PASSPORT';
-    case PAYOUT_INCOME                  = 'PAYOUT_INCOME';
+    case RUSSIAN_PASSPORT_V2            = 'RF_PASSPORT_V2';
     case SOVIET_PASSPORT                = 'USSR_PASSPORT';
     case PASSPORT_HISTORY               = 'PASSPORT_HISTORY';
-    case INCOME_REFERENCE               = 'INCOME_REFERENCE';
     case RUSSIAN_DRIVER_LICENSE         = 'RF_DRIVING_LICENSE';
+    case PAYOUT_INCOME                  = 'PAYOUT_INCOME';
+    case INCOME_REFERENCE               = 'INCOME_REFERENCE';
     case ELECTRONIC_WORKBOOK            = 'ELECTRONIC_WORKBOOK';
     case ILS_PFR                        = 'ILS_PFR';
+    case PAYOUT_INCOME_V2               = 'PAYOUT_INCOME_V2';
+    case INCOME_REFERENCE_V2            = 'INCOME_REFERENCE_V2';
+    case ELECTRONIC_WORKBOOK_V2         = 'ELECTRONIC_WORKBOOK_V2';
+    case ILS_PFR_V2                     = 'ILS_PFR_V2';
 }

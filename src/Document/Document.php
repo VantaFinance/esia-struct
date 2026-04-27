@@ -15,25 +15,33 @@ use Symfony\Component\Serializer\Annotation as Serializer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 use Vanta\Integration\Esia\Struct\Document\Fns\IncomeReference;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
+use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
 use Vanta\Integration\Esia\Struct\Document\Mvd\PassportHistory;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianInternationalPassport;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassport;
+use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatement;
+use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatementV2;
 use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
 
 #[DiscriminatorDefault(UnknownDocument::class)]
 #[Serializer\DiscriminatorMap(
     typeProperty: 'type',
     mapping: [
-        DocumentType::PAYOUT_INCOME->value                  => PayoutIncome::class,
         DocumentType::RUSSIAN_PASSPORT->value               => RussianPassport::class,
+        DocumentType::RUSSIAN_PASSPORT_V2->value            => RussianPassportV2::class,
         DocumentType::PASSPORT_HISTORY->value               => PassportHistory::class,
+        DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT->value => RussianInternationalPassport::class,
+        DocumentType::RUSSIAN_DRIVER_LICENSE->value         => RussianDriverLicense::class,
+        DocumentType::PAYOUT_INCOME->value                  => PayoutIncome::class,
+        DocumentType::PAYOUT_INCOME_V2->value               => PayoutIncomeV2::class,
         DocumentType::INCOME_REFERENCE->value               => IncomeReference::class,
         DocumentType::ELECTRONIC_WORKBOOK->value            => ElectronicWorkbook::class,
-        DocumentType::RUSSIAN_DRIVER_LICENSE->value         => RussianDriverLicense::class,
-        DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT->value => RussianInternationalPassport::class,
         DocumentType::ILS_PFR->value                        => IndividualInsuranceAccountStatement::class,
+        DocumentType::ILS_PFR_V2->value                     => IndividualInsuranceAccountStatementV2::class,
+        DocumentType::ELECTRONIC_WORKBOOK_V2->value         => ElectronicWorkbookV2::class,
     ],
 )]
 abstract readonly class Document

@@ -19,6 +19,9 @@ use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 
+/**
+ * @deprecated
+ */
 final readonly class IndividualInsuranceAccountStatement extends Document
 {
     /**

@@ -31,13 +31,20 @@
             "src/Bridge/Enum/function.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Vanta\\Integration\\Esia\\Struct\\Tests\\": "tests/"
+        }
+    },
     "require-dev": {
         "symfony/var-dumper": "^7.0",
         "symfony/serializer": "^7.0",
+        "symfony/property-info": "^7.0",
         "symfony/property-access": "^7.0",
         "friendsofphp/php-cs-fixer": "^3.57",
         "phpstan/phpstan": "^2.1",
         "phpdocumentor/type-resolver": "^1.10",
-        "phpstan/phpstan-webmozart-assert": "^2.0"
+        "phpstan/phpstan-webmozart-assert": "^2.0",
+        "phpunit/phpunit": "^11.0"
     }
 }

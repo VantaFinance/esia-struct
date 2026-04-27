@@ -14,6 +14,9 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @deprecated
+ */
 final readonly class ElectronicWorkbookUnknownEntry extends ElectronicWorkbookEntry
 {
     public function __construct(
