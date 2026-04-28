@@ -25,9 +25,9 @@ final readonly class ElectronicWorkbookV2 extends Document
         #[SerializedPath('[ns2:СТД-ПФР][ns2:ЗЛ]')]
         public Person $person,
         #[SerializedPath('[ns2:СТД-ПФР][ns2:Мероприятие]')]
-        public array $events,
+        public array $events = [],
         #[SerializedPath('[ns2:СТД-ПФР][ns2:ТрудоваяДеятельность][ns2:ПериодРаботы]')]
-        public array $history,
+        public array $history = [],
     ) {
         parent::__construct(DocumentType::ELECTRONIC_WORKBOOK_V2);
     }

@@ -30,25 +30,25 @@ final readonly class PensionCoefficientDataSince2015PerEmployer
         #[SerializedPath('[ns2:Работодатель][РегНомер]')]
         public SfrRegistrationNumber $sfrRegistrationNumber,
         #[SerializedName('ns3:Стаж')]
-        public PensionWorkTimeRecord $workTimeRecord,
+        public ?PensionWorkTimeRecord $workTimeRecord = null,
         #[SerializedPath('[ns2:Период][С]')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
-        public DateTimeImmutable $startedAt,
+        public ?DateTimeImmutable $startedAt = null,
         #[SerializedPath('[ns2:Период][По]')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
-        public DateTimeImmutable $endedAt,
+        public ?DateTimeImmutable $endedAt = null,
         #[SerializedPath('[ns2:СуммаВыплат]')]
-        public BigDecimal $incomeSum,
+        public ?BigDecimal $incomeSum = null,
         #[SerializedPath('[ns2:НачисленоСВ]')]
-        public BigDecimal $insurancePaymentsSum,
+        public ?BigDecimal $insurancePaymentsSum = null,
         #[SerializedPath('[ns2:Квартал]')]
-        public array $quarters,
+        public array $quarters = [],
     ) {
     }
 }
