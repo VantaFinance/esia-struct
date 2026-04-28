@@ -28,8 +28,6 @@ final readonly class RussianPassportV2 extends Document
         public RussianPassportSeries $series,
         #[SerializedPath('[ns2:baseDoc][number]')]
         public RussianPassportNumber $number,
-        #[SerializedPath('[ns2:issueId]')]
-        public RussianPassportDivisionCode $divisionCode,
         #[SerializedPath('[ns2:baseDoc][issued]')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
@@ -37,7 +35,9 @@ final readonly class RussianPassportV2 extends Document
         )]
         public DateTimeImmutable $issuedAt,
         #[SerializedPath('[ns2:issuedBy]')]
-        public string $issuedBy,
+        public ?string $issuedBy = null,
+        #[SerializedPath('[ns2:issueId]')]
+        public ?RussianPassportDivisionCode $divisionCode = null,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT_V2);
     }
