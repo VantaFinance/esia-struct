@@ -27,17 +27,17 @@ final readonly class IndividualInsuranceAccountStatementV2 extends Document
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns3:ИПК]')]
         public BigDecimal $coefficient,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns3:Стаж]')]
-        public PensionWorkTimeRecord $workTimeRecord,
+        public ?PensionWorkTimeRecord $workTimeRecord = null,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:СведенияИПК][ns2:До2015]')]
-        public PensionCoefficientDataUntil2015 $coefficientDataUntil2015,
+        public ?PensionCoefficientDataUntil2015 $coefficientDataUntil2015 = null,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:СведенияИПК][ns2:С2015][ns2:ЗаГод]')]
-        public array $coefficientDataSince2015,
+        public array $coefficientDataSince2015 = [],
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:РасчетИПКДо2015][ns2:До2002]')]
-        public PensionCoefficientCalculationUntil2002 $coefficientCalculationUntil2002,
+        public ?PensionCoefficientCalculationUntil2002 $coefficientCalculationUntil2002 = null,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:РасчетИПКДо2015][ns2:РПК]')]
-        public PensionCoefficientCalculationUntil2015 $coefficientCalculationUntil2015,
+        public ?PensionCoefficientCalculationUntil2015 $coefficientCalculationUntil2015 = null,
         #[SerializedPath('[ns2:СЗИ-ИЛС][ns2:НПФ]')]
-        public ?PensionPrivateFund $privateFund,
+        public ?PensionPrivateFund $privateFund = null,
     ) {
         parent::__construct(DocumentType::ILS_PFR_V2);
     }
