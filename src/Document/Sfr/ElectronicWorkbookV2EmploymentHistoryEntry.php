@@ -23,8 +23,6 @@ final readonly class ElectronicWorkbookV2EmploymentHistoryEntry
         // TODO: Often has trailing newline, need to trim.
         #[SerializedName('ns2:НаименованиеРаботодателя')]
         public string $employerName,
-        #[SerializedName('РегНомер')]
-        public SfrRegistrationNumber $employerRegistrationNumber,
         #[SerializedName('ns2:ПериодРаботыС')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
@@ -36,7 +34,9 @@ final readonly class ElectronicWorkbookV2EmploymentHistoryEntry
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
-        public ?DateTimeImmutable $endedAt,
+        public DateTimeImmutable $endedAt,
+        #[SerializedName('РегНомер')]
+        public ?SfrRegistrationNumber $employerRegistrationNumber = null,
     ) {
     }
 }

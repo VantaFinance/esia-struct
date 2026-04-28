@@ -21,10 +21,10 @@ final readonly class ElectronicWorkbookV2Employer
     public function __construct(
         #[SerializedName('ns2:НаименованиеОрганизации')]
         public string $name,
-        #[SerializedName('РегНомер')]
-        public SfrRegistrationNumber $sfrRegistrationNumber,
         #[SerializedName('ИНН')]
         public InnNumber $inn,
+        #[SerializedName('РегНомер')]
+        public ?SfrRegistrationNumber $sfrRegistrationNumber = null,
         #[SerializedName('КПП')]
         public ?KppNumber $kpp = null,
     ) {

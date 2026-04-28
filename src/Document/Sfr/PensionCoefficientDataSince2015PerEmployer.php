@@ -28,7 +28,7 @@ final readonly class PensionCoefficientDataSince2015PerEmployer
         #[SerializedPath('[ns2:Работодатель][Наименование]')]
         public string $name,
         #[SerializedPath('[ns2:Работодатель][РегНомер]')]
-        public SfrRegistrationNumber $sfrRegistrationNumber,
+        public ?SfrRegistrationNumber $sfrRegistrationNumber = null,
         #[SerializedName('ns3:Стаж')]
         public ?PensionWorkTimeRecord $workTimeRecord = null,
         #[SerializedPath('[ns2:Период][С]')]
