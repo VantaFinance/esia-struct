@@ -24,19 +24,19 @@ final readonly class ElectronicWorkbookV2EmploymentHistoryEntry
         #[SerializedName('ns2:НаименованиеРаботодателя')]
         public string $employerName,
         #[SerializedName('РегНомер')]
-        public SfrRegistrationNumber $employerRegistrationNumber,
+        public ?SfrRegistrationNumber $employerRegistrationNumber = null,
         #[SerializedName('ns2:ПериодРаботыС')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
-        public DateTimeImmutable $startedAt,
+        public ?DateTimeImmutable $startedAt = null,
         #[SerializedName('ns2:ПериодРаботыПо')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
-        public ?DateTimeImmutable $endedAt,
+        public ?DateTimeImmutable $endedAt = null,
     ) {
     }
 }

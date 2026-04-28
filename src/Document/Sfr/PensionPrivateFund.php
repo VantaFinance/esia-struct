@@ -33,17 +33,17 @@ final readonly class PensionPrivateFund
         #[SerializedName('ns2:Наименование')]
         public string $name,
         #[SerializedName('ns2:УчтеноНаИЛС')]
-        public PensionPrivateFundBalance $account,
+        public ?PensionPrivateFundBalance $account = null,
         #[SerializedName('ns2:ПенсионныеНакопления')]
-        public PensionPrivateFundBalance $savings,
+        public ?PensionPrivateFundBalance $savings = null,
         #[SerializedPath('[ns2:СуммаПоГарантии][ns2:Восполнение]')]
-        public BigDecimal $guaranteesCompensationSum,
+        public ?BigDecimal $guaranteesCompensationSum = null,
         #[SerializedPath('[ns2:СуммаПоГарантии][ns2:Возмещение]')]
-        public BigDecimal $guaranteesRefundSum,
+        public ?BigDecimal $guaranteesRefundSum = null,
         #[SerializedName('ns2:СуммаДохода')]
-        public BigDecimal $incomeSum,
+        public ?BigDecimal $incomeSum = null,
         #[SerializedName('ns2:СуммаУдержания')]
-        public BigDecimal $deductionSum,
+        public ?BigDecimal $deductionSum = null,
     ) {
     }
 }

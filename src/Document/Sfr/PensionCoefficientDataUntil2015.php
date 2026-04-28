@@ -20,7 +20,7 @@ final readonly class PensionCoefficientDataUntil2015
         #[SerializedName('ns3:ИПК')]
         public BigDecimal $coefficient,
         #[SerializedName('ns3:Стаж')]
-        public PensionWorkTimeRecord $workTimeRecord,
+        public ?PensionWorkTimeRecord $workTimeRecord = null,
     ) {
     }
 }

@@ -19,15 +19,15 @@ final readonly class PensionPrivateFundBalance
     public function __construct(
         // ОПС (Обязательное пенсионное страхование)
         #[SerializedName('ns2:ОПС')]
-        public BigDecimal $mandatoryPensionInsurance,
+        public ?BigDecimal $mandatoryPensionInsurance = null,
         // МСК (Материнский (семейный) капитал)
         #[SerializedName('ns2:МСК')]
-        public BigDecimal $maternityCapital,
+        public ?BigDecimal $maternityCapital = null,
         // ДСВ (Дополнительные страховые взносы)
         #[SerializedName('ns2:ДСВ')]
-        public BigDecimal $additionalDepositions,
+        public ?BigDecimal $additionalDepositions = null,
         #[SerializedName('ns2:Итого')]
-        public BigDecimal $total,
+        public ?BigDecimal $total = null,
     ) {
     }
 }

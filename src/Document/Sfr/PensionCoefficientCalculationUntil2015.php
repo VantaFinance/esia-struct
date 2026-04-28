@@ -23,7 +23,7 @@ final readonly class PensionCoefficientCalculationUntil2015
         #[SerializedName('ns2:Сумма')]
         public BigDecimal $insurancePaymentsSum,
         #[SerializedName('ns2:РасчетнаяИнформация')]
-        public array $byEmployers,
+        public array $byEmployers = [],
     ) {
     }
 }

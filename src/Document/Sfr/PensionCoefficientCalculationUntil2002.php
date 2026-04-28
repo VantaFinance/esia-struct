@@ -20,7 +20,7 @@ final readonly class PensionCoefficientCalculationUntil2002
         #[SerializedName('ns2:CреднемесячныйЗаработок')]
         public BigDecimal $averageMonthlyIncome,
         #[SerializedName('ns2:ОбщийСтаж')]
-        public PensionWorkTimeRecord $workTimeRecord,
+        public ?PensionWorkTimeRecord $workTimeRecord = null,
     ) {
     }
 }
