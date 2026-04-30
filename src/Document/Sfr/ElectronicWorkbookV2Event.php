@@ -15,7 +15,9 @@ use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Serializer\Attribute\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Uid\Uuid;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 
 #[DiscriminatorDefault(ElectronicWorkbookV2UnknownEvent::class)]
@@ -31,6 +33,8 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefau
 abstract readonly class ElectronicWorkbookV2Event
 {
     public function __construct(
+        #[SerializedPath('[ns2:UUID]')]
+        public Uuid $uuid,
         #[SerializedName('ns2:Вид')]
         public ElectronicWorkbookV2EventType $type,
         #[SerializedName('ns2:Работодатель')]

@@ -13,17 +13,18 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\SerializedName;
+use Symfony\Component\Uid\Uuid;
 
 final readonly class ElectronicWorkbookV2DismissalEvent extends ElectronicWorkbookV2Event
 {
     public function __construct(
-        ElectronicWorkbookV2EventType $type,
+        Uuid $uuid,
         ElectronicWorkbookV2Employer $employer,
         DateTimeImmutable $occurredAt,
         #[SerializedName('ns2:Причина')]
         public ?string $reason,
         ?bool $isPartTime = false,
     ) {
-        parent::__construct($type, $employer, $occurredAt, $isPartTime);
+        parent::__construct($uuid, ElectronicWorkbookV2EventType::DISMISSAL, $employer, $occurredAt, $isPartTime);
     }
 }
