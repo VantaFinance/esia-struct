@@ -2,7 +2,7 @@ name: Testing CI
 on: [ push, pull_request ]
 
 jobs:
-  stats-analysis:
+  testing:
     runs-on: ubuntu-latest
     strategy:
       matrix:
