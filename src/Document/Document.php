@@ -22,6 +22,7 @@ use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassport;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbook;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV3;
 use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatement;
 use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatementV2;
 use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
@@ -42,6 +43,7 @@ use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
         DocumentType::ILS_PFR->value                        => IndividualInsuranceAccountStatement::class,
         DocumentType::ILS_PFR_V2->value                     => IndividualInsuranceAccountStatementV2::class,
         DocumentType::ELECTRONIC_WORKBOOK_V2->value         => ElectronicWorkbookV2::class,
+        DocumentType::ELECTRONIC_WORKBOOK_V3->value         => ElectronicWorkbookV3::class,
     ],
 )]
 abstract readonly class Document
