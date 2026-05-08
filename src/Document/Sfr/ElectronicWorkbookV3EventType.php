@@ -11,10 +11,7 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
-/**
- * @deprecated
- */
-enum ElectronicWorkbookV2EventType: string
+enum ElectronicWorkbookV3EventType: string
 {
     case HIRING       = '1';
     case REASSIGNMENT = '2';

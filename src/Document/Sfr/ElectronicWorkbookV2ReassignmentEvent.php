@@ -15,6 +15,9 @@ use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @deprecated
+ */
 final readonly class ElectronicWorkbookV2ReassignmentEvent extends ElectronicWorkbookV2Event
 {
     public function __construct(

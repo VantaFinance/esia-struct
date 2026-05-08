@@ -16,17 +16,14 @@ use Vanta\Integration\Esia\Struct\Document\InnNumber;
 use Vanta\Integration\Esia\Struct\Document\KppNumber;
 use Vanta\Integration\Esia\Struct\Document\SfrRegistrationNumber;
 
-/**
- * @deprecated
- */
-final readonly class ElectronicWorkbookV2Employer
+final readonly class ElectronicWorkbookV3Employer
 {
     public function __construct(
-        #[SerializedName('ns2:НаименованиеОрганизации')]
+        #[SerializedName('НаименованиеОрганизации')]
         public string $name,
-        #[SerializedName('ИНН')]
+        #[SerializedName('УТ6:ИНН')]
         public InnNumber $inn,
-        #[SerializedName('РегНомер')]
+        #[SerializedName('УТ6:РегНомер')]
         public ?SfrRegistrationNumber $sfrRegistrationNumber = null,
         #[SerializedName('КПП')]
         public ?KppNumber $kpp = null,

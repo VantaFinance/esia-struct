@@ -15,19 +15,16 @@ use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @deprecated
- */
-final readonly class ElectronicWorkbookV2HiringEvent extends ElectronicWorkbookV2Event
+final readonly class ElectronicWorkbookV3DismissalEvent extends ElectronicWorkbookV3Event
 {
     public function __construct(
         Uuid $uuid,
-        ElectronicWorkbookV2Employer $employer,
+        ElectronicWorkbookV3Employer $employer,
         DateTimeImmutable $occurredAt,
-        #[SerializedName('ns2:Должность')]
-        public ?string $position = null,
-        ?bool $isPartTime = false,
+        #[SerializedName('Причина')]
+        public ?string $reason,
+        bool $isPartTime = false,
     ) {
-        parent::__construct($uuid, ElectronicWorkbookV2EventType::HIRING, $employer, $occurredAt, $isPartTime);
+        parent::__construct($uuid, ElectronicWorkbookV3EventType::DISMISSAL, $employer, $occurredAt, $isPartTime);
     }
 }

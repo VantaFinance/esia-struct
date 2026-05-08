@@ -69,6 +69,7 @@ use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
 use Vanta\Integration\Esia\Struct\Document\InnNumber;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV3;
 use Vanta\Integration\Esia\Struct\Document\Sfr\IndividualInsuranceAccountStatementV2;
 use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 use Vanta\Integration\Esia\Struct\Email;
@@ -126,7 +127,8 @@ final readonly class DocumentParser
                     DateTimeNormalizer::FORMAT_KEY => 'd.M.Y',
                 ])
             ),
-            new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
+            $objectNormalizer,
+            //            new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
             new ArrayDenormalizer(),
         ];
 
@@ -249,11 +251,22 @@ final readonly class DocumentParser
     }
 
     /**
+     * @deprecated
+     * @see self::parseElectronicWorkbookV3File
+     *
      * @throws ExceptionInterface
      */
     public function parseElectronicWorkbookV2File(string $contents): ElectronicWorkbookV2
     {
         return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV2::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseElectronicWorkbookV3File(string $contents): ElectronicWorkbookV3
+    {
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV3::class, 'xml');
     }
 
     /**
@@ -266,16 +279,10 @@ final readonly class DocumentParser
     private function encodeUriNamespaces(string $xml): string
     {
         return (string) preg_replace_callback(
-            '/\bxmlns(?::\w+)?="([^"]*)"/',
-            static function (array $m): string {
-                $encoded = preg_replace_callback(
-                    '/[^\x20-\x7E]/',
-                    static fn (array $c): string => rawurlencode($c[0]),
-                    $m[1],
-                );
-
-                return str_replace($m[1], (string) $encoded, $m[0]);
-            },
+            '~https?://[^\s"\'<>]+~',
+            static fn (array $m): string => preg_match('/[^\x00-\x7F]/', $m[0])
+                ? 'https://vanta.ru'
+                : $m[0],
             $xml,
         );
     }

@@ -17,28 +17,25 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\SfrRegistrationNumber;
 
-/**
- * @deprecated
- */
-final readonly class ElectronicWorkbookV2EmploymentHistoryEntry
+final readonly class ElectronicWorkbookV3EmploymentHistoryEntry
 {
     public function __construct(
         // TODO: Often has trailing newline, need to trim.
-        #[SerializedName('ns2:НаименованиеРаботодателя')]
+        #[SerializedName('НаименованиеРаботодателя')]
         public string $employerName,
-        #[SerializedName('ns2:ПериодРаботыС')]
+        #[SerializedName('ПериодРаботыС')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
         public DateTimeImmutable $startedAt,
-        #[SerializedName('ns2:ПериодРаботыПо')]
+        #[SerializedName('ПериодРаботыПо')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
         public DateTimeImmutable $endedAt,
-        #[SerializedName('РегНомер')]
+        #[SerializedName('УТ6:РегНомер')]
         public ?SfrRegistrationNumber $employerRegistrationNumber = null,
     ) {
     }
