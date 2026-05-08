@@ -23,7 +23,7 @@ final readonly class ElectronicWorkbookV3DismissalEvent extends ElectronicWorkbo
         DateTimeImmutable $occurredAt,
         #[SerializedName('Причина')]
         public ?string $reason,
-        ?bool $isPartTime = false,
+        bool $isPartTime = false,
     ) {
         parent::__construct($uuid, ElectronicWorkbookV3EventType::DISMISSAL, $employer, $occurredAt, $isPartTime);
     }

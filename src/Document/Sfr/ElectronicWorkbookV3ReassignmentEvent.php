@@ -21,7 +21,7 @@ final readonly class ElectronicWorkbookV3ReassignmentEvent extends ElectronicWor
         ElectronicWorkbookV3Employer $employer,
         DateTimeImmutable $occurredAt,
         ?string $position = null,
-        ?bool $isPartTime = false,
+        bool $isPartTime = false,
     ) {
         parent::__construct(uuid: $uuid, type: ElectronicWorkbookV3EventType::REASSIGNMENT, employer: $employer, occurredAt: $occurredAt, isPartTime: $isPartTime, position: $position);
     }

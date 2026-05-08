@@ -19,7 +19,7 @@ final readonly class ElectronicWorkbookV3UnknownEvent extends ElectronicWorkbook
     public function __construct(
         ElectronicWorkbookV3Employer $employer,
         DateTimeImmutable $occurredAt,
-        ?bool $isPartTime = false,
+        bool $isPartTime = false,
     ) {
         parent::__construct(new NilUuid(), ElectronicWorkbookV3EventType::UNKNOWN, $employer, $occurredAt, $isPartTime);
     }
