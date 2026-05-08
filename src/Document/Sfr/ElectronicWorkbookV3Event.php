@@ -15,7 +15,6 @@ use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Serializer\Attribute\SerializedName;
-use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Uid\Uuid;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
@@ -47,10 +46,8 @@ abstract readonly class ElectronicWorkbookV3Event
         public DateTimeImmutable $occurredAt,
         #[SerializedName('ЯвляетсяСовместителем')]
         public bool $isPartTime = false,
-
         #[SerializedName('Должность')]
         public ?string $position = null,
-
     ) {
     }
 }

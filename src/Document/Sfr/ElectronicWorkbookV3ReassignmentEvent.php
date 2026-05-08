@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 
 use DateTimeImmutable;
-use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Uid\Uuid;
 
 final readonly class ElectronicWorkbookV3ReassignmentEvent extends ElectronicWorkbookV3Event

@@ -29,5 +29,5 @@ enum DocumentType: string
     case ELECTRONIC_WORKBOOK_V2         = 'ELECTRONIC_WORKBOOK_V2';
     case ELECTRONIC_WORKBOOK_V3         = 'ELECTRONIC_WORKBOOK_V3';
 
-    case ILS_PFR_V2                     = 'ILS_PFR_V2';
+    case ILS_PFR_V2 = 'ILS_PFR_V2';
 }

@@ -21,9 +21,11 @@ use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2HiringEvent;
 final class ElectronicWorkbookV2FileTest extends BaseTestCase
 {
     /**
+     * @deprecated
+     *
      * @throws SerializerException
      */
-    public function testValid(): void
+    public function testValidV2(): void
     {
         $contents = $this->getFixture('electronic_workbook.valid.xml');
         $parser   = DocumentParser::create();
