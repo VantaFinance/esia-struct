@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Bridge\Document;
 
+use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV3;
 use function Amp\ByteStream\buffer;
 
 use Amp\ByteStream\BufferException;
@@ -126,7 +127,8 @@ final readonly class DocumentParser
                     DateTimeNormalizer::FORMAT_KEY => 'd.M.Y',
                 ])
             ),
-            new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
+            $objectNormalizer,
+//            new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
             new ArrayDenormalizer(),
         ];
 
@@ -249,12 +251,25 @@ final readonly class DocumentParser
     }
 
     /**
+     * @deprecated
+     * @see self::parseElectronicWorkbookV3File
+     *
      * @throws ExceptionInterface
      */
     public function parseElectronicWorkbookV2File(string $contents): ElectronicWorkbookV2
     {
         return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV2::class, 'xml');
     }
+
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseElectronicWorkbookV3File(string $contents): ElectronicWorkbookV3
+    {
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV3::class, 'xml');
+    }
+
 
     /**
      * Hack for namespaces with Cyrillic NS like this:

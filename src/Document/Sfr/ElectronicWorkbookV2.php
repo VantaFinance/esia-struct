@@ -15,6 +15,9 @@ use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
+/**
+ * @deprecated
+ */
 final readonly class ElectronicWorkbookV2 extends Document
 {
     /**

@@ -20,37 +20,37 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Uid\Uuid;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 
-
-/**
- * @deprecated
- */
-#[DiscriminatorDefault(ElectronicWorkbookV2UnknownEvent::class)]
+#[DiscriminatorDefault(ElectronicWorkbookV3UnknownEvent::class)]
 #[DiscriminatorMap(
-    typeProperty: 'ns2:Вид',
+    typeProperty: 'Вид',
     /**@phpstan-ignore-next-line*/
     mapping: [
-        '1' => ElectronicWorkbookV2HiringEvent::class,
-        '2' => ElectronicWorkbookV2ReassignmentEvent::class,
-        '5' => ElectronicWorkbookV2DismissalEvent::class,
+        '1' => ElectronicWorkbookV3HiringEvent::class,
+        '2' => ElectronicWorkbookV3ReassignmentEvent::class,
+        '5' => ElectronicWorkbookV3DismissalEvent::class,
     ],
 )]
-abstract readonly class ElectronicWorkbookV2Event
+abstract readonly class ElectronicWorkbookV3Event
 {
     public function __construct(
-        #[SerializedPath('[ns2:UUID]')]
+        #[SerializedName('UUID')]
         public Uuid $uuid,
-        #[SerializedName('ns2:Вид')]
-        public ElectronicWorkbookV2EventType $type,
-        #[SerializedName('ns2:Работодатель')]
-        public ElectronicWorkbookV2Employer $employer,
-        #[SerializedName('ns2:Дата')]
+        #[SerializedName('Вид')]
+        public ElectronicWorkbookV3EventType $type,
+        #[SerializedName('Работодатель')]
+        public ElectronicWorkbookV3Employer $employer,
+        #[SerializedName('Дата')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
         public DateTimeImmutable $occurredAt,
-        #[SerializedName('ns2:ЯвляетсяСовместителем')]
-        public ?bool $isPartTime = false,
+        #[SerializedName('ЯвляетсяСовместителем')]
+        public bool $isPartTime = false,
+
+        #[SerializedName('Должность')]
+        public ?string $position = null,
+
     ) {
     }
 }

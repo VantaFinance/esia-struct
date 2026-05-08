@@ -14,16 +14,13 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use DateTimeImmutable;
 use Symfony\Component\Uid\NilUuid;
 
-/**
- * @deprecated
- */
-final readonly class ElectronicWorkbookV2UnknownEvent extends ElectronicWorkbookV2Event
+final readonly class ElectronicWorkbookV3UnknownEvent extends ElectronicWorkbookV3Event
 {
     public function __construct(
-        ElectronicWorkbookV2Employer $employer,
+        ElectronicWorkbookV3Employer $employer,
         DateTimeImmutable $occurredAt,
         ?bool $isPartTime = false,
     ) {
-        parent::__construct(new NilUuid(), ElectronicWorkbookV2EventType::UNKNOWN, $employer, $occurredAt, $isPartTime);
+        parent::__construct(new NilUuid(), ElectronicWorkbookV3EventType::UNKNOWN, $employer, $occurredAt, $isPartTime);
     }
 }
