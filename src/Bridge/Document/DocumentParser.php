@@ -127,8 +127,7 @@ final readonly class DocumentParser
                     DateTimeNormalizer::FORMAT_KEY => 'd.M.Y',
                 ])
             ),
-            $objectNormalizer,
-            //            new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
+            new DiscriminatorDefaultNormalizer($objectNormalizer, $classMetadataFactory),
             new ArrayDenormalizer(),
         ];
 
