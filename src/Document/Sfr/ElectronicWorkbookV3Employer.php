@@ -22,7 +22,7 @@ final readonly class ElectronicWorkbookV3Employer
         #[SerializedName('НаименованиеОрганизации')]
         public string $name,
         #[SerializedName('УТ6:ИНН')]
-        public InnNumber $inn,
+        public ?InnNumber $inn,
         #[SerializedName('УТ6:РегНомер')]
         public ?SfrRegistrationNumber $sfrRegistrationNumber = null,
         #[SerializedName('КПП')]
