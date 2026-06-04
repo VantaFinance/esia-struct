@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Bridge\Document;
 
+use Vanta\Integration\Esia\Struct\Proof;
 use function Amp\ByteStream\buffer;
 
 use Amp\ByteStream\BufferException;
@@ -266,6 +267,14 @@ final readonly class DocumentParser
     public function parseElectronicWorkbookV3File(string $contents): ElectronicWorkbookV3
     {
         return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV3::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseProofFile(string $contents): Proof
+    {
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), Proof::class, 'xml');
     }
 
     /**
