@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PosCredit MDM
  *
@@ -10,7 +11,7 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct;
 
-enum VerificationStatus : string
+enum VerificationStatus: string
 {
     case UNVERIFIED           = 'unverified';
     case VERIFIED_BY_REQUEST  = 'verified_by_request';

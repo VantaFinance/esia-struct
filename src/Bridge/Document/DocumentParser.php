@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Bridge\Document;
 
-use Vanta\Integration\Esia\Struct\Proof;
 use function Amp\ByteStream\buffer;
 
 use Amp\ByteStream\BufferException;
@@ -76,6 +75,7 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 use Vanta\Integration\Esia\Struct\Email;
 use Vanta\Integration\Esia\Struct\FullName;
 use Vanta\Integration\Esia\Struct\Gender;
+use Vanta\Integration\Esia\Struct\Proof;
 
 final readonly class DocumentParser
 {

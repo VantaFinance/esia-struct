@@ -36,7 +36,7 @@ final readonly class Proof
      */
     public function getReceiptDocDate(): ?DateTimeImmutable
     {
-        if ($this->receiptDocTimestamp === null) {
+        if (null === $this->receiptDocTimestamp) {
             return null;
         }
 
@@ -48,7 +48,7 @@ final readonly class Proof
      */
     public function getValidateDocDate(): ?DateTimeImmutable
     {
-        if ($this->validateDocTimestamp === null) {
+        if (null === $this->validateDocTimestamp) {
             return null;
         }
 
