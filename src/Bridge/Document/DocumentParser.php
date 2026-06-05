@@ -75,6 +75,7 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 use Vanta\Integration\Esia\Struct\Email;
 use Vanta\Integration\Esia\Struct\FullName;
 use Vanta\Integration\Esia\Struct\Gender;
+use Vanta\Integration\Esia\Struct\Proof;
 
 final readonly class DocumentParser
 {
@@ -266,6 +267,14 @@ final readonly class DocumentParser
     public function parseElectronicWorkbookV3File(string $contents): ElectronicWorkbookV3
     {
         return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV3::class, 'xml');
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function parseProofFile(string $contents): Proof
+    {
+        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), Proof::class, 'xml');
     }
 
     /**
