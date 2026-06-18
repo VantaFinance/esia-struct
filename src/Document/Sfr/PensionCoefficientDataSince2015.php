@@ -25,9 +25,9 @@ final readonly class PensionCoefficientDataSince2015
         #[SerializedName('ns2:Год')]
         public Year $year,
         #[SerializedPath('[ns2:Работодатели][ns3:ИПК]')]
-        public BigDecimal $coefficient,
+        public ?BigDecimal $coefficient = null,
         #[SerializedPath('[ns2:Работодатели][ns2:ПоРаботодателю]')]
-        public array $byEmployers,
+        public array $byEmployers = [],
     ) {
     }
 }
