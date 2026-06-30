@@ -21,9 +21,9 @@ final readonly class ElectronicWorkbookV3Employer
     public function __construct(
         #[SerializedName('НаименованиеОрганизации')]
         public string $name,
-        #[SerializedName('УТ6:ИНН')]
+        #[SerializedName('УТ8:ИНН')]
         public ?InnNumber $inn,
-        #[SerializedName('УТ6:РегНомер')]
+        #[SerializedName('УТ8:РегНомер')]
         public ?SfrRegistrationNumber $sfrRegistrationNumber = null,
         #[SerializedName('КПП')]
         public ?KppNumber $kpp = null,

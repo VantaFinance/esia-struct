@@ -21,15 +21,15 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 final readonly class PersonV2
 {
     public function __construct(
-        #[SerializedPath('[УТ6:ФИО][УТ6:Фамилия]')]
+        #[SerializedPath('[УТ8:ФИО][УТ8:Фамилия]')]
         public string $lastName,
-        #[SerializedPath('[УТ6:ФИО][УТ6:Имя]')]
+        #[SerializedPath('[УТ8:ФИО][УТ8:Имя]')]
         public string $firstName,
-        #[SerializedPath('[УТ6:ФИО][УТ6:Отчество]')]
+        #[SerializedPath('[УТ8:ФИО][УТ8:Отчество]')]
         public ?string $middleName,
-        #[SerializedName('УТ6:СНИЛС')]
+        #[SerializedName('УТ8:СНИЛС')]
         public SnilsNumber $snils,
-        #[SerializedName('УТ6:ДатаРождения')]
+        #[SerializedName('УТ8:ДатаРождения')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],

@@ -35,7 +35,7 @@ final readonly class ElectronicWorkbookV3EmploymentHistoryEntry
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!Y-m-d'],
         )]
         public DateTimeImmutable $endedAt,
-        #[SerializedName('УТ6:РегНомер')]
+        #[SerializedName('УТ8:РегНомер')]
         public ?SfrRegistrationNumber $employerRegistrationNumber = null,
     ) {
     }
