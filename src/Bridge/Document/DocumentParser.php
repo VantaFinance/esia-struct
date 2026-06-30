@@ -58,6 +58,7 @@ use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
 use Vanta\Integration\Esia\Struct\Document\InnNumber;
+use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousDocument;
 use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousDocumentV2;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
@@ -173,7 +174,7 @@ final readonly class DocumentParser
         try {
             return $this->serializer->deserialize($contents, DateTimeImmutable::class, 'xml', [
                 SafeUnwrappingDenormalizer::UNWRAP_PATH => '[ns2:birthDate][ns2:birthDate]',
-                DateTimeNormalizer::FORMAT_KEY => '!d.m.Y',
+                DateTimeNormalizer::FORMAT_KEY          => '!d.m.Y',
             ]);
         } catch (ExceptionInterface) {
             return null;
@@ -190,7 +191,7 @@ final readonly class DocumentParser
                 SafeUnwrappingDenormalizer::UNWRAP_PATH => '[ns2:birthPlace][ns2:birthPlace]',
             ]);
 
-            if (null === $value) {
+            if (!is_string($value)) {
                 return null;
             }
 
@@ -309,16 +310,17 @@ final readonly class DocumentParser
     }
 
     /**
-     * @return list<PreviousDocumentV2>
+     * @return list<PreviousDocument>
      */
     public function parsePassportHistoryV2File(string $contents): array
     {
         try {
+            /** @var list<PreviousDocument>|null $history */
             $history = $this->serializer->deserialize($this->encodeUriNamespaces($contents), PreviousDocumentV2::class . '[]', 'xml', [
                 SafeUnwrappingDenormalizer::UNWRAP_PATH => '[ns2:passportHistoryType]',
             ]);
 
-            return \is_array($history) ? $history : [];
+            return $history ?? [];
         } catch (ExceptionInterface) {
             return [];
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ESIA Struct
  *
@@ -12,7 +13,6 @@ namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
-use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\UnknownPreviousDocument;
 
@@ -25,7 +25,7 @@ use Vanta\Integration\Esia\Struct\Document\UnknownPreviousDocument;
         DocumentType::SOVIET_PASSPORT->value                => PreviousSovietPassport::class,
     ],
 )]
-abstract readonly class PreviousDocumentV2 extends Document
+abstract readonly class PreviousDocumentV2 extends PreviousDocument
 {
     #[Serializer\SerializedPath('[ns2:passportType]')]
     public DocumentType $type;

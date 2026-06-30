@@ -13,7 +13,6 @@ namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use Brick\Math\BigDecimal;
 use Brick\Math\Exception\MathException;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 

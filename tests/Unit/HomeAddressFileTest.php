@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class HomeAddressFileTest extends BaseTestCase

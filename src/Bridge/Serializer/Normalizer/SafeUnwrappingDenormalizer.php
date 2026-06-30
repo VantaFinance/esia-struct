@@ -46,11 +46,13 @@ final class SafeUnwrappingDenormalizer implements Denormalizer, SerializerAware
                 return null;
             }
 
+            // @phpstan-ignore-next-line
             if (!$this->propertyAccessor->isReadable($data, $propertyPath)) {
                 return null;
             }
 
             try {
+                // @phpstan-ignore-next-line
                 $data = $this->propertyAccessor->getValue($data, $propertyPath);
             } catch (PropertyAccessException) {
                 return null;
@@ -69,6 +71,7 @@ final class SafeUnwrappingDenormalizer implements Denormalizer, SerializerAware
             throw new LogicException('Cannot unwrap path because the injected serializer is not a denormalizer.');
         }
 
+        // @phpstan-ignore-next-line
         return $this->serializer->denormalize($data, $type, $format, $context);
     }
 

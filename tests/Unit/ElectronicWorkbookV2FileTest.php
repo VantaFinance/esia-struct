@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2DismissalEvent;
