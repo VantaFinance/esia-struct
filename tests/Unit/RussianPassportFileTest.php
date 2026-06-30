@@ -20,9 +20,6 @@ use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportSeries;
 
 final class RussianPassportFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('rf_passport.valid.xml');
@@ -40,8 +37,8 @@ final class RussianPassportFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseRussianPassportV2File($contents);
+        $output   = $parser->parseRussianPassportV2File($contents);
+        $this->assertNull($output);
     }
 
     /**

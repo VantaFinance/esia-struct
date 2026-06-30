@@ -17,9 +17,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class RegistrationAddressFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('registration_address.valid.xml');
@@ -40,8 +37,8 @@ final class RegistrationAddressFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseRegistrationAddressFile($contents);
+        $output   = $parser->parseRegistrationAddressFile($contents);
+        $this->assertNull($output);
     }
 
     /**

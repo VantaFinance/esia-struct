@@ -22,7 +22,7 @@ final readonly class Email
         public string $value,
     ) {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException(sprintf('Не валидный email: %s', $value));
+            throw new InvalidArgumentException(sprintf('Невалидный email: %s', $value));
         }
     }
 

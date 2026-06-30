@@ -20,7 +20,6 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 final class PayoutIncomeV2FileTest extends BaseTestCase
 {
     /**
-     * @throws SerializerException
      * @throws MathException
      */
     public function testValid(): void

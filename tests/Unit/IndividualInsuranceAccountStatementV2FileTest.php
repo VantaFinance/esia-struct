@@ -22,7 +22,6 @@ use Vanta\Integration\Esia\Struct\Document\Sfr\PensionPrivateFund;
 final class IndividualInsuranceAccountStatementV2FileTest extends BaseTestCase
 {
     /**
-     * @throws SerializerException
      * @throws MathException
      */
     public function testValid(): void

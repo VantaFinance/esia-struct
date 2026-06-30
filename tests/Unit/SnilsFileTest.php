@@ -17,9 +17,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class SnilsFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('snils.valid.xml');
@@ -33,8 +30,8 @@ final class SnilsFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseSnilsFile($contents);
+        $output   = $parser->parseSnilsFile($contents);
+        $this->assertNull($output);
     }
 
     /**

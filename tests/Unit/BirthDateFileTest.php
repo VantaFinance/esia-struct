@@ -17,9 +17,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class BirthDateFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('birth_date.valid.xml');
@@ -33,8 +30,8 @@ final class BirthDateFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseRussianPassportV2File($contents);
+        $output   = $parser->parseRussianPassportV2File($contents);
+        $this->assertNull($output);
     }
 
     /**

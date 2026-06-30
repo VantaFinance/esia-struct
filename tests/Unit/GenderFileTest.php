@@ -18,9 +18,6 @@ use Vanta\Integration\Esia\Struct\Gender;
 
 final class GenderFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     #[DataProvider('providerValid')]
     public function testValid(string $filename, Gender $expected): void
     {
@@ -44,8 +41,8 @@ final class GenderFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseGenderFile($contents);
+        $output   = $parser->parseGenderFile($contents);
+        $this->assertNull($output);
     }
 
     /**

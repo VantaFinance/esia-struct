@@ -17,9 +17,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class InnFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('inn.valid.xml');
@@ -33,8 +30,8 @@ final class InnFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseInnFile($contents);
+        $output   = $parser->parseInnFile($contents);
+        $this->assertNull($output);
     }
 
     /**

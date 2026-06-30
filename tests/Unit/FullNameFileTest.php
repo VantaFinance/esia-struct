@@ -19,8 +19,6 @@ final class FullNameFileTest extends BaseTestCase
 {
     /**
      * @param array{non-empty-string, non-empty-string, non-empty-string|null} $expected
-     *
-     * @throws SerializerException
      */
     #[DataProvider('providerValid')]
     public function testValid(string $filename, array $expected): void
@@ -47,8 +45,8 @@ final class FullNameFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseFullNameFile($contents);
+        $output   = $parser->parseFullNameFile($contents);
+        $this->assertNull($output);
     }
 
     /**

@@ -22,8 +22,6 @@ final class ElectronicWorkbookV2FileTest extends BaseTestCase
 {
     /**
      * @deprecated
-     *
-     * @throws SerializerException
      */
     public function testValidV2(): void
     {

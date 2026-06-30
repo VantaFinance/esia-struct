@@ -17,9 +17,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class EmailFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('email.valid.xml');
@@ -33,8 +30,8 @@ final class EmailFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseMobilePhoneFile($contents);
+        $output   = $parser->parseMobilePhoneFile($contents);
+        $this->assertNull($output);
     }
 
     /**
