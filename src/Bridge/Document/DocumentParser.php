@@ -56,7 +56,7 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SfrRegistrationNu
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SnilsNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
-use Vanta\Integration\Esia\Struct\Document\ParsedEmail;
+use Vanta\Integration\Esia\Struct\ParsedEmail;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;

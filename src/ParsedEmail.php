@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document;
+namespace Vanta\Integration\Esia\Struct;
 
 use Vanta\Integration\Esia\Struct\Email;
 
