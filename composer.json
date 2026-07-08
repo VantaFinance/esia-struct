@@ -45,6 +45,7 @@
         "phpstan/phpstan": "^2.1",
         "phpdocumentor/type-resolver": "^1.10",
         "phpstan/phpstan-webmozart-assert": "^2.0",
-        "phpunit/phpunit": "^11.0"
+        "phpunit/phpunit": "^11.0",
+        "phpstan/phpstan-symfony": "^2.0"
     }
 }
