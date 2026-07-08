@@ -29,7 +29,7 @@ final class EmailFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $output   = $parser->parseMobilePhoneFile($contents);
+        $output   = $parser->parseEmailFile($contents);
         $this->assertNull($output);
     }
 
