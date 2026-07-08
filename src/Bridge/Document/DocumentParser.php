@@ -21,6 +21,8 @@ use Symfony\Component\PropertyInfo\Extractor\PhpStanExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
@@ -56,7 +58,6 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SfrRegistrationNu
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SnilsNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
-use Vanta\Integration\Esia\Struct\ParsedEmail;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
@@ -71,6 +72,7 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 use Vanta\Integration\Esia\Struct\Email;
 use Vanta\Integration\Esia\Struct\FullName;
 use Vanta\Integration\Esia\Struct\Gender;
+use Vanta\Integration\Esia\Struct\ParsedEmail;
 use Vanta\Integration\Esia\Struct\Proof;
 
 final readonly class DocumentParser
@@ -144,7 +146,18 @@ final readonly class DocumentParser
     }
 
     /**
+     * Deserializes data into the given type.
+     *
+     * @template TObject of object
+     * @template TType of string|class-string<TObject>
+     *
+     * @param TType                $type
      * @param array<string, mixed> $context
+     *
+     * @phpstan-return ($type is class-string<TObject> ? TObject|null : mixed)
+     *
+     * @throws NotNormalizableValueException Occurs when a value cannot be denormalized
+     * @throws UnexpectedValueException      Occurs when a value cannot be decoded
      */
     private function deserializeXmlOrNull(string $contents, string $type, array $context = []): mixed
     {
@@ -157,25 +170,16 @@ final readonly class DocumentParser
 
     public function parsePayoutIncomeV2File(string $contents): ?PayoutIncomeV2
     {
-        /**
-         * @var ?PayoutIncomeV2
-         */
         return $this->deserializeXmlOrNull($contents, PayoutIncomeV2::class);
     }
 
     public function parseFullNameFile(string $contents): ?FullName
     {
-        /**
-         * @var ?FullName
-         */
         return $this->deserializeXmlOrNull($contents, FullName::class);
     }
 
     public function parseGenderFile(string $contents): ?Gender
     {
-        /**
-         * @var ?Gender
-         */
         return $this->deserializeXmlOrNull($contents, Gender::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:gender][ns2:gender]',
         ]);
@@ -183,9 +187,6 @@ final readonly class DocumentParser
 
     public function parseBirthDateFile(string $contents): ?DateTimeImmutable
     {
-        /**
-         * @var ?DateTimeImmutable
-         */
         return $this->deserializeXmlOrNull($contents, DateTimeImmutable::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:birthDate][ns2:birthDate]',
             DateTimeNormalizer::FORMAT_KEY      => '!d.m.Y',
@@ -215,9 +216,6 @@ final readonly class DocumentParser
 
     public function parseMobilePhoneFile(string $contents): ?PhoneNumber
     {
-        /**
-         * @var ?PhoneNumber
-         */
         return $this->deserializeXmlOrNull($contents, PhoneNumber::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[mobilePhone]',
         ]);
@@ -229,9 +227,6 @@ final readonly class DocumentParser
             UnwrappingDenormalizer::UNWRAP_PATH => '[email]',
         ]);
 
-        /**
-         * @var ?ParsedEmail
-         */
         return is_string($value) ? $this->parseEmailValue($value) : null;
     }
 
@@ -266,9 +261,6 @@ final readonly class DocumentParser
 
     public function parseHomeAddressFile(string $contents): ?Address
     {
-        /**
-         * @var ?Address
-         */
         return $this->deserializeXmlOrNull($contents, Address::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[homeAddress]',
         ]);
@@ -276,9 +268,6 @@ final readonly class DocumentParser
 
     public function parseRegistrationAddressFile(string $contents): ?Address
     {
-        /**
-         * @var ?Address
-         */
         return $this->deserializeXmlOrNull($contents, Address::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[registrationAddress]',
         ]);
@@ -286,17 +275,11 @@ final readonly class DocumentParser
 
     public function parseRussianPassportV2File(string $contents): ?RussianPassportV2
     {
-        /**
-         * @var ?RussianPassportV2
-         */
         return $this->deserializeXmlOrNull($contents, RussianPassportV2::class);
     }
 
     public function parseSnilsFile(string $contents): ?SnilsNumber
     {
-        /**
-         * @var ?SnilsNumber
-         */
         return $this->deserializeXmlOrNull($contents, SnilsNumber::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[snils]',
         ]);
@@ -304,9 +287,6 @@ final readonly class DocumentParser
 
     public function parseInnFile(string $contents): ?InnNumber
     {
-        /**
-         * @var ?InnNumber
-         */
         return $this->deserializeXmlOrNull($contents, InnNumber::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[inn]',
         ]);
@@ -314,9 +294,6 @@ final readonly class DocumentParser
 
     public function parseIndividualInsuranceAccountStatementV2File(string $contents): ?IndividualInsuranceAccountStatementV2
     {
-        /**
-         * @var ?IndividualInsuranceAccountStatementV2
-         */
         return $this->deserializeXmlOrNull($contents, IndividualInsuranceAccountStatementV2::class);
     }
 
@@ -326,17 +303,11 @@ final readonly class DocumentParser
      */
     public function parseElectronicWorkbookV2File(string $contents): ?ElectronicWorkbookV2
     {
-        /**
-         * @var ?ElectronicWorkbookV2
-         */
         return $this->deserializeXmlOrNull($contents, ElectronicWorkbookV2::class);
     }
 
     public function parseElectronicWorkbookV3File(string $contents): ?ElectronicWorkbookV3
     {
-        /**
-         * @var ?ElectronicWorkbookV3
-         */
         return $this->deserializeXmlOrNull($contents, ElectronicWorkbookV3::class);
     }
 
@@ -365,9 +336,6 @@ final readonly class DocumentParser
 
     public function parseProofFile(string $contents): ?Proof
     {
-        /**
-         * @var ?Proof
-         */
         return $this->deserializeXmlOrNull($contents, Proof::class);
     }
 
