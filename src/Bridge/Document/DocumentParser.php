@@ -16,6 +16,7 @@ use function Amp\ByteStream\buffer;
 use Amp\ByteStream\BufferException;
 use Brick\PhoneNumber\PhoneNumber;
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Symfony\Component\PropertyInfo\Extractor\PhpStanExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -205,9 +206,36 @@ final readonly class DocumentParser
 
     public function parseEmailFile(string $contents): ?Email
     {
-        return $this->deserializeXmlOrNull($contents, Email::class, [
+        $value = $this->deserializeXmlOrNull($contents, 'string', [
             UnwrappingDenormalizer::UNWRAP_PATH => '[email]',
         ]);
+
+        return is_string($value) ? $this->parseEmailValue($value) : null;
+    }
+
+    private function parseEmailValue(string $value): ?Email
+    {
+        $value = preg_replace('/\s+/u', '', $value) ?? '';
+        $value = preg_replace('/^mailto:/i', '', $value) ?? '';
+
+        if (null !== $email = $this->createEmailOrNull($value)) {
+            return $email;
+        }
+
+        if (preg_match('/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i', $value, $matches)) {
+            return $this->createEmailOrNull($matches[0]);
+        }
+
+        return null;
+    }
+
+    private function createEmailOrNull(string $value): ?Email
+    {
+        try {
+            return new Email($value);
+        } catch (InvalidArgumentException) {
+            return null;
+        }
     }
 
     public function parseHomeAddressFile(string $contents): ?Address

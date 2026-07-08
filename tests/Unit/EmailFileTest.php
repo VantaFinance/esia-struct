@@ -16,6 +16,7 @@ use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class EmailFileTest extends BaseTestCase
 {
+    #[DataProvider('providerValid')]
     public function testValid(): void
     {
         $contents = $this->getFixture('email.valid.xml');
@@ -31,6 +32,17 @@ final class EmailFileTest extends BaseTestCase
         $parser   = DocumentParser::create();
         $output   = $parser->parseEmailFile($contents);
         $this->assertNull($output);
+    }
+
+    /**
+     * @return iterable<array{non-empty-string}>
+     */
+    public static function providerValid(): iterable
+    {
+        yield 'Normal' => ['email.valid.xml'];
+        yield 'Mailto' => ['email.valid_mailto.xml'];
+        yield 'Whitespaces' => ['email.valid_whitespaces.xml'];
+        yield 'Extracted' => ['email.valid_extracted.xml'];
     }
 
     /**
