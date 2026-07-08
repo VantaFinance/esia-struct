@@ -56,7 +56,7 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SfrRegistrationNu
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SnilsNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
-use Vanta\Integration\Esia\Struct\Document\EmailWrapper;
+use Vanta\Integration\Esia\Struct\Document\ParsedEmail;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
@@ -223,19 +223,19 @@ final readonly class DocumentParser
         ]);
     }
 
-    public function parseEmailFile(string $contents): ?EmailWrapper
+    public function parseEmailFile(string $contents): ?ParsedEmail
     {
         $value = $this->deserializeXmlOrNull($contents, 'string', [
             UnwrappingDenormalizer::UNWRAP_PATH => '[email]',
         ]);
 
         /**
-         * @var ?EmailWrapper
+         * @var ?ParsedEmail
          */
         return is_string($value) ? $this->parseEmailValue($value) : null;
     }
 
-    private function parseEmailValue(string $value): ?EmailWrapper
+    private function parseEmailValue(string $value): ?ParsedEmail
     {
         $value = preg_replace('/\s+/u', '', $value) ?? '';
         /** @var non-empty-string $value */
@@ -255,10 +255,10 @@ final readonly class DocumentParser
     /**
      * @param non-empty-string $value
      */
-    private function createEmailOrNull(string $value): ?EmailWrapper
+    private function createEmailOrNull(string $value): ?ParsedEmail
     {
         try {
-            return new EmailWrapper($value, new Email($value));
+            return new ParsedEmail($value, new Email($value));
         } catch (InvalidArgumentException) {
             return null;
         }

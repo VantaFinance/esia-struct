@@ -13,7 +13,7 @@ namespace Vanta\Integration\Esia\Struct\Document;
 
 use Vanta\Integration\Esia\Struct\Email;
 
-final readonly class EmailWrapper
+final readonly class ParsedEmail
 {
     public function __construct(
         public string $raw,
