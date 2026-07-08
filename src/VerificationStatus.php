@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PosCredit MDM
+ * ESIA Struct
  *
  * @author Valentin Nazarov <v.nazarov@pos-credit.ru>
  * @copyright Copyright (c) 2026, The PosCredit

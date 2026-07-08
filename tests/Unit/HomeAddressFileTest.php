@@ -12,14 +12,10 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class HomeAddressFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('home_address.valid.xml');
@@ -40,8 +36,8 @@ final class HomeAddressFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseHomeAddressFile($contents);
+        $output   = $parser->parseHomeAddressFile($contents);
+        $this->assertNull($output);
     }
 
     /**

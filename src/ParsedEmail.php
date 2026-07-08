@@ -9,14 +9,13 @@
 
 declare(strict_types=1);
 
-namespace Vanta\Integration\Esia\Struct\Document\Base;
+namespace Vanta\Integration\Esia\Struct;
 
-use Vanta\Integration\Esia\Struct\Address;
-
-final readonly class RegistrationAddressFile
+final readonly class ParsedEmail
 {
     public function __construct(
-        public Address $registrationAddress,
+        public string $raw,
+        public Email $email,
     ) {
     }
 }

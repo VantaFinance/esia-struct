@@ -12,15 +12,12 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class FullNameFileTest extends BaseTestCase
 {
     /**
      * @param array{non-empty-string, non-empty-string, non-empty-string|null} $expected
-     *
-     * @throws SerializerException
      */
     #[DataProvider('providerValid')]
     public function testValid(string $filename, array $expected): void
@@ -47,8 +44,8 @@ final class FullNameFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseFullNameFile($contents);
+        $output   = $parser->parseFullNameFile($contents);
+        $this->assertNull($output);
     }
 
     /**

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:passportHistory xmlns="urn://mincomsvyaz/esia/base_types/1.0.0" xmlns:ns2="urn://mincomsvyaz/esia/rfPassport_documents/1.0.0">
+    <ns2:passportHistoryType>
+        <ns2:baseDoc>
+            <series>77</series>
+            <number>1234567</number>
+            <issued>06.03.2024</issued>
+        </ns2:baseDoc>
+        <ns2:issuedBy>МВД 77705</ns2:issuedBy>
+        <ns2:passportType>FRGN_PASS</ns2:passportType>
+        <ns2:passportStatus>valid</ns2:passportStatus>
+    </ns2:passportHistoryType>
+    <ns2:passportHistoryType>
+        <ns2:baseDoc>
+            <series>4515</series>
+            <number>451500</number>
+            <issued>06.03.2015</issued>
+        </ns2:baseDoc>
+        <ns2:issuedBy>ОТДЕЛЕНИЕ УФМС РОССИИ ПО ГОР МОСКВЕ ПО РАЙОНУ КАПОТНЯ</ns2:issuedBy>
+        <ns2:issueId>770011</ns2:issueId>
+        <ns2:passportType>RF_PASSPORT</ns2:passportType>
+        <ns2:passportStatus>valid</ns2:passportStatus>
+    </ns2:passportHistoryType>
+    <ns2:passportHistoryType>
+        <ns2:baseDoc>
+            <series>4510</series>
+            <number>451000</number>
+            <issued>06.03.2009</issued>
+        </ns2:baseDoc>
+        <ns2:issuedBy>ОТДЕЛЕНИЕ УФМС РОССИИ ПО ГОР МОСКВЕ ПО РАЙОНУ КАПОТНЯ</ns2:issuedBy>
+        <ns2:issueId>770011</ns2:issueId>
+        <ns2:passportType>RF_PASSPORT</ns2:passportType>
+        <ns2:passportStatus>noInformation</ns2:passportStatus>
+    </ns2:passportHistoryType>
+</ns2:passportHistory>

@@ -12,20 +12,17 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class EmailFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
+    #[DataProvider('providerValid')]
     public function testValid(): void
     {
         $contents = $this->getFixture('email.valid.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parseEmailFile($contents);
-        $this->assertEquals('hello@example.com', $output->value);
+        $this->assertEquals('hello@example.com', $output->email->value);
     }
 
     #[DataProvider('providerInvalid')]
@@ -33,8 +30,19 @@ final class EmailFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseMobilePhoneFile($contents);
+        $output   = $parser->parseEmailFile($contents);
+        $this->assertNull($output);
+    }
+
+    /**
+     * @return iterable<array{non-empty-string}>
+     */
+    public static function providerValid(): iterable
+    {
+        yield 'Normal' => ['email.valid.xml'];
+        yield 'Mailto' => ['email.valid_mailto.xml'];
+        yield 'Whitespaces' => ['email.valid_whitespaces.xml'];
+        yield 'Extracted' => ['email.valid_extracted.xml'];
     }
 
     /**

@@ -12,14 +12,10 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Vanta\Integration\Esia\Struct\Bridge\Document\DocumentParser;
 
 final class BirthDateFileTest extends BaseTestCase
 {
-    /**
-     * @throws SerializerException
-     */
     public function testValid(): void
     {
         $contents = $this->getFixture('birth_date.valid.xml');
@@ -33,8 +29,8 @@ final class BirthDateFileTest extends BaseTestCase
     {
         $contents = $this->getFixture($filename);
         $parser   = DocumentParser::create();
-        $this->expectException(SerializerException::class);
-        $parser->parseRussianPassportV2File($contents);
+        $output   = $parser->parseRussianPassportV2File($contents);
+        $this->assertNull($output);
     }
 
     /**

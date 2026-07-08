@@ -16,10 +16,13 @@ use function Amp\ByteStream\buffer;
 use Amp\ByteStream\BufferException;
 use Brick\PhoneNumber\PhoneNumber;
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Symfony\Component\PropertyInfo\Extractor\PhpStanExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
@@ -32,6 +35,7 @@ use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 use Symfony\Component\Serializer\SerializerInterface as Serializer;
+use TypeError;
 use Vanta\Integration\Esia\Struct\Address;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\Base64DecodingReadableStreamNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\BigDecimalNormalizer;
@@ -54,19 +58,12 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SfrRegistrationNu
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\SnilsNumberNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormalizer;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\YearNormalizer;
-use Vanta\Integration\Esia\Struct\Document\Base\BirthDateFile;
-use Vanta\Integration\Esia\Struct\Document\Base\BirthPlaceFile;
-use Vanta\Integration\Esia\Struct\Document\Base\EmailFile;
-use Vanta\Integration\Esia\Struct\Document\Base\GenderFile;
-use Vanta\Integration\Esia\Struct\Document\Base\HomeAddressFile;
-use Vanta\Integration\Esia\Struct\Document\Base\InnFile;
-use Vanta\Integration\Esia\Struct\Document\Base\MobilePhoneFile;
-use Vanta\Integration\Esia\Struct\Document\Base\RegistrationAddressFile;
-use Vanta\Integration\Esia\Struct\Document\Base\SnilsFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeFile;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncomeV2;
 use Vanta\Integration\Esia\Struct\Document\InnNumber;
+use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousDocument;
+use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousDocumentV2;
 use Vanta\Integration\Esia\Struct\Document\Mvd\RussianPassportV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV2;
 use Vanta\Integration\Esia\Struct\Document\Sfr\ElectronicWorkbookV3;
@@ -75,6 +72,7 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 use Vanta\Integration\Esia\Struct\Email;
 use Vanta\Integration\Esia\Struct\FullName;
 use Vanta\Integration\Esia\Struct\Gender;
+use Vanta\Integration\Esia\Struct\ParsedEmail;
 use Vanta\Integration\Esia\Struct\Proof;
 
 final readonly class DocumentParser
@@ -136,145 +134,209 @@ final readonly class DocumentParser
     }
 
     /**
-     * @throws ExceptionInterface
      * @throws BufferException
      */
-    public function parsePayoutIncome(PayoutIncome $document): PayoutIncomeFile
+    public function parsePayoutIncome(PayoutIncome $document): ?PayoutIncomeFile
     {
-        return $this->serializer->deserialize(buffer($document->xmlFile->content), PayoutIncomeFile::class, 'xml');
+        try {
+            return $this->serializer->deserialize(buffer($document->xmlFile->content), PayoutIncomeFile::class, 'xml');
+        } catch (ExceptionInterface) {
+            return null;
+        }
     }
 
     /**
-     * @throws ExceptionInterface
-     */
-    public function parsePayoutIncomeV2File(string $contents): PayoutIncomeV2
-    {
-        return $this->serializer->deserialize($contents, PayoutIncomeV2::class, 'xml');
-    }
-
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseFullNameFile(string $contents): FullName
-    {
-        return $this->serializer->deserialize($contents, FullName::class, 'xml');
-    }
-
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseGenderFile(string $contents): Gender
-    {
-        return $this->serializer->deserialize($contents, GenderFile::class, 'xml')->gender;
-    }
-
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseBirthDateFile(string $contents): DateTimeImmutable
-    {
-        return $this->serializer->deserialize($contents, BirthDateFile::class, 'xml')->birthDate;
-    }
-
-    /**
-     * @return non-empty-string
+     * Deserializes data into the given type.
      *
-     * @throws ExceptionInterface
+     * @template TObject of object
+     * @template TType of string|class-string<TObject>
+     *
+     * @param TType                $type
+     * @param array<string, mixed> $context
+     *
+     * @phpstan-return ($type is class-string<TObject> ? TObject|null : mixed)
+     *
+     * @throws NotNormalizableValueException Occurs when a value cannot be denormalized
+     * @throws UnexpectedValueException      Occurs when a value cannot be decoded
      */
-    public function parseBirthPlaceFile(string $contents): string
+    private function deserializeXmlOrNull(string $contents, string $type, array $context = []): mixed
     {
-        return $this->serializer->deserialize($contents, BirthPlaceFile::class, 'xml')->birthPlace;
+        try {
+            return $this->serializer->deserialize($this->encodeUriNamespaces($contents), $type, 'xml', $context);
+        } catch (ExceptionInterface|TypeError) {
+            return null;
+        }
+    }
+
+    public function parsePayoutIncomeV2File(string $contents): ?PayoutIncomeV2
+    {
+        return $this->deserializeXmlOrNull($contents, PayoutIncomeV2::class);
+    }
+
+    public function parseFullNameFile(string $contents): ?FullName
+    {
+        return $this->deserializeXmlOrNull($contents, FullName::class);
+    }
+
+    public function parseGenderFile(string $contents): ?Gender
+    {
+        return $this->deserializeXmlOrNull($contents, Gender::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:gender][ns2:gender]',
+        ]);
+    }
+
+    public function parseBirthDateFile(string $contents): ?DateTimeImmutable
+    {
+        return $this->deserializeXmlOrNull($contents, DateTimeImmutable::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:birthDate][ns2:birthDate]',
+            DateTimeNormalizer::FORMAT_KEY      => '!d.m.Y',
+        ]);
     }
 
     /**
-     * @throws ExceptionInterface
+     * @return non-empty-string|null
      */
-    public function parseMobilePhoneFile(string $contents): PhoneNumber
+    public function parseBirthPlaceFile(string $contents): ?string
     {
-        return $this->serializer->deserialize($contents, MobilePhoneFile::class, 'xml')->phoneNumber;
+        $value = $this->deserializeXmlOrNull($contents, 'string', [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:birthPlace][ns2:birthPlace]',
+        ]);
+
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $value = trim($value);
+
+        /**
+         * @var non-empty-string|null
+         */
+        return '' === $value ? null : $value;
+    }
+
+    public function parseMobilePhoneFile(string $contents): ?PhoneNumber
+    {
+        return $this->deserializeXmlOrNull($contents, PhoneNumber::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[mobilePhone]',
+        ]);
+    }
+
+    public function parseEmailFile(string $contents): ?ParsedEmail
+    {
+        $value = $this->deserializeXmlOrNull($contents, 'string', [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[email]',
+        ]);
+
+        return is_string($value) ? $this->parseEmailValue($value) : null;
+    }
+
+    private function parseEmailValue(string $value): ?ParsedEmail
+    {
+        $value = preg_replace('/\s+/u', '', $value) ?? '';
+        /** @var non-empty-string $value */
+        $value = preg_replace('/^mailto:/i', '', $value) ?? '';
+
+        if (null !== $email = $this->createEmailOrNull($value)) {
+            return $email;
+        }
+
+        if (preg_match('/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i', $value, $matches)) {
+            return $this->createEmailOrNull($matches[0]);
+        }
+
+        return null;
     }
 
     /**
-     * @throws ExceptionInterface
+     * @param non-empty-string $value
      */
-    public function parseEmailFile(string $contents): Email
+    private function createEmailOrNull(string $value): ?ParsedEmail
     {
-        return $this->serializer->deserialize($contents, EmailFile::class, 'xml')->email;
+        try {
+            return new ParsedEmail($value, new Email($value));
+        } catch (InvalidArgumentException) {
+            return null;
+        }
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseHomeAddressFile(string $contents): Address
+    public function parseHomeAddressFile(string $contents): ?Address
     {
-        return $this->serializer->deserialize($contents, HomeAddressFile::class, 'xml')->homeAddress;
+        return $this->deserializeXmlOrNull($contents, Address::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[homeAddress]',
+        ]);
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseRegistrationAddressFile(string $contents): Address
+    public function parseRegistrationAddressFile(string $contents): ?Address
     {
-        return $this->serializer->deserialize($contents, RegistrationAddressFile::class, 'xml')->registrationAddress;
+        return $this->deserializeXmlOrNull($contents, Address::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[registrationAddress]',
+        ]);
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseRussianPassportV2File(string $contents): RussianPassportV2
+    public function parseRussianPassportV2File(string $contents): ?RussianPassportV2
     {
-        return $this->serializer->deserialize($contents, RussianPassportV2::class, 'xml');
+        return $this->deserializeXmlOrNull($contents, RussianPassportV2::class);
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseSnilsFile(string $contents): SnilsNumber
+    public function parseSnilsFile(string $contents): ?SnilsNumber
     {
-        return $this->serializer->deserialize($contents, SnilsFile::class, 'xml')->snils;
+        return $this->deserializeXmlOrNull($contents, SnilsNumber::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[snils]',
+        ]);
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseInnFile(string $contents): InnNumber
+    public function parseInnFile(string $contents): ?InnNumber
     {
-        return $this->serializer->deserialize($contents, InnFile::class, 'xml')->inn;
+        return $this->deserializeXmlOrNull($contents, InnNumber::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[inn]',
+        ]);
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseIndividualInsuranceAccountStatementV2File(string $contents): IndividualInsuranceAccountStatementV2
+    public function parseIndividualInsuranceAccountStatementV2File(string $contents): ?IndividualInsuranceAccountStatementV2
     {
-        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), IndividualInsuranceAccountStatementV2::class, 'xml');
+        return $this->deserializeXmlOrNull($contents, IndividualInsuranceAccountStatementV2::class);
     }
 
     /**
      * @deprecated
      * @see self::parseElectronicWorkbookV3File
-     *
-     * @throws ExceptionInterface
      */
-    public function parseElectronicWorkbookV2File(string $contents): ElectronicWorkbookV2
+    public function parseElectronicWorkbookV2File(string $contents): ?ElectronicWorkbookV2
     {
-        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV2::class, 'xml');
+        return $this->deserializeXmlOrNull($contents, ElectronicWorkbookV2::class);
+    }
+
+    public function parseElectronicWorkbookV3File(string $contents): ?ElectronicWorkbookV3
+    {
+        return $this->deserializeXmlOrNull($contents, ElectronicWorkbookV3::class);
     }
 
     /**
-     * @throws ExceptionInterface
+     * @return list<PreviousDocument>
      */
-    public function parseElectronicWorkbookV3File(string $contents): ElectronicWorkbookV3
+    public function parsePassportHistoryV2File(string $contents): array
     {
-        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), ElectronicWorkbookV3::class, 'xml');
+        $context = [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:passportHistoryType]',
+        ];
+
+        /** @var list<PreviousDocument>|null $history */
+        $history = $this->deserializeXmlOrNull($contents, PreviousDocumentV2::class . '[]', $context);
+
+        // ArrayDenormalizer does not understand when there is only one `passportHistoryType` node in XML.
+        // @phpstan-ignore-next-line
+        if (is_array($history) && array_is_list($history)) {
+            return $history;
+        }
+
+        $document = $this->deserializeXmlOrNull($contents, PreviousDocumentV2::class, $context);
+
+        return $document instanceof PreviousDocument ? [$document] : [];
     }
 
-    /**
-     * @throws ExceptionInterface
-     */
-    public function parseProofFile(string $contents): Proof
+    public function parseProofFile(string $contents): ?Proof
     {
-        return $this->serializer->deserialize($this->encodeUriNamespaces($contents), Proof::class, 'xml');
+        return $this->deserializeXmlOrNull($contents, Proof::class);
     }
 
     /**
