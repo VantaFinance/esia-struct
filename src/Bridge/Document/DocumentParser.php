@@ -35,6 +35,7 @@ use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 use Symfony\Component\Serializer\SerializerInterface as Serializer;
+use Throwable;
 use TypeError;
 use Vanta\Integration\Esia\Struct\Address;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\Base64DecodingReadableStreamNormalizer;
@@ -320,16 +321,22 @@ final readonly class DocumentParser
             UnwrappingDenormalizer::UNWRAP_PATH => '[ns2:passportHistoryType]',
         ];
 
-        /** @var list<PreviousDocument>|null $history */
-        $history = $this->deserializeXmlOrNull($contents, PreviousDocumentV2::class . '[]', $context);
+        $deserialize = function (string $type) use ($contents, $context): mixed {
+            try {
+                return $this->serializer->deserialize($this->encodeUriNamespaces($contents), $type, 'xml', $context);
+            } catch (Throwable) {
+                return null;
+            }
+        };
+
+        $history = $deserialize(PreviousDocumentV2::class . '[]');
 
         // ArrayDenormalizer does not understand when there is only one `passportHistoryType` node in XML.
-        // @phpstan-ignore-next-line
         if (is_array($history) && array_is_list($history)) {
             return $history;
         }
 
-        $document = $this->deserializeXmlOrNull($contents, PreviousDocumentV2::class, $context);
+        $document = $deserialize(PreviousDocumentV2::class);
 
         return $document instanceof PreviousDocument ? [$document] : [];
     }

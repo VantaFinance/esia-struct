@@ -20,9 +20,9 @@ use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousRussianPassportV2;
 
 final class PassportHistoryV2FileTest extends BaseTestCase
 {
-    public function testValid(): void
+    public function testValidMultiple(): void
     {
-        $contents = $this->getFixture('passport_history.valid.xml');
+        $contents = $this->getFixture('passport_history.valid.multiple.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parsePassportHistoryV2File($contents);
         $this->assertIsList($output);
@@ -49,9 +49,9 @@ final class PassportHistoryV2FileTest extends BaseTestCase
         $this->assertSame(PreviousRussianPassportStatus::NO_INFORMATION, $output[2]->status);
     }
 
-    public function testSingleItem(): void
+    public function testValidSingle(): void
     {
-        $contents = $this->getFixture('passport_history.single.xml');
+        $contents = $this->getFixture('passport_history.valid.single.xml');
         $parser   = DocumentParser::create();
         $output   = $parser->parsePassportHistoryV2File($contents);
 
@@ -59,5 +59,14 @@ final class PassportHistoryV2FileTest extends BaseTestCase
         $this->assertCount(1, $output);
         $this->assertInstanceOf(PreviousRussianPassportV2::class, $output[0]);
         $this->assertSame('4515', $output[0]->series->value);
+    }
+
+    public function testValidEmpty(): void
+    {
+        $contents = $this->getFixture('passport_history.invalid.empty.xml');
+        $parser   = DocumentParser::create();
+        $output   = $parser->parsePassportHistoryV2File($contents);
+
+        $this->assertSame([], $output);
     }
 }
