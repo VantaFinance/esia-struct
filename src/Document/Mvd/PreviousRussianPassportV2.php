@@ -13,11 +13,12 @@ namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class PreviousRussianPassportV2 extends PreviousDocumentV2
+final readonly class PreviousRussianPassportV2 extends PreviousDocumentV2 implements RussianPassportDocument
 {
     /**
      * @param non-empty-string|null $issuedBy
@@ -41,5 +42,39 @@ final readonly class PreviousRussianPassportV2 extends PreviousDocumentV2
         public PreviousRussianPassportStatus $status = PreviousRussianPassportStatus::NO_INFORMATION,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT);
+    }
+
+    public function getSeries(): RussianPassportSeries
+    {
+        return $this->series;
+    }
+
+    public function getNumber(): RussianPassportNumber
+    {
+        return $this->number;
+    }
+
+    public function getIssuedAt(): DateTimeImmutable
+    {
+        return $this->issuedAt;
+    }
+
+    /**
+     * @return non-empty-string|null
+     */
+    public function getIssuedBy(): ?string
+    {
+        return $this->issuedBy;
+    }
+
+    public function getDivisionCode(): ?RussianPassportDivisionCode
+    {
+        return $this->divisionCode;
+    }
+
+    #[Ignore]
+    public function getDocumentStatus(): RussianPassportDocumentStatus
+    {
+        return RussianPassportDocumentStatus::fromPreviousRussianPassportStatus($this->status);
     }
 }

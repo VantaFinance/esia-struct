@@ -13,15 +13,16 @@ namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 
 use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class RussianPassportV2 extends Document
+final readonly class RussianPassportV2 extends Document implements RussianPassportDocument
 {
     /**
-     * @param non-empty-string $issuedBy
+     * @param non-empty-string|null $issuedBy
      */
     public function __construct(
         #[SerializedPath('[ns2:baseDoc][series]')]
@@ -40,5 +41,42 @@ final readonly class RussianPassportV2 extends Document
         public ?RussianPassportDivisionCode $divisionCode = null,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT_V2);
+    }
+
+    public function getSeries(): RussianPassportSeries
+    {
+        return $this->series;
+    }
+
+    public function getNumber(): RussianPassportNumber
+    {
+        return $this->number;
+    }
+
+    public function getIssuedAt(): DateTimeImmutable
+    {
+        return $this->issuedAt;
+    }
+
+    /**
+     * @return non-empty-string|null
+     */
+    public function getIssuedBy(): ?string
+    {
+        return $this->issuedBy;
+    }
+
+    public function getDivisionCode(): ?RussianPassportDivisionCode
+    {
+        return $this->divisionCode;
+    }
+
+    /**
+     * RussianPassportV2 has no status field in the ESIA payload.
+     */
+    #[Ignore]
+    public function getDocumentStatus(): RussianPassportDocumentStatus
+    {
+        return RussianPassportDocumentStatus::UNKNOWN;
     }
 }
