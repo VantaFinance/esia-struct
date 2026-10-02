@@ -1,0 +1,189 @@
+{
+  "oid": "1000000001",
+  "id": "0f8b6d2e-1c4a-4e7b-9a3d-5b2c8e1f4a70",
+  "apiVersion": "v1",
+  "status": "verified_by_request",
+  "statusDoc": "SUCCESS",
+  "departmentDoc": "Социальный фонд России",
+  "createdOn": 1767225600123,
+  "updatedOn": 1767225660456,
+  "receiptDocDate": 1767225650789,
+  "nameDoc": "Сведения электронной трудовой книжки",
+  "statement": {
+    "provisionDate": "15.03.2021"
+  },
+  "dateFormation": "01.01.2026",
+  "events": [
+    {
+      "organization": {
+        "orgName": "ООО \"РОМАШКА\"",
+        "regNumber": "000-000-000001",
+        "inn": "1234567890"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000001",
+      "date": "01.02.2022",
+      "type": 1,
+      "typeName": "Приём",
+      "position": "Инженер",
+      "isPartTimeJob": false,
+      "division": "Отдел разработки",
+      "functionType": "2512.1",
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "01.02.2022",
+          "number": "10"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    },
+    {
+      "organization": {
+        "orgName": "ООО \"РОМАШКА\"",
+        "regNumber": "000-000-000001",
+        "inn": "1234567890",
+        "kpp": "123401001"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000002",
+      "date": "01.03.2023",
+      "type": 2,
+      "typeName": "Перевод",
+      "position": "Старший инженер",
+      "isPartTimeJob": false,
+      "division": "Отдел разработки",
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "28.02.2023",
+          "number": "25"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    },
+    {
+      "organization": {
+        "orgName": "ООО \"ЛЮТИК\"",
+        "regNumber": "000-000-000002",
+        "inn": "0987654321"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000003",
+      "date": "31.01.2022",
+      "type": 5,
+      "typeName": "Увольнение",
+      "isPartTimeJob": false,
+      "dismissalBasis": {
+        "normativeDocument": "Трудовой кодекс Российской Федерации",
+        "basisItem": "77",
+        "basisPart": "1",
+        "basisParagraph": "3",
+        "type": "ТК РФ"
+      },
+      "dismissalReason": "Расторжение трудового договора по инициативе работника",
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "31.01.2022",
+          "number": "5"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    },
+    {
+      "organization": {
+        "orgName": "ООО \"РОМАШКА\"",
+        "regNumber": "000-000-000001",
+        "inn": "1234567890"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000004",
+      "date": "10.06.2024",
+      "type": 14,
+      "typeName": "Награждение (Поощрение)",
+      "isPartTimeJob": false,
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "10.06.2024",
+          "number": "40"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    },
+    {
+      "organization": {
+        "orgName": "ООО \"РОМАШКА\"",
+        "regNumber": "000-000-000001",
+        "inn": "1234567890"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000005",
+      "date": "01.07.2024",
+      "type": 18,
+      "typeName": "Новый вид",
+      "isPartTimeJob": false,
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "01.07.2024",
+          "number": "41"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    },
+    {
+      "organization": {
+        "orgName": "ООО \"ЛЮТИК\"",
+        "regNumber": "000-000-000002",
+        "inn": "0987654321"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000006",
+      "date": "01.09.2021",
+      "type": 1,
+      "typeName": "Приём",
+      "position": "Консультант",
+      "isPartTimeJob": 1,
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "01.09.2021",
+          "number": "3"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    },
+    {
+      "organization": {
+        "orgName": "ООО \"ЛЮТИК\"",
+        "regNumber": "000-000-000002",
+        "inn": "0987654321"
+      },
+      "uuid": "1a2b3c4d-0001-4000-8000-000000000007",
+      "date": "15.10.2021",
+      "type": 2,
+      "typeName": "Перевод",
+      "position": "Ведущий консультант",
+      "isPartTimeJob": false,
+      "reason": [
+        {
+          "document": "Приказ",
+          "date": "14.10.2021",
+          "number": "7"
+        },
+        {
+          "document": "Дополнительное соглашение",
+          "date": "14.10.2021",
+          "number": "2",
+          "series": "ДС"
+        }
+      ],
+      "dataSource": "СЗВ-ТД"
+    }
+  ],
+  "laborActivities": [
+    {
+      "orgName": "ООО \"ВАСИЛЁК\"",
+      "regNumber": "000-000-000003",
+      "dateBegin": "01.09.2015",
+      "dateEnd": "31.08.2019"
+    }
+  ],
+  "type": "DIGITAL_WORKBOOK"
+}
