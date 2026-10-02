@@ -44,6 +44,7 @@ final readonly class DiscriminatorDefaultNormalizer implements Denormalizer, Ser
             return $this->objectNormalizer->denormalize($data, $type, $format, $context);
         }
 
+        $data      = self::stringifyDiscriminator($data, $discriminator->getTypeProperty());
         $attribute = $reflectionClass->getAttributes(DiscriminatorDefault::class)[0] ?? null;
         $attribute = $attribute?->newInstance();
 
@@ -58,6 +59,20 @@ final readonly class DiscriminatorDefaultNormalizer implements Denormalizer, Ser
 
             throw $e;
         }
+    }
+
+    /**
+     * Symfony принимает только строковый дискриминатор, а в JSON он может прийти числом (например, "type": 1).
+     */
+    private static function stringifyDiscriminator(mixed $data, string $typeProperty): mixed
+    {
+        if (!is_array($data) || !is_int($data[$typeProperty] ?? null)) {
+            return $data;
+        }
+
+        $data[$typeProperty] = (string) $data[$typeProperty];
+
+        return $data;
     }
 
     /**
