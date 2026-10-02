@@ -452,48 +452,56 @@ enum Permission: string
     case DISABLED_PERSON = 'disabled_person';
 
     /**
-     * Тип документа, к которому относится scope.
+     * Тип документа, к которому относится scope (ключ — значение Permission).
      *
-     * Если scope открывает несколько типов документов, возвращается основной:
+     * Если scope открывает несколько типов документов, указан основной:
      * российский вариант документа либо исходный (не СМЭВ 4 / витрина данных) источник,
      * в базовой версии без суффикса V2/V3. Исключение: electronic_workbook — DIGITAL_WORKBOOK (ресурсы СФР).
-     * Например, id_doc может содержать и загранпаспорт,
-     * указанный как ДУЛ. Для scope без документа — DocumentType::UNKNOWN.
+     * Например, id_doc может содержать и загранпаспорт, указанный как ДУЛ.
+     * Scope без документа в массиве отсутствуют.
      *
      * @see https://digital.gov.ru/uploaded/presentations/finalstsenariiispolzovaniyatspv131.pdf
+     *
+     * @var array<non-empty-string, DocumentType>
+     */
+    public const DOCUMENT_TYPES = [
+        self::ID_DOC->value                               => DocumentType::RUSSIAN_PASSPORT,
+        self::FOREIGN_PASSPORT_DOC->value                 => DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT,
+        self::PASSPORT_HISTORY_DOC->value                 => DocumentType::PASSPORT_HISTORY,
+        self::DRIVERS_LICENSE_DOC->value                  => DocumentType::RUSSIAN_DRIVER_LICENSE,
+        self::BIRTH_CERTIFICATE_DOC->value                => DocumentType::RUSSIAN_BIRTH_CERTIFICATE,
+        self::MARRIAGE_CERTIFICATE_DOC->value             => DocumentType::MARRIAGE_CERTIFICATE,
+        self::DIVORCE_CERTIFICATE_DOC->value              => DocumentType::DIVORCE_CERTIFICATE,
+        self::CHANGE_FULL_NAME_CERTIFICATE_DOC->value     => DocumentType::NAME_CHANGE_CERTIFICATE,
+        self::PATERNITY_CERTIFICATE_DOC->value            => DocumentType::PATERNITY_CERTIFICATE,
+        self::ILS_PFR_DOC->value                          => DocumentType::ILS_PFR,
+        self::NDFL_PERSON->value                          => DocumentType::INCOME_REFERENCE,
+        self::PENSION_REFERENCE->value                    => DocumentType::PENSION_REFERENCE,
+        self::ELECTRONIC_WORKBOOK->value                  => DocumentType::DIGITAL_WORKBOOK,
+        self::PAYMENTS_EGISSO->value                      => DocumentType::PAYMENTS_EGISSO,
+        self::FAMILY_ASSETS_BALANCE->value                => DocumentType::FAMILY_ASSETS,
+        self::PRE_RETIREMENT_AGE->value                   => DocumentType::PRE_RETIREMENT_AGE,
+        self::MEDICAL_DOC->value                          => DocumentType::MEDICAL_POLICY,
+        self::VEHICLE_REGISTRATION_CERTIFICATE_DOC->value => DocumentType::VEHICLE_REGISTRATION_CERTIFICATE,
+        self::BSS_DATA->value                             => DocumentType::INDIVIDUAL_ENTREPRENEUR_DATA,
+        self::ORG_DATA->value                             => DocumentType::ORGANIZATION_DATA,
+        self::PAYOUT_INCOME->value                        => DocumentType::PAYOUT_INCOME,
+        self::REG_REALESTATE->value                       => DocumentType::REAL_ESTATE,
+        self::SELF_EMPLOYED->value                        => DocumentType::SELF_EMPLOYED,
+        self::SELF_EMPLOYED_INCOME->value                 => DocumentType::SELF_EMPLOYED_INCOME,
+        self::KID_ID_DOC->value                           => DocumentType::KID_RUSSIAN_PASSPORT,
+        self::KID_BIRTH_DOC->value                        => DocumentType::KID_RUSSIAN_BIRTH_CERTIFICATE,
+        self::KID_BIRTH_CERT_DOC->value                   => DocumentType::KID_RUSSIAN_BIRTH_CERTIFICATE,
+        self::KID_SNILS_DOC->value                        => DocumentType::KID_SNILS,
+        self::DISABLED_PERSON->value                      => DocumentType::DISABLED_PERSON,
+    ];
+
+    /**
+     * Тип документа, к которому относится scope, см. {@see self::DOCUMENT_TYPES}.
+     * Для scope без документа — DocumentType::UNKNOWN.
      */
     public function toDocument(): DocumentType
     {
-        return match ($this) {
-            self::ID_DOC                                  => DocumentType::RUSSIAN_PASSPORT,
-            self::FOREIGN_PASSPORT_DOC                    => DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT,
-            self::PASSPORT_HISTORY_DOC                    => DocumentType::PASSPORT_HISTORY,
-            self::DRIVERS_LICENSE_DOC                     => DocumentType::RUSSIAN_DRIVER_LICENSE,
-            self::BIRTH_CERTIFICATE_DOC                   => DocumentType::RUSSIAN_BIRTH_CERTIFICATE,
-            self::MARRIAGE_CERTIFICATE_DOC                => DocumentType::MARRIAGE_CERTIFICATE,
-            self::DIVORCE_CERTIFICATE_DOC                 => DocumentType::DIVORCE_CERTIFICATE,
-            self::CHANGE_FULL_NAME_CERTIFICATE_DOC        => DocumentType::NAME_CHANGE_CERTIFICATE,
-            self::PATERNITY_CERTIFICATE_DOC               => DocumentType::PATERNITY_CERTIFICATE,
-            self::ILS_PFR_DOC                             => DocumentType::ILS_PFR,
-            self::NDFL_PERSON                             => DocumentType::INCOME_REFERENCE,
-            self::PENSION_REFERENCE                       => DocumentType::PENSION_REFERENCE,
-            self::ELECTRONIC_WORKBOOK                     => DocumentType::DIGITAL_WORKBOOK,
-            self::PAYMENTS_EGISSO                         => DocumentType::PAYMENTS_EGISSO,
-            self::FAMILY_ASSETS_BALANCE                   => DocumentType::FAMILY_ASSETS,
-            self::PRE_RETIREMENT_AGE                      => DocumentType::PRE_RETIREMENT_AGE,
-            self::MEDICAL_DOC                             => DocumentType::MEDICAL_POLICY,
-            self::VEHICLE_REGISTRATION_CERTIFICATE_DOC    => DocumentType::VEHICLE_REGISTRATION_CERTIFICATE,
-            self::BSS_DATA                                => DocumentType::INDIVIDUAL_ENTREPRENEUR_DATA,
-            self::ORG_DATA                                => DocumentType::ORGANIZATION_DATA,
-            self::PAYOUT_INCOME                           => DocumentType::PAYOUT_INCOME,
-            self::REG_REALESTATE                          => DocumentType::REAL_ESTATE,
-            self::SELF_EMPLOYED                           => DocumentType::SELF_EMPLOYED,
-            self::SELF_EMPLOYED_INCOME                    => DocumentType::SELF_EMPLOYED_INCOME,
-            self::KID_ID_DOC                              => DocumentType::KID_RUSSIAN_PASSPORT,
-            self::KID_BIRTH_DOC, self::KID_BIRTH_CERT_DOC => DocumentType::KID_RUSSIAN_BIRTH_CERTIFICATE,
-            self::KID_SNILS_DOC                           => DocumentType::KID_SNILS,
-            self::DISABLED_PERSON                         => DocumentType::DISABLED_PERSON,
-            default                                       => DocumentType::UNKNOWN,
-        };
+        return self::DOCUMENT_TYPES[$this->value] ?? DocumentType::UNKNOWN;
     }
 }
