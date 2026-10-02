@@ -23,9 +23,24 @@ final readonly class LazyDocumentNormalizer implements Denormalizer
 {
     public const TYPE_DOCUMENT = 'lazy.document.type';
 
+    /**
+     * ЕСИА может вернуть statusDoc: SEARCH без requestId — тогда подставляется этот плейсхолдер
+     */
+    public const REQUEST_ID_PLACEHOLDER = '00000';
+
+    private const STATUS_SEARCH = 'SEARCH';
+
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return is_array($data) && array_key_exists('requestId', $data);
+        return is_array($data) && (array_key_exists('requestId', $data) || self::isSearch($data));
+    }
+
+    /**
+     * @param array<array-key, mixed> $data
+     */
+    private static function isSearch(array $data): bool
+    {
+        return self::STATUS_SEARCH === ($data['statusDoc'] ?? null);
     }
 
     public function getSupportedTypes(?string $format): array
@@ -49,7 +64,7 @@ final readonly class LazyDocumentNormalizer implements Denormalizer
         }
 
         $oid       = $data['oid'] ?? null;
-        $requestId = $data['requestId'] ?? null;
+        $requestId = $data['requestId'] ?? (self::isSearch($data) ? self::REQUEST_ID_PLACEHOLDER : null);
         $year      = $data['year'] ?? null;
 
         if (!is_numeric($oid) || !is_string($oid) || !is_string($requestId) || '' == $requestId) {
