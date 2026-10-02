@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct;
 
+use Vanta\Integration\Esia\Struct\Document\DocumentType;
+
 /**
  * @see https://digital.gov.ru/uploaded/presentations/finalstsenariiispolzovaniyatspv131.pdf
  */
@@ -183,7 +185,7 @@ enum Permission: string
     /**
      * Данные об объектах недвижимости, находящихся в собственности
      */
-    case reg_realestate = 'reg_realestate';
+    case REG_REALESTATE = 'reg_realestate';
 
     /**
      * Связь УЗ ЕСИА с внешними ИС
@@ -413,4 +415,85 @@ enum Permission: string
      * Данные вашего вида на жительство
      */
     case RESIDENCE_DOC = 'residence_doc';
+
+    /**
+     * Сведения из выписки ЕГРИП
+     */
+    case BSS_DATA = 'bss_data';
+
+    /**
+     * Сведения из выписки ЕГРЮЛ
+     */
+    case ORG_DATA = 'org_data';
+
+    /**
+     * Сведения о доходе самозанятого
+     */
+    case SELF_EMPLOYED_INCOME = 'self_employed_income';
+
+    /**
+     * Паспорт несовершеннолетнего ребёнка
+     */
+    case KID_ID_DOC = 'kid_id_doc';
+
+    /**
+     * Свидетельство о рождении ребёнка из ЕГР ЗАГС
+     */
+    case KID_BIRTH_DOC = 'kid_birth_doc';
+
+    /**
+     * СНИЛС детей
+     */
+    case KID_SNILS_DOC = 'kid_snils_doc';
+
+    /**
+     * Сведения об инвалидности
+     */
+    case DISABLED_PERSON = 'disabled_person';
+
+    /**
+     * Тип документа, к которому относится scope.
+     *
+     * Если scope открывает несколько типов документов, возвращается основной:
+     * российский вариант документа либо исходный (не СМЭВ 4 / витрина данных) источник,
+     * в базовой версии без суффикса V2/V3. Исключение: electronic_workbook — DIGITAL_WORKBOOK (ресурсы СФР).
+     * Например, id_doc может содержать и загранпаспорт,
+     * указанный как ДУЛ. Для scope без документа — DocumentType::UNKNOWN.
+     *
+     * @see https://digital.gov.ru/uploaded/presentations/finalstsenariiispolzovaniyatspv131.pdf
+     */
+    public function toDocument(): DocumentType
+    {
+        return match ($this) {
+            self::ID_DOC                                  => DocumentType::RUSSIAN_PASSPORT,
+            self::FOREIGN_PASSPORT_DOC                    => DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT,
+            self::PASSPORT_HISTORY_DOC                    => DocumentType::PASSPORT_HISTORY,
+            self::DRIVERS_LICENSE_DOC                     => DocumentType::RUSSIAN_DRIVER_LICENSE,
+            self::BIRTH_CERTIFICATE_DOC                   => DocumentType::RUSSIAN_BIRTH_CERTIFICATE,
+            self::MARRIAGE_CERTIFICATE_DOC                => DocumentType::MARRIAGE_CERTIFICATE,
+            self::DIVORCE_CERTIFICATE_DOC                 => DocumentType::DIVORCE_CERTIFICATE,
+            self::CHANGE_FULL_NAME_CERTIFICATE_DOC        => DocumentType::NAME_CHANGE_CERTIFICATE,
+            self::PATERNITY_CERTIFICATE_DOC               => DocumentType::PATERNITY_CERTIFICATE,
+            self::ILS_PFR_DOC                             => DocumentType::ILS_PFR,
+            self::NDFL_PERSON                             => DocumentType::INCOME_REFERENCE,
+            self::PENSION_REFERENCE                       => DocumentType::PENSION_REFERENCE,
+            self::ELECTRONIC_WORKBOOK                     => DocumentType::DIGITAL_WORKBOOK,
+            self::PAYMENTS_EGISSO                         => DocumentType::PAYMENTS_EGISSO,
+            self::FAMILY_ASSETS_BALANCE                   => DocumentType::FAMILY_ASSETS,
+            self::PRE_RETIREMENT_AGE                      => DocumentType::PRE_RETIREMENT_AGE,
+            self::MEDICAL_DOC                             => DocumentType::MEDICAL_POLICY,
+            self::VEHICLE_REGISTRATION_CERTIFICATE_DOC    => DocumentType::VEHICLE_REGISTRATION_CERTIFICATE,
+            self::BSS_DATA                                => DocumentType::INDIVIDUAL_ENTREPRENEUR_DATA,
+            self::ORG_DATA                                => DocumentType::ORGANIZATION_DATA,
+            self::PAYOUT_INCOME                           => DocumentType::PAYOUT_INCOME,
+            self::REG_REALESTATE                          => DocumentType::REAL_ESTATE,
+            self::SELF_EMPLOYED                           => DocumentType::SELF_EMPLOYED,
+            self::SELF_EMPLOYED_INCOME                    => DocumentType::SELF_EMPLOYED_INCOME,
+            self::KID_ID_DOC                              => DocumentType::KID_RUSSIAN_PASSPORT,
+            self::KID_BIRTH_DOC, self::KID_BIRTH_CERT_DOC => DocumentType::KID_RUSSIAN_BIRTH_CERTIFICATE,
+            self::KID_SNILS_DOC                           => DocumentType::KID_SNILS,
+            self::DISABLED_PERSON                         => DocumentType::DISABLED_PERSON,
+            default                                       => DocumentType::UNKNOWN,
+        };
+    }
 }
