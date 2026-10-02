@@ -34,11 +34,24 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer\UidFailedNormaliz
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbook;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookAwardEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookContinuousExclusionEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookContinuousRestorationEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookCorrectionEvent;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookDismissalEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookEducationEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookEstablishmentEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookEvent;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookEventType;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookHiringEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookMilitaryServiceEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookProhibitionEvent;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookReassignmentEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookRenamingEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookResumptionEvent;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookStatus;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookSuspensionEvent;
+use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookTrainingEvent;
 use Vanta\Integration\Esia\Struct\Document\Sfr\DigitalWorkbookUnknownEvent;
 use Vanta\Integration\Esia\Struct\Document\UnknownDocument;
 
@@ -85,8 +98,8 @@ final class DigitalWorkbookFileTest extends BaseTestCase
         $this->assertSame('Расторжение трудового договора по инициативе работника', $dismissal->reason);
 
         $award = $output->events[3];
-        $this->assertInstanceOf(DigitalWorkbookUnknownEvent::class, $award);
-        $this->assertSame(DigitalWorkbookEventType::UNKNOWN, $award->type);
+        $this->assertInstanceOf(DigitalWorkbookAwardEvent::class, $award);
+        $this->assertSame(DigitalWorkbookEventType::AWARD, $award->type);
         $this->assertSame('Награждение (Поощрение)', $award->typeName);
 
         $future = $output->events[4];
@@ -120,6 +133,60 @@ final class DigitalWorkbookFileTest extends BaseTestCase
         $this->assertNull($output->formedAt);
         $this->assertSame([], $output->events);
         $this->assertSame([], $output->laborActivities);
+    }
+
+    /**
+     * @param class-string<DigitalWorkbookEvent> $class
+     */
+    #[DataProvider('provideEventKinds')]
+    public function testEventKind(int $index, string $class, DigitalWorkbookEventType $type): void
+    {
+        $output = $this->deserialize('digital_workbook.valid.all_events.json');
+
+        $this->assertInstanceOf(DigitalWorkbook::class, $output);
+        $this->assertCount(16, $output->events);
+        $this->assertInstanceOf($class, $output->events[$index]);
+        $this->assertSame($type, $output->events[$index]->type);
+    }
+
+    /**
+     * @return iterable<string, array{int, class-string<DigitalWorkbookEvent>, DigitalWorkbookEventType}>
+     */
+    public static function provideEventKinds(): iterable
+    {
+        yield '1 hiring' => [0, DigitalWorkbookHiringEvent::class, DigitalWorkbookEventType::HIRING];
+        yield '2 reassignment' => [1, DigitalWorkbookReassignmentEvent::class, DigitalWorkbookEventType::REASSIGNMENT];
+        yield '3 renaming' => [2, DigitalWorkbookRenamingEvent::class, DigitalWorkbookEventType::RENAMING];
+        yield '4 establishment' => [3, DigitalWorkbookEstablishmentEvent::class, DigitalWorkbookEventType::ESTABLISHMENT];
+        yield '5 dismissal' => [4, DigitalWorkbookDismissalEvent::class, DigitalWorkbookEventType::DISMISSAL];
+        yield '6 prohibition' => [5, DigitalWorkbookProhibitionEvent::class, DigitalWorkbookEventType::PROHIBITION];
+        yield '7 suspension' => [6, DigitalWorkbookSuspensionEvent::class, DigitalWorkbookEventType::SUSPENSION];
+        yield '8 resumption' => [7, DigitalWorkbookResumptionEvent::class, DigitalWorkbookEventType::RESUMPTION];
+        yield '11 military service' => [8, DigitalWorkbookMilitaryServiceEvent::class, DigitalWorkbookEventType::MILITARY_SERVICE];
+        yield '12 education' => [9, DigitalWorkbookEducationEvent::class, DigitalWorkbookEventType::EDUCATION];
+        yield '13 training' => [10, DigitalWorkbookTrainingEvent::class, DigitalWorkbookEventType::TRAINING];
+        yield '14 award' => [11, DigitalWorkbookAwardEvent::class, DigitalWorkbookEventType::AWARD];
+        yield '15 continuous exclusion' => [12, DigitalWorkbookContinuousExclusionEvent::class, DigitalWorkbookEventType::CONTINUOUS_EXCLUSION];
+        yield '16 continuous restoration' => [13, DigitalWorkbookContinuousRestorationEvent::class, DigitalWorkbookEventType::CONTINUOUS_RESTORATION];
+        yield '17 correction' => [14, DigitalWorkbookCorrectionEvent::class, DigitalWorkbookEventType::CORRECTION];
+        yield '18 unknown' => [15, DigitalWorkbookUnknownEvent::class, DigitalWorkbookEventType::UNKNOWN];
+    }
+
+    public function testPeriodDates(): void
+    {
+        $output = $this->deserialize('digital_workbook.valid.all_events.json');
+
+        $this->assertInstanceOf(DigitalWorkbook::class, $output);
+
+        $militaryService = $output->events[8];
+        $this->assertInstanceOf(DigitalWorkbookMilitaryServiceEvent::class, $militaryService);
+        $this->assertSame('01.06.2010', $militaryService->startedAt?->format('d.m.Y'));
+        $this->assertSame('01.06.2011', $militaryService->endedAt?->format('d.m.Y'));
+
+        $suspension = $output->events[6];
+        $this->assertInstanceOf(DigitalWorkbookSuspensionEvent::class, $suspension);
+        $this->assertNull($suspension->startedAt);
+        $this->assertNull($suspension->endedAt);
     }
 
     #[DataProvider('provideInvalid')]
