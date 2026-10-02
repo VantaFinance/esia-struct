@@ -25,9 +25,21 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefau
     typeProperty: 'type',
     /**@phpstan-ignore-next-line*/
     mapping: [
-        '1' => DigitalWorkbookHiringEvent::class,
-        '2' => DigitalWorkbookReassignmentEvent::class,
-        '5' => DigitalWorkbookDismissalEvent::class,
+        '1'  => DigitalWorkbookHiringEvent::class,
+        '2'  => DigitalWorkbookReassignmentEvent::class,
+        '3'  => DigitalWorkbookRenamingEvent::class,
+        '4'  => DigitalWorkbookEstablishmentEvent::class,
+        '5'  => DigitalWorkbookDismissalEvent::class,
+        '6'  => DigitalWorkbookProhibitionEvent::class,
+        '7'  => DigitalWorkbookSuspensionEvent::class,
+        '8'  => DigitalWorkbookResumptionEvent::class,
+        '11' => DigitalWorkbookMilitaryServiceEvent::class,
+        '12' => DigitalWorkbookEducationEvent::class,
+        '13' => DigitalWorkbookTrainingEvent::class,
+        '14' => DigitalWorkbookAwardEvent::class,
+        '15' => DigitalWorkbookContinuousExclusionEvent::class,
+        '16' => DigitalWorkbookContinuousRestorationEvent::class,
+        '17' => DigitalWorkbookCorrectionEvent::class,
     ],
 )]
 abstract readonly class DigitalWorkbookEvent
