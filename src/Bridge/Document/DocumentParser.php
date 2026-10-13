@@ -22,7 +22,6 @@ use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
-use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
@@ -158,7 +157,6 @@ final readonly class DocumentParser
      * @phpstan-return ($type is class-string<TObject> ? TObject|null : mixed)
      *
      * @throws NotNormalizableValueException Occurs when a value cannot be denormalized
-     * @throws UnexpectedValueException      Occurs when a value cannot be decoded
      */
     private function deserializeXmlOrNull(string $contents, string $type, array $context = []): mixed
     {
