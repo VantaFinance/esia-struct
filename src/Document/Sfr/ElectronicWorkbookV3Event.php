@@ -19,6 +19,9 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Uid\Uuid;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 
+/**
+ * Документация к этим DTO: https://www.garant.ru/products/ipo/prime/doc/73352773/
+ */
 #[DiscriminatorDefault(ElectronicWorkbookV3UnknownEvent::class)]
 #[DiscriminatorMap(
     typeProperty: 'Вид',
