@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * ESIA Struct
+ *
+ * @author Dmitriy Kaufman <d.kaufman@pos-credit.ru>
+ * @copyright Copyright (c) 2026, The Vanta
+ */
+
+declare(strict_types=1);
+
+namespace Vanta\Integration\Esia\Struct\Document\Sfr;
+
+use DateTimeImmutable;
+use Symfony\Component\Uid\Uuid;
+
+final readonly class ElectronicWorkbookV3RenamingEvent extends ElectronicWorkbookV3Event
+{
+    public function __construct(
+        Uuid $uuid,
+        ElectronicWorkbookV3Employer $employer,
+        DateTimeImmutable $occurredAt,
+        ?string $position = null,
+        bool $isPartTime = false,
+    ) {
+        parent::__construct(uuid: $uuid, type: ElectronicWorkbookV3EventType::RENAMING, employer: $employer, occurredAt: $occurredAt, isPartTime: $isPartTime, position: $position);
+    }
+}
