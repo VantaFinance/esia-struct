@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document;
 
-final readonly class UnknownDocument extends Document
+final class UnknownDocument extends Document
 {
-    public function __construct(public mixed $result = null)
+    public function __construct(public readonly mixed $result = null)
     {
         parent::__construct(DocumentType::UNKNOWN);
     }

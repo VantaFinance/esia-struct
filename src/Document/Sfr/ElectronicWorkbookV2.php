@@ -18,7 +18,7 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 /**
  * @deprecated
  */
-final readonly class ElectronicWorkbookV2 extends Document
+final class ElectronicWorkbookV2 extends Document
 {
     /**
      * @param list<ElectronicWorkbookV2Event>                  $events
@@ -26,11 +26,11 @@ final readonly class ElectronicWorkbookV2 extends Document
      */
     public function __construct(
         #[SerializedPath('[ns2:СТД-ПФР][ns2:ЗЛ]')]
-        public Person $person,
+        public readonly Person $person,
         #[SerializedPath('[ns2:СТД-ПФР][ns2:Мероприятие]')]
-        public array $events = [],
+        public readonly array $events = [],
         #[SerializedPath('[ns2:СТД-ПФР][ns2:ТрудоваяДеятельность][ns2:ПериодРаботы]')]
-        public array $history = [],
+        public readonly array $history = [],
     ) {
         parent::__construct(DocumentType::ELECTRONIC_WORKBOOK_V2);
     }

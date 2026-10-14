@@ -16,18 +16,18 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class RussianInternationalPassport extends Document
+final class RussianInternationalPassport extends Document
 {
     /**
      * @param numeric-string $id
      */
     public function __construct(
-        public string $id,
-        public RussianInternationalPassportSeries $series,
-        public RussianInternationalPassportNumber $number,
+        public readonly string $id,
+        public readonly RussianInternationalPassportSeries $series,
+        public readonly RussianInternationalPassportNumber $number,
         #[SerializedName('issueDate')]
-        public DateTimeImmutable $issuedAt,
-        public ?string $issuedBy,
+        public readonly DateTimeImmutable $issuedAt,
+        public readonly ?string $issuedBy,
     ) {
         parent::__construct(DocumentType::RUSSIAN_INTERNATIONAL_PASSPORT);
     }

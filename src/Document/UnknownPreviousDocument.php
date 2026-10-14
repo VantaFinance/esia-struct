@@ -13,7 +13,7 @@ namespace Vanta\Integration\Esia\Struct\Document;
 
 use Vanta\Integration\Esia\Struct\Document\Mvd\PreviousDocument;
 
-final readonly class UnknownPreviousDocument extends PreviousDocument
+final class UnknownPreviousDocument extends PreviousDocument
 {
     public function __construct()
     {

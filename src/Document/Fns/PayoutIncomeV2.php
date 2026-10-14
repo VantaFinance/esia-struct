@@ -22,7 +22,7 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
  *
  * @see https://lkuv.gosuslugi.ru/paip-portal/#/inquiries/card/6377e305-ff80-11eb-ba23-33408f10c8dc?2%5Btab%5D=PROD&tab=2
  */
-final readonly class PayoutIncomeV2 extends Document
+final class PayoutIncomeV2 extends Document
 {
     /**
      * @param non-empty-string $id
@@ -30,14 +30,14 @@ final readonly class PayoutIncomeV2 extends Document
      */
     public function __construct(
         #[SerializedName('@ИдФайл')]
-        public string $id,
+        public readonly string $id,
         #[SerializedName('@ВерсФорм')]
         #[Context(denormalizationContext: [ObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true])]
-        public string $versionForm,
+        public readonly string $versionForm,
         #[SerializedName('@КолДок')]
-        public int $countDocuments,
+        public readonly int $countDocuments,
         #[SerializedName('Документ')]
-        public PayoutIncomeDocument $document,
+        public readonly PayoutIncomeDocument $document,
     ) {
         parent::__construct(DocumentType::PAYOUT_INCOME_V2);
     }

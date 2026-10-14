@@ -22,7 +22,7 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 /**
  * Электронная трудовая книжка, полученная из витрины СМЭВ 4 СФР
  */
-final readonly class DigitalWorkbook extends Document
+final class DigitalWorkbook extends Document
 {
     /**
      * @param numeric-string                     $oid
@@ -30,33 +30,33 @@ final readonly class DigitalWorkbook extends Document
      * @param list<DigitalWorkbookLaborActivity> $laborActivities
      */
     public function __construct(
-        public Uuid $id,
-        public string $oid,
+        public readonly Uuid $id,
+        public readonly string $oid,
         #[SerializedName('statusDoc')]
-        public DigitalWorkbookStatus $documentStatus,
-        public ?string $status = null,
-        public ?string $requestId = null,
-        public ?string $apiVersion = null,
+        public readonly DigitalWorkbookStatus $documentStatus,
+        public readonly ?string $status = null,
+        public readonly ?string $requestId = null,
+        public readonly ?string $apiVersion = null,
         #[SerializedName('createdOn')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public ?DateTimeImmutable $createdAt = null,
+        public readonly ?DateTimeImmutable $createdAt = null,
         #[SerializedName('updatedOn')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public ?DateTimeImmutable $updatedAt = null,
+        public readonly ?DateTimeImmutable $updatedAt = null,
         #[SerializedName('receiptDocDate')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public ?DateTimeImmutable $receivedAt = null,
-        public ?string $departmentDoc = null,
-        public ?string $nameDoc = null,
-        public ?DigitalWorkbookStatement $statement = null,
+        public readonly ?DateTimeImmutable $receivedAt = null,
+        public readonly ?string $departmentDoc = null,
+        public readonly ?string $nameDoc = null,
+        public readonly ?DigitalWorkbookStatement $statement = null,
         #[SerializedName('dateFormation')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
         )]
-        public ?DateTimeImmutable $formedAt = null,
-        public array $events = [],
-        public array $laborActivities = [],
+        public readonly ?DateTimeImmutable $formedAt = null,
+        public readonly array $events = [],
+        public readonly array $laborActivities = [],
     ) {
         parent::__construct(DocumentType::DIGITAL_WORKBOOK);
     }

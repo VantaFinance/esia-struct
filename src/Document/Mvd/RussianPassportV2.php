@@ -19,26 +19,26 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class RussianPassportV2 extends Document implements RussianPassportDocument
+final class RussianPassportV2 extends Document implements RussianPassportDocument
 {
     /**
      * @param non-empty-string|null $issuedBy
      */
     public function __construct(
         #[SerializedPath('[ns2:baseDoc][series]')]
-        public RussianPassportSeries $series,
+        public readonly RussianPassportSeries $series,
         #[SerializedPath('[ns2:baseDoc][number]')]
-        public RussianPassportNumber $number,
+        public readonly RussianPassportNumber $number,
         #[SerializedPath('[ns2:baseDoc][issued]')]
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
         )]
-        public DateTimeImmutable $issuedAt,
+        public readonly DateTimeImmutable $issuedAt,
         #[SerializedPath('[ns2:issuedBy]')]
-        public ?string $issuedBy = null,
+        public readonly ?string $issuedBy = null,
         #[SerializedPath('[ns2:issueId]')]
-        public ?RussianPassportDivisionCode $divisionCode = null,
+        public readonly ?RussianPassportDivisionCode $divisionCode = null,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT_V2);
     }

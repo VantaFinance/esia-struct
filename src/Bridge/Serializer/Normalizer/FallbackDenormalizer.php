@@ -32,7 +32,7 @@ final class FallbackDenormalizer implements Denormalizer, DenormalizerAware
      */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $attributes = (new ReflectionClass($type))->getAttributes(DenormalizationFallback::class);
+        $attributes = new ReflectionClass($type)->getAttributes(DenormalizationFallback::class);
         $newContext = [self::ALREADY_CALLED_DENORMALIZER => true, ... $context];
 
         if ([] == $attributes) {

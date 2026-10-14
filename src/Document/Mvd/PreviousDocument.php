@@ -26,10 +26,10 @@ use Vanta\Integration\Esia\Struct\Document\UnknownPreviousDocument;
         'ussr_passport' => PreviousSovietPassport::class,
     ],
 )]
-abstract readonly class PreviousDocument extends Document
+abstract class PreviousDocument extends Document
 {
     #[Serializer\SerializedPath('[passportType]')]
-    public DocumentType $type;
+    public readonly DocumentType $type;
 
     public function __construct(DocumentType $type)
     {

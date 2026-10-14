@@ -16,21 +16,21 @@ use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class PreviousRussianPassport extends PreviousDocument implements RussianPassportDocument
+final class PreviousRussianPassport extends PreviousDocument implements RussianPassportDocument
 {
     /**
      * @param non-empty-string|null $issuedBy
      */
     public function __construct(
-        public RussianPassportSeries $series,
-        public RussianPassportNumber $number,
+        public readonly RussianPassportSeries $series,
+        public readonly RussianPassportNumber $number,
         #[SerializedName('issueDate')]
-        public DateTimeImmutable $issuedAt,
-        public ?string $issuedBy,
+        public readonly DateTimeImmutable $issuedAt,
+        public readonly ?string $issuedBy,
         #[SerializedName('issueId')]
-        public ?RussianPassportDivisionCode $divisionCode,
+        public readonly ?RussianPassportDivisionCode $divisionCode,
         #[SerializedName('passportStatus')]
-        public PreviousRussianPassportStatus $status = PreviousRussianPassportStatus::NO_INFORMATION,
+        public readonly PreviousRussianPassportStatus $status = PreviousRussianPassportStatus::NO_INFORMATION,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT);
     }
