@@ -855,4 +855,9 @@ enum Sysname: string
      * физическое лицо является ИП
      */
     case ASV_APPLICATIONS_IP = 'ASV_APPLICATIONS_IP';
+
+    /**
+     * Значение, которого нет в каталоге: только в ответах ЕСИА, в запросе передавать нельзя
+     */
+    case UNKNOWN = 'UNKNOWN';
 }

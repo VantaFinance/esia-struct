@@ -11,9 +11,10 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document;
 
+use Vanta\Integration\Esia\Struct\StringValueObject;
 use Webmozart\Assert\Assert;
 
-final readonly class SnilsNumber
+final readonly class SnilsNumber implements StringValueObject
 {
     /**
      * @param non-empty-string $value

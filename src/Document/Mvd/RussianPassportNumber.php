@@ -11,9 +11,10 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 
+use Vanta\Integration\Esia\Struct\StringValueObject;
 use Webmozart\Assert\Assert;
 
-final readonly class RussianPassportNumber
+final readonly class RussianPassportNumber implements StringValueObject
 {
     /**
      * @param numeric-string $value
