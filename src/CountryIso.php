@@ -13,7 +13,7 @@ namespace Vanta\Integration\Esia\Struct;
 
 use InvalidArgumentException;
 
-final readonly class CountryIso
+final readonly class CountryIso implements StringValueObject
 {
     /**
      * @param non-empty-string $value

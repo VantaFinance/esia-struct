@@ -13,7 +13,7 @@ namespace Vanta\Integration\Esia\Struct;
 
 use InvalidArgumentException;
 
-final readonly class Email
+final readonly class Email implements StringValueObject
 {
     /**
      * @param non-empty-string $value
