@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Attribute\SerializedPath;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class ElectronicWorkbookV3 extends Document
+final class ElectronicWorkbookV3 extends Document
 {
     /**
      * @param list<ElectronicWorkbookV3Event>                  $events
@@ -23,11 +23,11 @@ final readonly class ElectronicWorkbookV3 extends Document
      */
     public function __construct(
         #[SerializedPath('[СТД-СФР][ЗЛ]')]
-        public PersonV2 $person,
+        public readonly PersonV2 $person,
         #[SerializedPath('[СТД-СФР][Мероприятие]')]
-        public array $events = [],
+        public readonly array $events = [],
         #[SerializedPath('[СТД-СФР][ТрудоваяДеятельность][ПериодРаботы]')]
-        public array $history = [],
+        public readonly array $history = [],
     ) {
         parent::__construct(DocumentType::ELECTRONIC_WORKBOOK_V3);
     }

@@ -20,7 +20,7 @@ use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 use Vanta\Integration\Esia\Struct\Gender;
 
-final readonly class RussianPassport extends Document implements RussianPassportDocument
+final class RussianPassport extends Document implements RussianPassportDocument
 {
     /**
      * @param numeric-string        $id
@@ -28,36 +28,36 @@ final readonly class RussianPassport extends Document implements RussianPassport
      * @param non-empty-string|null $birthPlace
      */
     public function __construct(
-        public string $id,
-        public string $oid,
-        public Gender $gender,
-        public string $issueId,
-        public string $lastName,
+        public readonly string $id,
+        public readonly string $oid,
+        public readonly Gender $gender,
+        public readonly string $issueId,
+        public readonly string $lastName,
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
         )]
-        public DateTimeImmutable $birthDate,
-        public string $firstName,
-        public ?string $middleName,
+        public readonly DateTimeImmutable $birthDate,
+        public readonly string $firstName,
+        public readonly ?string $middleName,
         #[Context(
             normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'd.m.Y'],
             denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'],
         )]
-        public DateTimeImmutable $issueDate,
-        public string $relevance,
-        public ?string $departmentDoc,
-        public ?int $receiptDocDate,
-        public ?int $validateDateDoc,
-        public RussianPassportSeries $series,
-        public RussianPassportNumber $number,
+        public readonly DateTimeImmutable $issueDate,
+        public readonly string $relevance,
+        public readonly ?string $departmentDoc,
+        public readonly ?int $receiptDocDate,
+        public readonly ?int $validateDateDoc,
+        public readonly RussianPassportSeries $series,
+        public readonly RussianPassportNumber $number,
         #[SerializedName('issueDate')]
-        public DateTimeImmutable $issuedAt,
-        public ?string $issuedBy,
+        public readonly DateTimeImmutable $issuedAt,
+        public readonly ?string $issuedBy,
         #[SerializedName('issueId')]
-        public RussianPassportDivisionCode $divisionCode,
-        public ?string $birthPlace,
-        public PassportStatus $status,
+        public readonly RussianPassportDivisionCode $divisionCode,
+        public readonly ?string $birthPlace,
+        public readonly PassportStatus $status,
     ) {
         parent::__construct(DocumentType::RUSSIAN_PASSPORT);
     }

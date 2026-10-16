@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace Vanta\Integration\Esia\Struct\Document;
 
+use ReflectionClass;
 use Symfony\Component\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Attribute\Ignore;
 use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefault;
 use Vanta\Integration\Esia\Struct\Document\Fns\IncomeReference;
 use Vanta\Integration\Esia\Struct\Document\Fns\PayoutIncome;
@@ -48,10 +50,18 @@ use Vanta\Integration\Esia\Struct\Document\TrafficPolice\RussianDriverLicense;
         DocumentType::DIGITAL_WORKBOOK->value               => DigitalWorkbook::class,
     ],
 )]
-abstract readonly class Document
+abstract class Document
 {
+    /**
+     * false — документ ещё не готов в ЕСИА (lazy ghost): обращение к данным бросит исключение
+     */
+    #[Ignore]
+    public bool $loaded {
+        get => !new ReflectionClass($this)->isUninitializedLazyObject($this);
+    }
+
     public function __construct(
-        public DocumentType $type
+        public readonly DocumentType $type
     ) {
     }
 }

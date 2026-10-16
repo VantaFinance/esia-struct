@@ -13,7 +13,7 @@ namespace Vanta\Integration\Esia\Struct\Document\Mvd;
 
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class PreviousSovietPassport extends PreviousDocument
+final class PreviousSovietPassport extends PreviousDocument
 {
     public function __construct()
     {

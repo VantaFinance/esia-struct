@@ -20,19 +20,19 @@ use Vanta\Integration\Esia\Struct\Document\DocumentType;
 /**
  * @deprecated
  */
-final readonly class ElectronicWorkbook extends Document
+final class ElectronicWorkbook extends Document
 {
     /**
      * @param list<ElectronicWorkbookEntry> $events
      */
     public function __construct(
-        public Uuid $id,
-        public int $version,
-        public array $events = [],
+        public readonly Uuid $id,
+        public readonly int $version,
+        public readonly array $events = [],
         #[SerializedPath('[xmlFile][file]')]
-        public ?Base64DecodingReadableStream $xmlFile = null,
+        public readonly ?Base64DecodingReadableStream $xmlFile = null,
         #[SerializedPath('[pdfFile][file]')]
-        public ?Base64DecodingReadableStream $pdfFile = null,
+        public readonly ?Base64DecodingReadableStream $pdfFile = null,
     ) {
         parent::__construct(DocumentType::ELECTRONIC_WORKBOOK);
     }

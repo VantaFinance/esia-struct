@@ -25,7 +25,7 @@ use Vanta\Integration\Esia\Struct\Document\UnknownDocument;
  * @deprecated
  */
 #[DenormalizationFallback(UnknownDocument::class)]
-final readonly class IndividualInsuranceAccountStatementRaw extends Document
+final class IndividualInsuranceAccountStatementRaw extends Document
 {
     /**
      * @param non-empty-string      $lastName
@@ -35,22 +35,22 @@ final readonly class IndividualInsuranceAccountStatementRaw extends Document
     public function __construct(
         #[SerializedName('createdOn')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $createAt,
+        public readonly DateTimeImmutable $createAt,
         #[SerializedName('updatedOn')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $updatedAt,
+        public readonly DateTimeImmutable $updatedAt,
         #[SerializedName('validateDateDoc')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $validateAt,
+        public readonly DateTimeImmutable $validateAt,
         #[SerializedName('receiptDocDate')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $receiptAt,
+        public readonly DateTimeImmutable $receiptAt,
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
-        public DateTimeImmutable $birthDate,
-        public string $lastName,
-        public string $firstName,
-        public Base64DecodingReadableStream $content,
-        public ?string $middleName = null,
+        public readonly DateTimeImmutable $birthDate,
+        public readonly string $lastName,
+        public readonly string $firstName,
+        public readonly Base64DecodingReadableStream $content,
+        public readonly ?string $middleName = null,
     ) {
         parent::__construct(DocumentType::ILS_PFR);
     }

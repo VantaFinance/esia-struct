@@ -22,7 +22,7 @@ use Vanta\Integration\Esia\Struct\Document\SnilsNumber;
 /**
  * @deprecated
  */
-final readonly class IndividualInsuranceAccountStatement extends Document
+final class IndividualInsuranceAccountStatement extends Document
 {
     /**
      * @param non-empty-string       $lastName
@@ -33,30 +33,30 @@ final readonly class IndividualInsuranceAccountStatement extends Document
     public function __construct(
         #[SerializedName('createdOn')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $createAt,
+        public readonly DateTimeImmutable $createAt,
         #[SerializedName('updatedOn')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $updatedAt,
+        public readonly DateTimeImmutable $updatedAt,
         #[SerializedName('validateDateDoc')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $validateAt,
+        public readonly DateTimeImmutable $validateAt,
         #[SerializedName('receiptDocDate')]
         #[Context(context: [DateTimeNormalizer::FORMAT_KEY => 'U.n'])]
-        public DateTimeImmutable $receiptAt,
+        public readonly DateTimeImmutable $receiptAt,
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
-        public DateTimeImmutable $birthDate,
-        public string $lastName,
-        public string $firstName,
-        public SnilsNumber $snils,
-        public float $ipk,
+        public readonly DateTimeImmutable $birthDate,
+        public readonly string $lastName,
+        public readonly string $firstName,
+        public readonly SnilsNumber $snils,
+        public readonly float $ipk,
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
-        public DateTimeImmutable $requestDate,
+        public readonly DateTimeImmutable $requestDate,
         #[Context(denormalizationContext: [DateTimeNormalizer::FORMAT_KEY => '!d.m.Y'])]
-        public DateTimeImmutable $formationDate,
-        public ?IpkYear $ipkCurrentYear = null,
+        public readonly DateTimeImmutable $formationDate,
+        public readonly ?IpkYear $ipkCurrentYear = null,
         #[SerializedName('ipkSince2015')]
-        public array $previousIpkYears = [],
-        public ?string $middleName = null,
+        public readonly array $previousIpkYears = [],
+        public readonly ?string $middleName = null,
     ) {
         parent::__construct(DocumentType::ILS_PFR);
     }

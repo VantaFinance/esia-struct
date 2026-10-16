@@ -16,17 +16,17 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class RussianDriverLicense extends Document
+final class RussianDriverLicense extends Document
 {
     /**
      * @param numeric-string $id
      */
     public function __construct(
-        public string $id,
-        public RussianDriverLicenseSeries $series,
-        public RussianDriverLicenseNumber $number,
+        public readonly string $id,
+        public readonly RussianDriverLicenseSeries $series,
+        public readonly RussianDriverLicenseNumber $number,
         #[SerializedName('issueDate')]
-        public ?DateTimeImmutable $issuedAt = null,
+        public readonly ?DateTimeImmutable $issuedAt = null,
     ) {
         parent::__construct(DocumentType::RUSSIAN_DRIVER_LICENSE);
     }

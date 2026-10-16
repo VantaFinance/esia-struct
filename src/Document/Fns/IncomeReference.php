@@ -16,16 +16,16 @@ use Symfony\Component\Uid\Uuid;
 use Vanta\Integration\Esia\Struct\Document\Document;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
 
-final readonly class IncomeReference extends Document
+final class IncomeReference extends Document
 {
     /**
      * @param list<IncomeReferenceDataItem> $data
      */
     public function __construct(
-        public ?Uuid $id,
-        public ?Year $year,
-        public ?int $version,
-        public array $data = [],
+        public readonly ?Uuid $id,
+        public readonly ?Year $year,
+        public readonly ?int $version,
+        public readonly array $data = [],
     ) {
         parent::__construct(DocumentType::INCOME_REFERENCE);
     }
