@@ -14,7 +14,6 @@ use Amp\ByteStream\Base64\Base64DecodingReadableStream;
 use Amp\ByteStream\ReadableResourceStream;
 use Amp\ByteStream\StreamException;
 use InvalidArgumentException;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as Denormalizer;
 use Webmozart\Assert\Assert;
@@ -38,7 +37,7 @@ final class Base64DecodingReadableStreamNormalizer implements Denormalizer
             throw NotNormalizableValueException::createForUnexpectedDataType(
                 $e->getMessage(),
                 $data,
-                [Type::BUILTIN_TYPE_STRING],
+                ['string'],
                 $context['deserialization_path'] ?? null,
                 true
             );

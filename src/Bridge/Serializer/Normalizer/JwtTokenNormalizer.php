@@ -14,7 +14,6 @@ namespace Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\Parser;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
@@ -45,7 +44,7 @@ final readonly class JwtTokenNormalizer implements DenormalizerInterface
             throw NotNormalizableValueException::createForUnexpectedDataType(
                 sprintf('Ожидали строку,получили:%s.', get_debug_type($data)),
                 $data,
-                [Type::BUILTIN_TYPE_STRING],
+                ['string'],
                 $context['deserialization_path'] ?? null,
                 true,
             );
