@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer;
 
 use Brick\DateTime\Year;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as Denormalizer;
 use Vanta\Integration\Esia\Struct\Document\DocumentType;
@@ -57,7 +56,7 @@ final readonly class LazyDocumentNormalizer implements Denormalizer
             throw NotNormalizableValueException::createForUnexpectedDataType(
                 sprintf('Ожидали массив,получили:%s.', get_debug_type($data)),
                 $data,
-                [Type::BUILTIN_TYPE_ARRAY],
+                ['array'],
                 $context['deserialization_path'] ?? null,
                 true,
             );
@@ -71,7 +70,7 @@ final readonly class LazyDocumentNormalizer implements Denormalizer
             throw NotNormalizableValueException::createForUnexpectedDataType(
                 'Не найден oid или requestId',
                 $data,
-                [Type::BUILTIN_TYPE_ARRAY],
+                ['array'],
                 $context['deserialization_path'] ?? null,
                 true,
             );

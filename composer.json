@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "symfony/uid": "^6.0|^7.0",
+        "symfony/uid": "^6.0|^7.0|^8.0",
         "brick/phonenumber": "^0.4|^0.5|^0.6",
         "brick/money": "^0.8.1",
         "brick/date-time": "^0.5.3",
@@ -37,10 +37,10 @@
         }
     },
     "require-dev": {
-        "symfony/var-dumper": "^7.0",
-        "symfony/serializer": "^7.0",
-        "symfony/property-info": "^7.0",
-        "symfony/property-access": "^7.0",
+        "symfony/var-dumper": "^7.0|^8.0",
+        "symfony/serializer": "^7.0|^8.0",
+        "symfony/property-info": "^7.0|^8.0",
+        "symfony/property-access": "^7.0|^8.0",
         "friendsofphp/php-cs-fixer": "^3.57",
         "phpstan/phpstan": "^2.1",
         "phpdocumentor/type-resolver": "^1.10",

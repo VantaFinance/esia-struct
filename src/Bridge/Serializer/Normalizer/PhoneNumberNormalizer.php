@@ -13,7 +13,6 @@ namespace Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer;
 
 use Brick\PhoneNumber\PhoneNumber;
 use Brick\PhoneNumber\PhoneNumberException;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as Denormalizer;
@@ -42,7 +41,7 @@ final readonly class PhoneNumberNormalizer implements Denormalizer, Normalizer
             throw NotNormalizableValueException::createForUnexpectedDataType(
                 $e->getMessage(),
                 $data,
-                [Type::BUILTIN_TYPE_STRING],
+                ['string'],
                 $context['deserialization_path'] ?? null,
                 true
             );

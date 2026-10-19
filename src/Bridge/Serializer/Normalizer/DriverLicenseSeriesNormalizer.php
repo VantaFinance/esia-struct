@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Vanta\Integration\Esia\Struct\Bridge\Serializer\Normalizer;
 
 use InvalidArgumentException;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as Denormalizer;
@@ -55,7 +54,7 @@ final readonly class DriverLicenseSeriesNormalizer implements Normalizer, Denorm
             throw NotNormalizableValueException::createForUnexpectedDataType(
                 $e->getMessage(),
                 $data,
-                [Type::BUILTIN_TYPE_STRING],
+                ['string'],
                 $context['deserialization_path'] ?? null,
                 true
             );
