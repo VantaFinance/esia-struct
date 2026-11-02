@@ -1039,6 +1039,7 @@
         "description": "Информация о работодателе",
         "required": [
           "orgName",
+          "inn",
           "kpp"
         ],
         "properties": {
@@ -1047,8 +1048,7 @@
             "type": "string"
           },
           "inn": {
-            "$ref": "#/components/schemas/InnUnion",
-            "nullable": true
+            "$ref": "#/components/schemas/InnUnion"
           },
           "kpp": {
             "$ref": "#/components/schemas/Kpp"
