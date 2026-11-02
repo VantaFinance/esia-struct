@@ -40,6 +40,9 @@ use Vanta\Integration\Esia\Struct\Bridge\Serializer\Attribute\DiscriminatorDefau
 
 abstract readonly class ElectronicWorkbookEntry
 {
+    /**
+     * @param ?non-empty-string $position
+     */
     public function __construct(
         public ElectronicWorkbookEntryType $type,
         #[SerializedName('uuid')]

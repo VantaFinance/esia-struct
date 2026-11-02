@@ -19,9 +19,6 @@ use Symfony\Component\Uid\Uuid;
  */
 final readonly class ElectronicWorkbookEstablishmentEntry extends ElectronicWorkbookEntry
 {
-    /**
-     * @param ?non-empty-string $position
-     */
     public function __construct(
         Uuid $id,
         DateTimeImmutable $date,

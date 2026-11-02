@@ -14,22 +14,17 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
 use DateTimeImmutable;
 use Symfony\Component\Uid\NilUuid;
 use Symfony\Component\Uid\Uuid;
-use Vanta\Integration\Esia\Struct\Document\InnNumber;
 
 /**
  * @deprecated
  */
 final readonly class ElectronicWorkbookUnknownEntry extends ElectronicWorkbookEntry
 {
-    /**
-     * @param non-empty-string|null $position
-     */
     public function __construct(
         Uuid $id = new NilUuid(),
         DateTimeImmutable $date = new DateTimeImmutable(),
         ElectronicWorkbookOrganizationInfo $organization = new ElectronicWorkbookOrganizationInfo(
             orgName: 'Имя организации',
-            inn: new InnNumber('0000000000'),
         ),
         bool $isPartTimeJob = false,
         ?string $position = null,
