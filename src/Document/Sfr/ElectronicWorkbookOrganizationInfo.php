@@ -26,7 +26,7 @@ final readonly class ElectronicWorkbookOrganizationInfo
      */
     public function __construct(
         public string $orgName,
-        public InnNumber $inn,
+        public ?InnNumber $inn = null,
         public ?KppNumber $kpp = null,
         #[SerializedPath('[regNumber]')]
         public ?SfrRegistrationNumber $sfrRegistrationNumber = null,

@@ -16,8 +16,13 @@ namespace Vanta\Integration\Esia\Struct\Document\Sfr;
  */
 enum ElectronicWorkbookEntryType: string
 {
-    case HIRING       = 'HIRING';
-    case DISMISSAL    = 'DISMISSAL';
-    case REASSIGNMENT = 'REASSIGNMENT';
-    case UNKNOWN      = 'UNKNOWN';
+    case HIRING        = 'HIRING';        // Прием
+    case REASSIGNMENT  = 'REASSIGNMENT';  // Перевод
+    case RENAMING      = 'RENAMING';      // Переименование
+    case ESTABLISHMENT = 'ESTABLISHMENT'; // Установление (Присвоение)
+    case DISMISSAL     = 'DISMISSAL';     // Увольнение
+    case PROHIBITION   = 'PROHIBITION';   // Запрет занимать должность (Вид деятельности)
+    case SUSPENSION    = 'SUSPENSION';    // Приостановление
+    case RESUMPTION    = 'RESUMPTION';    // Возобновление
+    case UNKNOWN       = 'UNKNOWN';
 }
