@@ -41,8 +41,12 @@ final readonly class InnNumberNormalizer implements Normalizer, Denormalizer
      *
      * @param array{deserialization_path?: non-empty-string} $context
      */
-    public function denormalize($data, string $type, ?string $format = null, array $context = []): InnNumber
+    public function denormalize($data, string $type, ?string $format = null, array $context = []): ?InnNumber
     {
+        if ('' === $data) {
+            return null;
+        }
+
         if (is_int($data)) {
             $data = (string) $data;
         }
