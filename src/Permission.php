@@ -452,6 +452,21 @@ enum Permission: string
     case DISABLED_PERSON = 'disabled_person';
 
     /**
+     * Биометрические персональные данные (лицо/голос)
+     */
+    case BIOMETRIC_PERSONAL_DATA = 'biometric_personal_data';
+
+    /**
+     * Сведения о биометрических персональных данных
+     */
+    case READ_BIO_TYPE = 'read_bio_type';
+
+    /**
+     * Сведения о биометрических персональных данных и срок окончания их действия
+     */
+    case READ_BIO_TYPE_EXP = 'read_bio_type_exp';
+
+    /**
      * Значение, которого нет в каталоге: только в ответах ЕСИА, в запросе передавать нельзя
      */
     case UNKNOWN = 'UNKNOWN';
